@@ -1,17 +1,38 @@
 <html>
-<canvas id="cnvs" width="480" height="480">
 
+<style>
+body {
+	margin: 0%;
+	padding: 0%;
+}
+</style>
+
+<canvas id="cnvs">
 
 <script>
 cnvs = document.getElementById("cnvs")
 ctx = cnvs.getContext("2d")
-
+cnvs.width = innerWidth
+cnvs.height = innerHeight
+ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*10-5, vy: Math.random()*10-5, r: cnvs.width / 10}
+incr = Math.PI * 2 / 250
+i = 0
 function update(){
-
+	ball.x += ball.vx
+	ball.y += ball.vy
+	if (ball.x - ball.r < 0 || ball.x + ball.r > cnvs.width) ball.vx *= -1
+	if (ball.y - ball.r < 0 || ball.y + ball.r > cnvs.height) ball.vy *= -1	
+	r = parseInt(Math.sin(i) * 255/2 + 255/2)
+	g = parseInt(Math.sin(i + (2 * Math.PI) / 3) * 255/2 + 255/2)
+	b = parseInt(Math.sin(i + (4 * Math.PI) / 3) * 255/2 + 255/2)
+	i += incr
+	ctx.clearRect(0, 0, cnvs.width, cnvs.height)	
+	ctx.beginPath();
+	ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
+	ctx.fillStyle = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')'
+	ctx.fill();	
 }
-
-setInterval(update, 100)
-
+setInterval(update, 1)
 </script>
 
 
