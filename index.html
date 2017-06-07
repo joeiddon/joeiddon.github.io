@@ -31,6 +31,7 @@ function update(){
 	ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
 	ctx.fillStyle = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')'
 	ctx.fill();	
+	cnvs.style.backgroundColor = 'rgb(' + (255-r).toString() + ',' + (255-g).toString() + ',' + (255-b).toString() + ')'
 }
 setInterval(update, 1)
 </script>
