@@ -1,22 +1,78 @@
 <html>
 
+<title>Meow :)</title>
+
 <style>
+header {
+	font-size: 60px;
+	font-family: monospace;
+	text-align: center;
+	width: 12em;
+	margin-left: auto;
+	margin-right: auto;
+}
 body {
 	margin: 0%;
 	padding: 0%;
 }
+canvas {
+	position: absolute;
+	z-index: -1;
+}
+
+div {
+	text-align: center;
+}
+
+
+tr {
+	width: 20px;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+}
 </style>
 
-<canvas id="cnvs">
+
+<body>
+	<canvas id="cnvs"></canvas>
+	<header>Welcome to the dead cat of the road</header>
+	<table>
+		<tr>
+			<td>blah TL</td>
+			<td>blah TR</td> 
+		</tr>
+		<tr>
+			<td>blan BL</td> 
+			<td>blah BR</td>
+		  </tr>
+	</table>
+	
+	<div>
+		<a href="http://roadkillcat.github.io/3dMazeGame/maze.html">play la maze jeu</a>
+	</div>
+	
+</body>
 
 <script>
+
+
+
+
+
 cnvs = document.getElementById("cnvs")
 ctx = cnvs.getContext("2d")
-cnvs.width = innerWidth
-cnvs.height = innerHeight
-ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*10-5, vy: Math.random()*10-5, r: cnvs.width / 10}
-incr = Math.PI * 2 / 250
-i = 0
+window.addEventListener("resize", intialise)
+function intialise(){
+	cnvs.width = innerWidth; cnvs.height = innerHeight
+	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*100-50, vy: Math.random()*100-50, r: cnvs.width / 10}
+	incr = Math.PI * 2 / 50
+	i = 0
+}
+intialise()
 function update(){
 	ball.x += ball.vx
 	ball.y += ball.vy
@@ -33,7 +89,7 @@ function update(){
 	ctx.fill();	
 	cnvs.style.backgroundColor = 'rgb(' + (255-r).toString() + ',' + (255-g).toString() + ',' + (255-b).toString() + ')'
 }
-setInterval(update, 1)
+setInterval(update, 100)
 </script>
 
 
