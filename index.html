@@ -110,16 +110,17 @@ function intialise(){
 	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: 0, vy: 0, r: cnvs.width / 15}
 	incr = Math.PI * 2 / 80
 	sinPointer = 0
+	madness = 5
+	trailLength = 30
+	trail = []
 }
-
-trailLength = 30
-trail = []
 intialise()
 function update(){
+	madness *= 1.001
 	ball.x += ball.vx
 	ball.y += ball.vy
-	ball.vx += Math.random()*10-5
-	ball.vy += Math.random()*10-5
+	ball.vx += Math.random()*madness-0.5*madness
+	ball.vy += Math.random()*madness-0.5*madness
 	
 	if (ball.x + ball.vx - ball.r < 0 || ball.x + ball.vx + ball.r > cnvs.width) ball.vx *= -0.3
 	if (ball.y + ball.vy - ball.r < 0 || ball.y + ball.vy + ball.r > cnvs.height) ball.vy *= -0.3
@@ -138,13 +139,14 @@ function update(){
 		ctx.fill();
 	}
 	invertedSinColour = 'rgb(' + (255-r).toString() + ',' + (255-g).toString() + ',' + (255-b).toString() + ')'
-	fontSize = 10
+	fontSize = 13
 	ctx.font = fontSize.toString() + "px lucida console"
 	ctx.fillStyle = invertedSinColour
 	ctx.textAlign = "center"
 	ctx.fillText("Cats can", ball.x, ball.y - fontSize)
 	ctx.fillText("be circles", ball.x, ball.y)
 	ctx.fillText("too.", ball.x, ball.y + fontSize)
+	ctx.fillText((parseInt(madness*1000)/1000).toString(), ball.x, ball.y + 3 * fontSize)
 	cnvs.style.backgroundColor = invertedSinColour
 }
 setInterval(update, 1000/30)
