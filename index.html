@@ -4,92 +4,150 @@
 
 <style>
 header {
+	padding: 0.25em;
 	font-size: 60px;
 	font-family: monospace;
 	text-align: center;
 	width: 12em;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 }
+
 body {
 	margin: 0%;
 	padding: 0%;
 }
-canvas {
+
+#cnvs {
 	position: absolute;
 	z-index: -1;
 }
 
+#mazeCanvas {
+	display: block;
+	margin: auto;
+	padding: 0.5em;
+}
+
 div {
 	text-align: center;
+	font-size: 20px;
 }
 
-
-tr {
-	width: 20px;
+a {	
+	color: black;
 }
 
-table {
-	margin-left: auto;
-	margin-right: auto;
-	color: white;
-}
 </style>
 
 
 <body>
 	<canvas id="cnvs"></canvas>
 	<header>Welcome to the dead cat of the road</header>
-	<table>
-		<tr>
-			<td>blah TL</td>
-			<td>blah TR</td> 
-		</tr>
-		<tr>
-			<td>blan BL</td> 
-			<td>blah BR</td>
-		  </tr>
-	</table>
-	
 	<div>
-		<a href="http://roadkillcat.github.io/3dMazeGame/maze.html">play la maze jeu</a>
+	<canvas id="mazeCanvas"></canvas>
+	<a href="http://roadkillcat.github.io/3dMazeGame/mazeGenerater.html">How was this maze created?</a>
 	</div>
 	
 </body>
 
 <script>
+cnvs = document.getElementById("mazeCanvas")
+ctx = cnvs.getContext("2d")
+cnvs.width = cnvs.height = 300;
+width = height = 15
+maze = []
+for (r = 0; r < height * 2; r ++){
+	r1 = [true]
+	r2 = [true]
+	for (c = 0; c < width * 2; c++){
+		r1.push(true,true)
+		r2.push(false,true)
+	}
+	maze.push(r1,r2)
+}
+
+maze[0][1] = maze[width * 2][height * 2 - 1]= false
+cellsInMaze = [[0,0]]
+frontierCells = [[1,0], [0,1]]
+
+while (frontierCells.length){
+	fc = frontierCells[Math.floor(Math.random() * frontierCells.length)]
+	//fc if a random frontier cell [x,y]
+	frontierAdjacents = [[fc[0]+1,fc[1]],[fc[0]-1,fc[1]],[fc[0],fc[1]+1], [fc[0],fc[1]-1]].filter(c => (cellsInMaze.some(o => (o[0] == c[0] && o[1] == c[1]))))	
+	af = frontierAdjacents[Math.floor(Math.random() * frontierAdjacents.length)]
+	maze[(fc[1] + af[1]) + 1][(fc[0] + af[0]) +1] = false
+	cellsInMaze.push([fc[0],fc[1]])
+	
+	frontierCells = []
+	for (i = 0; i < cellsInMaze.length; i++){
+		c = cellsInMaze[i]
+		neighbours = [[c[0]+1,c[1]], [c[0]-1,c[1]], [c[0],c[1]+1], [c[0],c[1]-1]].filter(c => (c[0] >= 0 && c[1] >= 0 && c[0] < width && c[1] < height))
+		validNeighbours = neighbours.filter(c => (!cellsInMaze.some(o => (o[0] == c[0] && o[1] == c[1])) && !frontierCells.some(o => (o[0] == c[0] && o[1] == c[1]))  ) ) 
+		frontierCells = frontierCells.concat(validNeighbours)
+	}
+}
 
 
+ctx.clearRect(0,0,cnvs.width,cnvs.height)
+ctx.fillStyle = "black"
+blockWidth = cnvs.width / (width * 2 + 1)
+blockHeight = cnvs.height / (height * 2 + 1)
+for (r = 0; r < maze.length; r++){
+	for (c = 0; c < maze[r].length; c++){
+		if (maze[r][c])	ctx.fillRect(c * blockWidth, r * blockHeight, blockWidth, blockHeight);
+	}
+}
 
 
+//background ball canvas
 
 cnvs = document.getElementById("cnvs")
 ctx = cnvs.getContext("2d")
 window.addEventListener("resize", intialise)
 function intialise(){
 	cnvs.width = innerWidth; cnvs.height = innerHeight
-	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*100-50, vy: Math.random()*100-50, r: cnvs.width / 10}
-	incr = Math.PI * 2 / 50
-	i = 0
+	//ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*100-50, vy: Math.random()*100-50, r: cnvs.width / 15}
+	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: 0, vy: 0, r: cnvs.width / 15}
+	incr = Math.PI * 2 / 80
+	sinPointer = 0
 }
+
+trailLength = 30
+trail = []
 intialise()
 function update(){
 	ball.x += ball.vx
 	ball.y += ball.vy
-	if (ball.x - ball.r < 0 || ball.x + ball.r > cnvs.width) ball.vx *= -1
-	if (ball.y - ball.r < 0 || ball.y + ball.r > cnvs.height) ball.vy *= -1	
-	r = parseInt(Math.sin(i) * 255/2 + 255/2)
-	g = parseInt(Math.sin(i + (2 * Math.PI) / 3) * 255/2 + 255/2)
-	b = parseInt(Math.sin(i + (4 * Math.PI) / 3) * 255/2 + 255/2)
-	i += incr
-	ctx.clearRect(0, 0, cnvs.width, cnvs.height)	
-	ctx.beginPath();
-	ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
-	ctx.fillStyle = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')'
-	ctx.fill();	
-	cnvs.style.backgroundColor = 'rgb(' + (255-r).toString() + ',' + (255-g).toString() + ',' + (255-b).toString() + ')'
+	ball.vx += Math.random()*10-5
+	ball.vy += Math.random()*10-5
+	
+	if (ball.x + ball.vx - ball.r < 0 || ball.x + ball.vx + ball.r > cnvs.width) ball.vx *= -0.3
+	if (ball.y + ball.vy - ball.r < 0 || ball.y + ball.vy + ball.r > cnvs.height) ball.vy *= -0.3
+	r = parseInt(Math.sin(sinPointer) * 255/2 + 255/2)
+	g = parseInt(Math.sin(sinPointer + (2 * Math.PI) / 3) * 255/2 + 255/2)
+	b = parseInt(Math.sin(sinPointer + (4 * Math.PI) / 3) * 255/2 + 255/2)
+	sinPointer += incr
+	trail.unshift({x: ball.x, y: ball.y, c: 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')'})
+	trail = trail.slice(0,trailLength)
+	ctx.clearRect(0, 0, cnvs.width, cnvs.height)
+	for (i = trail.length - 1; i >= 0; i --){
+		segment = trail[i]
+		ctx.beginPath();
+		ctx.arc(segment.x, segment.y, ball.r - i * (ball.r / trailLength), 0, 2 * Math.PI);
+		ctx.fillStyle = segment.c
+		ctx.fill();
+	}
+	invertedSinColour = 'rgb(' + (255-r).toString() + ',' + (255-g).toString() + ',' + (255-b).toString() + ')'
+	fontSize = 10
+	ctx.font = fontSize.toString() + "px lucida console"
+	ctx.fillStyle = invertedSinColour
+	ctx.textAlign = "center"
+	ctx.fillText("Cats can", ball.x, ball.y - fontSize)
+	ctx.fillText("be circles", ball.x, ball.y)
+	ctx.fillText("too.", ball.x, ball.y + fontSize)
+	cnvs.style.backgroundColor = invertedSinColour
 }
-setInterval(update, 100)
+setInterval(update, 1000/30)
 </script>
 
 
