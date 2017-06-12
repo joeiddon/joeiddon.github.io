@@ -7,12 +7,15 @@ header {
 	padding: 0.25em;
 	font-size: 60px;
 	font-family: monospace;
+	font-weight: 500;
 	text-align: center;
 	width: 12em;
 	margin: auto;
 }
 
 body {
+	color: white;
+	font-family: monospace;
 	margin: 0%;
 	padding: 0%;
 }
@@ -25,16 +28,32 @@ body {
 #mazeCanvas {
 	display: block;
 	margin: auto;
+}
+
+table {
+	text-align: center;
+	font-size: 15px;
+	display: block;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+td {
+	border: 0.25em dotted white;
 	padding: 0.5em;
 }
 
-div {
-	text-align: center;
-	font-size: 20px;
+a {	
+	color: white;
+	display: block;
+	padding: 0.25em;
 }
 
-a {	
-	color: black;
+img {
+	display: block;
+	margin: auto;
+	width: 250;
+	height: 250;
 }
 
 </style>
@@ -43,17 +62,36 @@ a {
 <body>
 	<canvas id="cnvs"></canvas>
 	<header>Welcome to the dead cat of the road</header>
-	<div>
-	<canvas id="mazeCanvas"></canvas>
-	<a href="http://roadkillcat.github.io/3dMazeGame/mazeGenerater.html">How was this maze created?</a>
-	</div>
+	
+	<table>
+		<tr>
+			<td>
+				<canvas id="mazeCanvas"></canvas>
+				<a href="http://roadkillcat.github.io/3dMazeGame/mazeGenerater.html">see how this maze was created</a>
+			</td>
+			<td>
+				<img src="https://raw.githubusercontent.com/RoadKillCat/roadkillcat.github.io/master/images/mazePreview3d.JPG"></img>
+				<a href="http://roadkillcat.github.io/3dMazeGame/maze.html">try to solve a maze in 3d</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="https://raw.githubusercontent.com/RoadKillCat/roadkillcat.github.io/master/images/ballPreview3d.JPG"></img>
+				<a href="https://roadkillcat.github.io/UltiBouncingBall/BallHtml.html?0.2,10,15,40,4,1,//gravity,no_balls,min_radius,max_radius,velocity,collisions">play with some bouncing balls</a>
+			</td>
+			<td>
+				<img src="https://raw.githubusercontent.com/RoadKillCat/roadkillcat.github.io/master/images/gravityPreview3d.JPG"></img>
+				<a href="https://roadkillcat.github.io/Ulti-Gravity/GravityHtml.html?100000,4,1,20,1,0,1,//G_Constant_(stength_of_gravity),no_of_balls,min_radius,max_radius,starting_velocity,merge_on_collision,tracing">play with gravity</a>
+			</td>
+		</tr>
+	</table>
 	
 </body>
 
 <script>
 cnvs = document.getElementById("mazeCanvas")
 ctx = cnvs.getContext("2d")
-cnvs.width = cnvs.height = 300;
+cnvs.width = cnvs.height = parseInt(window.getComputedStyle(document.getElementsByTagName("img")[0]).width)
 width = height = 15
 maze = []
 for (r = 0; r < height * 2; r ++){
@@ -89,7 +127,7 @@ while (frontierCells.length){
 
 
 ctx.clearRect(0,0,cnvs.width,cnvs.height)
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 blockWidth = cnvs.width / (width * 2 + 1)
 blockHeight = cnvs.height / (height * 2 + 1)
 for (r = 0; r < maze.length; r++){
@@ -107,11 +145,11 @@ window.addEventListener("resize", intialise)
 function intialise(){
 	cnvs.width = innerWidth; cnvs.height = innerHeight
 	//ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: Math.random()*100-50, vy: Math.random()*100-50, r: cnvs.width / 15}
-	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: 0, vy: 0, r: cnvs.width / 15}
+	ball = {x: cnvs.width / 2, y: cnvs.height / 2, vx: 1, vy: 1, r: cnvs.width / 15}
 	incr = Math.PI * 2 / 80
 	sinPointer = 0
-	madness = 5
-	trailLength = 30
+	madness = 5;
+	trailLength = 90;
 	trail = []
 }
 intialise()
