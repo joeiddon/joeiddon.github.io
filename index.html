@@ -84,7 +84,7 @@ img {
 			<pre>
 			Nutty Tilez stuf
 			
-			'
+			
 			function t(eng){
 			words.forEach(function(o){if(o[0] == eng)document.getElementsByClassName("guess")[0].value=o[1]})
 			}
@@ -92,10 +92,10 @@ img {
 			function updateWords(){
 			raw = document.getElementsByTagName("td")
 			words = []
-			for (i=0;i<raw.length;i+=2){
+			for (i=0;raw.length>i;i+=2){
 			words.push([raw[i].innerText.slice(0,-1),raw[i+1].innerText.slice(0,-1)])
 			}}
-			'
+			
 		        </pre>
 		</tr>
 	</table>
