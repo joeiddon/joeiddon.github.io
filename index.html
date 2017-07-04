@@ -81,7 +81,6 @@ img {
 			</td>
 		</tr>
 	        <tr>
-			<div>
 			Nutty Tilez stuf
 			
 			
@@ -92,10 +91,9 @@ img {
 			function updateWords(){
 			raw = document.getElementsByTagName("td")
 			words = []
-			for (i=0;raw.length>i;i+=2){
+			for (i=0;i LESS THAN raw.length;i+=2){
 			words.push([raw[i].innerText.slice(0,-1),raw[i+1].innerText.slice(0,-1)])
 			}}
-			</div>
 		</tr>
 	</table>
 
