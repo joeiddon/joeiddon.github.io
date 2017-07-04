@@ -91,8 +91,8 @@ img {
 			function updateWords(){
 			dta = document.getElementsByTagName("td")
 			words = []
-			for (i=0;i<raw.length;i+=2){
-			words.push([dta[i].innerText.slice(0,-1),raw[i+1].innerText.slice(0,-1)])
+			for (i=0;i<dta.length;i+=2){
+			words.push([dta[i].innerText.slice(0,-1),dta[i+1].innerText.slice(0,-1)])
 			}}
 		        </pre>
 		</tr>
