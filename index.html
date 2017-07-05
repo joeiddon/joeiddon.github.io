@@ -85,17 +85,40 @@ img {
 			<p>
 			Nutty Tilez stuf
 			
-			
-			function t(eng){
-			words.forEach(function(o){if(o[0] == eng)document.getElementsByClassName("guess")[0].value=o[1]})
-			}
-			
-			function updateWords(){
-			raw = document.getElementsByTagName("td")
-			words = []
-			for (i=0;i LESS THAN raw.length;i+=2){
-			words.push([raw[i].innerText.slice(0,-1),raw[i+1].innerText.slice(0,-1)])
-			}}
+			paste following into console whilst on words page going into a game,
+                        run 'hack.get()'
+			play
+			whilst "searching for opponents.." run 'hack.mod()'
+			spam enter...
+		
+		        hack = {
+			   get: function(){
+			      var raw = document.getElementsByTagName("td")
+			      words = []
+			      for (var i=0;i<raw.length;i+=2){
+				 words.push([raw[i].innerText.slice(0,-1),raw[i+1].innerText.slice(0,-1)])
+				 console.log(words[words.length-1][0], words[words.length-1][1])
+			      }
+			   },
+
+			   enter: function(eng){
+			      words.forEach(function(p){
+				 if(p[0] == eng)document.getElementsByClassName("guess")[0].value=p[1]
+			      })
+			   },
+
+			   mod: function(){
+			      screens.gameplay.show_word_cp = screens.gameplay.show_word
+			      screens.gameplay.show_word = function(text){
+				 console.log(text)
+				 hack.enter(text.split(",")[0])
+				 screens.gameplay.show_word_cp(text)
+			      }
+			   }
+			}	
+		         		
+			note: not finnished better/simpler version coming soon
+		
 			</p>
 			</td>
 		</tr>
