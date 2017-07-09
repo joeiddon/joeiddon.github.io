@@ -1,0 +1,72 @@
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+h1 {
+	/* position: absolute; */
+	font-family: courier;
+	font-size: 17px;
+	line-height: 10px;
+	text-align: center;
+	bottom: 20px;
+
+}
+
+img {
+	display: block;
+	margin: auto;
+	width: 65px;
+	height: 65px;
+}
+
+#banner {
+	position: relative;
+	background-color: #00979F;
+	max-width: none;
+	height: 130px;
+}
+
+#logo {
+	position: absolute;
+	display: block;
+	padding: 15px;
+	width: 90;
+	height: 90px;
+	top: 5px;
+	left: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+#menu {
+	position: absolute;
+	max-width: none;
+	height: 40px;
+	padding: 10px;
+	bottom: 0;
+	left: 50%;
+	margin-left: -131.5px;
+}
+
+.nav_button {
+	display: inline-block;
+	/* background-color: #00B0E0; */
+	height: 100%;
+	text-align: center;
+	line-height: 40px;
+	color: white;
+	font-family: courier; /* sans-sarif; */
+	font-size: 20px;
+	margin-top: -3px;
+	padding: 3px;
+	cursor: pointer;
+}
+
+a {
+	font-family: courier;
+	font-size: 24px;
+	color: white;
+	text-align: center;
+}
