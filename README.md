@@ -1,3 +1,3 @@
 # You have reached my site...
 
-## This is the *source* code for my website which is published at [joeiddon.me](http://joeiddon.me).
+This is the *source* code for my website which is published at [joeiddon.me](http://joeiddon.me).
