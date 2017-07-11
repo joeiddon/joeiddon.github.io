@@ -65,6 +65,20 @@ body {
 	cursor: pointer;
 }
 
+#logos_container{
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 2px;
+}
+
+.logo_link {
+	padding: 2px;
+	width: 35px;
+	cursor: pointer;
+}
+
+
 #main {
 	position: relative;
 	margin-top: 100px;
