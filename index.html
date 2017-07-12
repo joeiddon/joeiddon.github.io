@@ -32,7 +32,11 @@
 		
 		
 		<div id="main_container">
-			<div w3-include-html="bob.html"></div>>
+			<script> 
+			    $(function(){
+			      $("#includedContent").load("bob.html"); 
+			    });
+			    </script> 
 			<h1>Welcome to my [work in progress] website...</h1>
 			<a href="http://joeiddon.me/old_site.html" style="display: block; text-align: center; font-size: 30px; font-family: courier;">
 			go to my old site which kinda works here
