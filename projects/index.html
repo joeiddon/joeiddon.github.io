@@ -1,0 +1,9 @@
+<h1> welcome to my project page </h1>
+
+<p>
+  here I will be posting some of my projects
+</p>
+
+{% for post in site.projects %}
+  <p> {{post.url}} </p>
+{% endfor %}
