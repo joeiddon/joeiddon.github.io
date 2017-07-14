@@ -100,6 +100,16 @@ h1 {
 	margin: 0 auto;
 }
 
+a {
+	font-family: courer;
+	font-size: 16px;
+	text-decoration: none;
+}
+
+li {
+	list-style-type: circle;
+}
+
 p {
 	margin: 0;
 	padding: 6px;
