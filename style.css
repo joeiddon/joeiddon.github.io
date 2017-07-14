@@ -92,12 +92,12 @@ h1 {
 	padding: 12px;
 	text-align: center;
 	font-size: 45px;
-	font-family: courier;
 }
 
 #main_container {
 	width: 60%;
 	margin: 0 auto;
+	font-family: courier
 }
 
 a {
