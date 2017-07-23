@@ -27,6 +27,10 @@ body {
 	cursor: pointer;
 }
 
+#logo:hover, .logo_link:hover, .nav_button:hover, .nav_dropdown:hover{
+	background-color: #20B7BF;
+}
+
 #logo_txt {
 	position: relative;
 	text-align: center;
@@ -49,7 +53,10 @@ body {
 	padding: 10px;
 	bottom: 50px;
 	left: 50%;
-	margin-left: -131.5px;	 /*half of the menu div which doesn't change but does w/ font-size */
+	transform: translate(-50%, 0);
+	
+	/*margin-left: -131.5px;	 /*half of the menu div which doesn't change but does w/ font-size */
+	font-size: 0;
 }
 
 .nav_button {
@@ -61,10 +68,32 @@ body {
 	color: white;
 	font-family: courier;
 	font-size: 20px;
-	margin-top: -3px;
-	padding: 3px;
+	margin: 0px 2px 0px 2px;
 	cursor: pointer;
 }
+
+#dropdown {
+	display: none;
+	position: absolute;
+	width: 100px;
+	left: 62px;
+	z-index: 1;
+}
+
+.nav_dropdown {
+	height: 100%;
+	background-color: #00979F;
+	text-align: center;
+	line-height: 40px;
+	color: white;
+	font-family: courier;
+	font-size: 20px;
+	margin: 2px 2px 0px 2px;
+	cursor: pointer;
+}
+
+.nav_dropdown:hover { display: block; }
+
 
 #logos_container{
 	position: fixed;
