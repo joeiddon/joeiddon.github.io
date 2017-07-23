@@ -29,7 +29,7 @@ projects.onmouseout = function(e){
 }
 
 dropdown.onmouseout = function(e){
-	if (e.relatedTarget.parentNode != this || e.relatedTarget != this){
+	if (e.relatedTarget.parentNode != this && e.relatedTarget != this){
 		this.style.display = "none"
 	}
 }
