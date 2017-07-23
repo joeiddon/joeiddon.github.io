@@ -5,6 +5,13 @@ for (var i=0;i<nav_buttons.length;i++){
 	}
 }
 
+nav_dropdowns = document.getElementsByClassName("nav_dropdown");
+for (var i=0;i<nav_dropdowns.length;i++){
+	nav_dropdowns[i].onclick = function(){
+		window.location.href=this.getAttribute("href");
+	}
+}
+
 logo = document.getElementById("logo");
 logo.onclick = function(){
 	window.location.href=this.getAttribute("href");

@@ -51,7 +51,7 @@ body {
 	display: inline-block;
 	height: 40px;
 	padding: 10px;
-	bottom: 50px;
+	bottom: 45px;
 	left: 50%;
 	transform: translate(-50%, 0);
 	
@@ -69,14 +69,15 @@ body {
 	font-family: courier;
 	font-size: 20px;
 	margin: 0px 2px 0px 2px;
+	padding: 0px 6px 0px 6px;
 	cursor: pointer;
 }
 
 #dropdown {
 	display: none;
 	position: absolute;
-	width: 100px;
-	left: 62px;
+	width: 112px;
+	left: 74px;
 	z-index: 1;
 }
 
@@ -87,8 +88,9 @@ body {
 	line-height: 40px;
 	color: white;
 	font-family: courier;
-	font-size: 20px;
-	margin: 2px 2px 0px 2px;
+	font-size: 15px;
+	margin: 0px 2px 0px 2px;
+	padding: 0px 6px 0px 6px;
 	cursor: pointer;
 }
 
@@ -99,7 +101,7 @@ body {
 	position: fixed;
 	right: 0;
 	top: 0;
-	padding: 2px;
+	padding: 4px;
 }
 
 .logo_link {
