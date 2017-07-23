@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="../style.css">
+	<link rel="stylesheet" href="..style.css">
 	
 	<title>Joe Iddon</title>
 	<link rel="icon" href="https://raw.githubusercontent.com/RoadKillCat/roadkillcat.github.io/master/images/logo_teal.png"></link>
@@ -16,7 +16,12 @@
 		
 		<div id="menu">
 			<div class="nav_button" href="http://joeiddon.me">HOME</div>
-			<div class="nav_button" href="http://joeiddon.me/projects">PROJECTS</div>			
+			<div id="projects" class="nav_button" href="http://joeiddon.me/projects">PROJECTS</div>
+			<div id="dropdown">
+				<div class="nav_dropdown" href="http://joeiddon.me">project1</div>
+				<div class="nav_dropdown" href="http://joeiddon.me">project2</div>
+				<div class="nav_dropdown" href="http://joeiddon.me">project3</div>			
+			</div>
 			<div class="nav_button" href="http://joeiddon.me/about">ABOUT</div>
 		</div>
 		
@@ -27,27 +32,26 @@
 		</div>
 		
 	</div>
-	
+
 	<div id="main">
-	
+
 		<div id="main_container">
-      
-    {{content}}
-     
-    </div>
-   </div>
-      
-  <div id="footer">
-	Copyright &copy 2017, 
-	<a href="http://joeiddon.me">Joe Iddon</a>. 
-	Design by moi (no animals harmed in the making...)
-	<a href="http://github.com/roadkillcat/roadkillcat.github.io">view source</a>
 		
+			{{content}}
+		 
+		</div>
+	</div>
+	  
+	<div id="footer">
+		Copyright &copy 2017, 
+		<a href="http://joeiddon.me">Joe Iddon</a>. 
+		Design by moi (no animals harmed in the making...)
+		<a href="http://github.com/roadkillcat/roadkillcat.github.io">view source</a>
 	</div>
 	
 </body>
 
-<script src="../script.js"></script>
+<script src="..script.js"></script>
 <html>
 
 </html>
