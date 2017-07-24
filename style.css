@@ -148,6 +148,13 @@ p {
 	font-family: courier;
 }
 
+pre {
+	border-radius: 6px;
+	color: white;
+	padding: 10px;
+	background-color: #E75757;
+}
+
 img {
 	display: block;
 	margin: 0 auto;
