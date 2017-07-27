@@ -43,8 +43,11 @@ if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 		}
 	}
 } else {
-	projets.onclick = functio(){
+	projets.onclick = function(){
 		if (dropdown.style.display="block"){
-			window.
-
+			window.location.href = this.getAttribute("href")
+		else {
+			dropdown.style.display = "block"
+		}
+	}
 }
