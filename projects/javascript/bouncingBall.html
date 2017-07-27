@@ -24,6 +24,25 @@ The basic simulation of a bouncing ball is relatively simple and I did using obj
 	<li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms
 </ol>
 
+<pre>
+canvas1 = document.getElementById("canvas1");								//get the canvas from the html
+ctx1 = canvas1.getContext("2d");									//get 2d context
+ball = {x: 100, y: 100, vx: 4, vy: 1, r: 20};							   	//create ball object
+function update(){
+  if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > canvas1.width - ball.r) ball.vx *= -1;	//check if future position of ball off screen sides
+  if (ball.y + ball.vy < 0 + ball.r || ball.y + ball.vy > canvas1.height - ball.r) ball.vy *= -1;	//check off top and bottom
+  ball.x += ball.vx;											//update ball position
+  ball.y += ball.vy;
+  ctx1.clearRect(0, 0, canvas1.width, canvas1.height);							//clear the canvas
+  ctx1.beginPath();											//begin canvas path
+  ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);							//trace circle outline
+  ctx1.stroke();											//draw outline				
+  ctx1.fillStyle="#1d7";
+  ctx1.fill();												//fill it in
+}
+setInterval(update, 10);										//set interval for function update every 10ms
+</pre>
+
 <canvas id="canvas1" width="500" height ="300"></canvas>
 <script>
 canvas1 = document.getElementById("canvas1")
@@ -42,21 +61,3 @@ setInterval(function(){
   ctx1.fill()
 }, 10)
 </script>
-
-<pre>
-canvas1 = document.getElementById("canvas1")
-ctx1 = canvas1.getContext("2d")
-ball = {x: 100, y: 100, vx: 4, vy: 1, r: 20}
-setInterval(function(){
-  if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > 720 - ball.r)	ball.vx *= -1
-  if (ball.y + ball.vy < 0 + ball.r || ball.y + ball.vy > 480 - ball.r)	ball.vy *= -1
-  ball.x += ball.vx
-  ball.y += ball.vy
-  ctx1.clearRect(0,0,720,480)
-  ctx1.beginPath()
-  ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
-  ctx1.stroke()
-  ctx1.fillStyle="#1d7"
-  ctx1.fill()
-}, 10)
-</pre>
