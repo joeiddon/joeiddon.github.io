@@ -44,7 +44,7 @@ if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	}
 } else {
 	projects.onclick = function(){
-		if (dropdown.style.display="block"){
+		if (dropdown.style.display == "block"){
 			window.location.href = this.getAttribute("href");
 		} else {
 			dropdown.style.display = "block";
