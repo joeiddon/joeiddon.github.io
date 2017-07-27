@@ -169,7 +169,6 @@ td {
 	padding: 25px;	
 }
 
-
 .project_img {
 	width: 100%;
 	display: block;
@@ -177,6 +176,12 @@ td {
 	box-shadow: 0 0 60px black;
 }
 
+canvas {
+	border: 3px solid;
+    display: block;
+    margin: 10px auto 10px auto;
+    background-color: white;
+}
 
 #footer {
 	bottom: 0;
