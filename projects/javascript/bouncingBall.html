@@ -34,7 +34,7 @@ setInterval(function(){
   if (ball.y + ball.vy < 0 + ball.r || ball.y + ball.vy > canvas1.height - ball.r) ball.vy *= -1
   ball.x += ball.vx
   ball.y += ball.vy
-  ctx1.clearRect(0,0,canvas1.width,cavnas1.height)
+  ctx1.clearRect(0,0,canvas1.width,canvas1.height)
   ctx1.beginPath()
   ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
   ctx1.stroke()
