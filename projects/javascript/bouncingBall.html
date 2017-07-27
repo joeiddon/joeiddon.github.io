@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<h1>Bouncing Balls<h1>
+
+<a href="http://joeiddon.me/UltiBouncingBall/BallHtml.html">run the simulation here</a>
+
+<p>
+This simulation was one of the first things I coded in JS. Yes it has obviously been done before, but I wanted try and create an accurate, realistic and clean solution to demonstrate the physics of how balls react in a system with some paramaters to play with.
+</p>
+
+<p>
+The basic simulation of a bouncing ball is relatively simple and I did using object-orientated programing:
+<li> create a canvas in html
+<li> create a ball object with an x,y position, x,y velocity and radius
+<li> trace a circle using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc">canvas arc method</a> at the position of the ball on the canvas
+<li> update the ball's x,y position by its velocity
+<li> clear the canvas
+<li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms
+</p>
+
+<canvas id="canvas1" width="480" height ="720"></canvas>
+<script>
+canvas1 = document.getElementById("canvas1")
+ctx1 = canvas1.getContext("2d")
+ball = {x: 100, y: 100, vx: 2, vy: 1, r: 10}
+setInterval(function(){
+  ctx1.beginPath()
+  ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
+  ctx1.stroke()
+  ctx1.fillStyle="#000000"
+  ctx1.fill()
+  ball.x += ball.vx
+  ball.y += ball.vy
+}, 10)
+
+</script>
