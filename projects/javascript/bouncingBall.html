@@ -24,16 +24,17 @@ The basic simulation of a bouncing ball is relatively simple and I did using obj
 	<li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms
 </ol>
 
-<canvas id="canvas1" width="720" height ="480" style="border:3px solid"></canvas>
-<script>canvas1 = document.getElementById("canvas1")
+<canvas id="canvas1" width="500" height ="300" style="border:3px solid"></canvas>
+<script>
+canvas1 = document.getElementById("canvas1")
 ctx1 = canvas1.getContext("2d")
 ball = {x: 100, y: 100, vx: 4, vy: 1, r: 20}
 setInterval(function(){
-  if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > 720 - ball.r)	ball.vx *= -1
-  if (ball.y + ball.vy < 0 + ball.r || ball.y + ball.vy > 480 - ball.r)	ball.vy *= -1
+  if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > canvas1.width - ball.r) ball.vx *= -1
+  if (ball.y + ball.vy < 0 + ball.r || ball.y + ball.vy > canvas1.height - ball.r) ball.vy *= -1
   ball.x += ball.vx
   ball.y += ball.vy
-  ctx1.clearRect(0,0,720,480)
+  ctx1.clearRect(0,0,canvas1.width,cavnas1.height)
   ctx1.beginPath()
   ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
   ctx1.stroke()
