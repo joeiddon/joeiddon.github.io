@@ -25,18 +25,26 @@ for (var i=0;i<logo_links.length;i++){
 
 projects = document.getElementById("projects")
 dropdown = document.getElementById("dropdown")
-projects.onmouseover = function(){
-	dropdown.style.display = "block"
-}
 
-projects.onmouseout = function(e){
-	if (e.relatedTarget.parentNode != dropdown){
-		dropdown.style.display = "none"
+if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	projects.onmouseover = function(){
+		dropdown.style.display = "block"
 	}
-}
 
-dropdown.onmouseout = function(e){
-	if (e.relatedTarget.parentNode != this && e.relatedTarget != this){
-		this.style.display = "none"
+	projects.onmouseout = function(e){
+		if (e.relatedTarget.parentNode != dropdown){
+			dropdown.style.display = "none"
+		}
 	}
+
+	dropdown.onmouseout = function(e){
+		if (e.relatedTarget.parentNode != this && e.relatedTarget != this){
+			this.style.display = "none"
+		}
+	}
+} else {
+	projets.onclick = functio(){
+		if (dropdown.style.display="block"){
+			window.
+
 }
