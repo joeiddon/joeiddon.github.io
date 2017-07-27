@@ -12,14 +12,15 @@ This simulation was one of the first things I coded in JS. Yes it has obviously 
 
 <p>
 The basic simulation of a bouncing ball is relatively simple and I did using object-orientated programing:
-</pi>
-<li> create a canvas in html</li>
-<li> create a ball object with an x,y position, x,y velocity and radius</li>
-<li> trace a circle using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc">canvas arc method</a> at the position of the ball on the canvas</li>
-<li> update the ball's x,y position by its velocity</li>
-<li> clear the canvas</li>
-<li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms</li>
-
+</p>
+<ol>
+  <li> create a canvas in html</li>
+  <li> create a ball object with an x,y position, x,y velocity and radius</li>
+  <li> trace a circle using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc">canvas arc method</a> at the position of the ball on the canvas</li>
+  <li> update the ball's x,y position by its velocity</li>
+  <li> clear the canvas</li>
+  <li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms</li>
+</ol>
 
 <canvas id="canvas1" width="720" height ="480" style="border:3px solid"></canvas>
 <script>canvas1 = document.getElementById("canvas1")
