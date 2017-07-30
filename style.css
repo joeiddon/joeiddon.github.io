@@ -167,7 +167,8 @@ img {
 }
 
 td {
-	padding: 25px;	
+	padding: 25px;
+	width: 590px;
 }
 
 .project_img {
