@@ -29,6 +29,23 @@ body {
 	/*padding: 10px 0px 10px 0px;*/
 }
 
+#main_container {
+	width: 1280;
+	margin: 0 auto;
+	font-family: courier
+}
+
+#footer {
+	bottom: 0;
+	width: 100%;
+	background-color: #00979F;
+	margin-top: 5px;
+	padding: 5px 0 3px 0;
+	text-align: center;
+	font-size: 12px;
+	font-family: lucida console;
+}
+
 #logo {
 	position: relative;
 	display: block;
@@ -134,11 +151,6 @@ h1 {
 	font-size: 45px;
 }
 
-#main_container {
-	width: 1280;
-	margin: 0 auto;
-	font-family: courier
-}
 
 a {
 	font-family: inherit;
@@ -188,15 +200,5 @@ canvas {
 	background-color: black;
 }
 
-#footer {
-	bottom: 0;
-	width: 100%;
-	background-color: #00979F;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	text-align: center;
-	font-size: 12px;
-	font-family: lucida console;
-}
 
 /* div {border: 3px solid pink} */
