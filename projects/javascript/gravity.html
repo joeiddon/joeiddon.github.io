@@ -1,0 +1,68 @@
+---
+layout: default
+---
+
+<h1>A Simulating of Gravity</h1>
+
+<h2><a href="http://joeiddon.me/">run the simulation here parameters can be adjusted in the URL</a></h2>
+
+<p>
+This second simulation shares some aspects to my first <a href="http://joeiddon.me/projects/javascript/bouncingBall">bouncing ball</a> but instead of the focus on being the collision between balls in space, this simulation focuses on how balls with different masses interact through gravity.
+</p>
+
+<p>
+The equation for gravity (taken from <a href="https://en.wikipedia.org/wiki/Gravity">this wikipedia page on gravity) is:
+</p>
+
+<img src="https://en.wikipedia.org/wiki/Gravity"></img>
+
+<p>
+Where F is the force, m1 and m2 are the masses of the objects interactng, r is the distance between the centers of the masses and G is the gravitational constant.
+</p>
+
+<p>
+In my script I applied this formula exactly, but changed the gravitational constant so that it is more suited to a simulation (this param can be adjusted in the URL). Also, this is the equation to get the attractional force between the two masses, but in my simulation, what is needed is the acceleration...
+</p>
+
+<p>
+I already know the balls' masses so I can just rearrange the equation f = ma to a = f /m and use that as the calculation.
+</p>
+
+<p>
+The main section of interest in the code is where this calculation happens for the gravity. These two function can be seen below:
+</p>
+
+<pre>
+function gravitationalAccel(m1, m2, r){
+	force = gConstant * ((m1 * m2) / Math.pow(r,2))
+	return {a1: force/m1, a2: force/m2}
+}
+
+function applyGravity(){
+	for (b1 = 0 ; b1 < noBalls ; b1 ++ ){
+		for (b2 = b1 + 1 ; b2 < noBalls ; b2 ++){
+			var distanceBetween = Math.sqrt((balls[b2].x - balls[b1].x) * (balls[b2].x - balls[b1].x) + (balls[b2].y - balls[b1].y) * (balls[b2].y - balls[b1].y))
+			var xDistance = Math.abs(balls[b2].x - balls[b1].x)
+			var yDistance = Math.abs(balls[b2].y - balls[b1].y)
+			var secondsElapsed = refreshRate / 1000
+			var diagAcc = gravitationalAccel(balls[b1].r, balls[b2].r, distanceBetween)
+			
+			if (balls[b1].x < balls[b2].x){	//b1 left of b2
+				balls[b1].vx += diagAcc.v1 * (xDistance / distanceBetween) * secondsElapsed
+				balls[b2].vx += diagAcc.v2 * (xDistance / distanceBetween) * secondsElapsed * -1
+			} else {						//b1 right of b2
+				balls[b1].vx += diagAcc.v1 * (xDistance / distanceBetween) * secondsElapsed * -1
+				balls[b2].vx += diagAcc.v2 * (xDistance / distanceBetween) * secondsElapsed
+			}
+			
+			if (balls[b1].y < balls[b2].y){	//b1 above b2
+				balls[b1].vy += diagAcc.v1 * (yDistance / distanceBetween) * secondsElapsed
+				balls[b2].vy += diagAcc.v2 * (yDistance / distanceBetween) * secondsElapsed * -1
+			} else {						//b1 below b2
+				balls[b1].vy += diagAcc.v1 * (yDistance / distanceBetween) * secondsElapsed * -1
+				balls[b2].vy += diagAcc.v2 * (yDistance / distanceBetween) * secondsElapsed
+			}
+		}
+	}
+}
+</pre>
