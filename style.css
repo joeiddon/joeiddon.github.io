@@ -19,6 +19,16 @@ body {
 	box-shadow: 0 -20px 20px 20px;
 }
 
+#main {
+	position: absolute;
+	overflow-y: scroll;
+	top: 100px;
+	height: calc(100vh - 100px);
+	width: 100%;
+	padding: 0;
+	/*padding: 10px 0px 10px 0px;*/
+}
+
 #logo {
 	position: relative;
 	display: block;
@@ -116,12 +126,6 @@ body {
 }
 
 
-#main {
-	position: relative;
-	margin-top: 100px;
-	padding: 10px 0px 10px 0px;
-	width: 100%;
-}
 
 h1 {
 	margin: 0;
