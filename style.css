@@ -46,6 +46,12 @@ body {
 	font-family: lucida console;
 }
 
+img {
+	margin: 0 auto;
+	width: 100%;
+}
+
+
 #logo {
 	position: relative;
 	display: block;
