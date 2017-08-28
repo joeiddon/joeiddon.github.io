@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<h1>The Sierspinski Curve</h1>
+
+<h2><a href="http://joeiddon.me/SierpinskiCurve">see them generated here</a></h2>
+
+<p>
+"The Sierpinski curve is mathematically defined as the the limiting curve of an infinite sequence of curves numbered by an index n = 1, 2, 3,..."
+</p>
+
+<p>
+A special property of the Sierpinski curve is that it fills two-dimensional space. If each curve in the sequence below is drawn to half the scale of its predecessor, then every point in the region of the curve will be found arbitarily close to some members of the sequence. In other words, the sequence of curves comes closer and closer to every single point in the region. The limiting curve actually covers them all.
+</p>
+
+<img src="http://"></img>
+
+<p>
+The generation of these curves can be done really succinclty with recursion. Two functions are required to do this which call each other. Assuming the functions "bendRight" and "bendLeft" are already defined (you can have play with how these work with this interactive demonstration <a href="http://joeiddon.me/SierpinskiCurve/keyboard">here</a>) as functions to move the current path of the curve round to the right or left respectively, these are the two functions:
+</p>
+
+<pre>
+function zig(n){
+	if (n == 1){
+		bendLeft()
+		bendLeft()
+	} else {
+		zig(n/2)
+		zag(n/2)
+		zig(n/2)
+		zag(n/2)
+	}
+}
+
+function zag(n){
+	if (n == 1){
+		bendRight()
+		bendRight()
+		bendLeft()
+	} else {
+		zag(n/2)
+		zag(n/2)
+		zig(n/2)
+		zag(n/2)
+	}
+}
+</pre>
+
+<p>
+Having both these defined, we can simply call zig(2 ** n) in the "main program" to generate the curve. You can watch them be generated <a href="http://joeiddon.me/SierpinskiCurve">here</a> if you didn't already follow the link at the top.
+</p>
