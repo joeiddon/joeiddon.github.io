@@ -15,13 +15,103 @@ input {
 </style>
 
 <p>
-Description coming soon....
+If you do not know what ches is, read about it <a href="https://en.wikipedia.org/wiki/Chess">here.</a> When talking about artificial intelligence, often <a href="https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov">the game</a> between the current grand master (Gary Kasparov) and IBM's Deep Blue comes up. This was the first time that an 'AI' beat the world's best chess player. Since then, things have progressed and an open source multi-platform chess engine called <a href="https://en.wikipedia.org/wiki/Stockfish_(chess)">stockfish</a> has been developed by nearly 100 people and can beat any human alive on any operating system.
+</p>
+
+<p>
+Inspired by these successes and as part of a wider upcoming project I have in mind, I decided to try and code my own AI from complete scratch in JS. No libraries for move generation. Nothing. It ended up being able to do a depth 4 search (I explain this below) in roughly 10-20 seconds and can reliably beat me which is strange considering I created it... To play it yourself, follow the link at the top of this page ^.
+</p>
+
+<p>
+How does it work? I built my AI entirely around the minimax framework. Minimax is a recursive algorithm (below) that works by creating a tree of possible moves where each branch represents a move in the game and each node represents the "evaluation" of the board at that state in relation to the side whos turn it is. It requires a limiting depth variable to search that far into the future as there are more possible game states in a game of chess than atoms in the universe so no computer could ever calculate the full tree of moves. Once getting all the possible board states, the computer can then use an evaluation funcition which will take the current board state and return a score of how "good" it is based on many different factors (material, mobility etc.). From this, using the minimax recursive algorithm, it can work out which move to make. It does this by assuming the side of the player at the current depth of the tree and choosing the best score for them. This is required as the algorithm must assume that the opposing side makes the best possible move. To choose from the evaluated moves at the bottom, the computer simply takes the max of its options or min depending on the side the computer is playing. From here, the computer is now one deptha higher and from these now possible states, take the max or min (the opposite to last time as the side has switched) and work its way up to the top where it will reach the root node. At the root node, it makes its last call to maximise the possible states below it and selects that as the move to play.
 </p>
 
 <canvas id="cnvs" width="1200" height="500" style="border: 2px solid"></canvas>
 <br>
 <input type="range" min="0" max="10" value="3" onchange="branching=parseInt(this.value); update()"></input>
 <input type="range" min="0" max="10" value="3" onchange="depth=parseInt(this.value); update()"></input>
+
+<p>
+A simple evaluation function can be seen below that only takes into account material, mobility and development:
+<p>
+
+<pre>
+function evaluate(state, side){		//evaluates for white then times by -1 if black wants evaluating (zero-sum game)
+	var score = 0
+	
+	score += 	9 * (noOfPiece(state, 'Q') - noOfPiece(state, 'q')) +
+				5 * (noOfPiece(state, 'R') - noOfPiece(state, 'r')) +
+				3 * (noOfPiece(state, 'B') - noOfPiece(state, 'b')) +
+				3 * (noOfPiece(state, 'N') - noOfPiece(state, 'n')) +
+				1 * (noOfPiece(state, 'P') - noOfPiece(state, 'p'))
+	
+	if (noOfPiece(state, ' ') < 44){
+		score += 0.1 * (noDevelopedPieces(state, "w") - noDevelopedPieces(state, "b"))
+	}
+	
+	var whitesMoves = availableMoves(state, 'w').length
+	var blacksMoves = availableMoves(state, 'b').length
+	
+	score += 0.005 * (whitesMoves - blacksMoves)
+	
+	if (whitesMoves == 0) {
+		if (inCheck(state, 'w')){
+			score -= Infinity
+		} else {
+			score += Infinity * (side == "w" ? 1 : -1)
+		}			
+	} else if (blacksMoves == 0) {
+		if (inCheck(state, 'b')) {
+			score += Infinity
+		} else {
+			score += Infinity * (side == "w" ? 1: -1)
+		}
+	}
+	
+	return score * (side == 'w' ? 1 : -1)
+}
+</pre>
+
+<p>
+To increase the quality of moves the computer makes, the depth is crucial. The further it can manage to look into the future before taking too much time, the better as it can evaluate more possible outcomes. In addition, an evaluation function that takes into account more than just material (how many pieces each side has) is also key to a good AI. One last thing is that the minimax algorithm can undergo a coding simplification through use of the mathematical fact that the max(a,b) = -min(-a,-b). The result is a simpler, shorter function named negamaxtakes the max of the negative of each state and makes the evaluation function be in relation to the side playing.
+</p>
+
+<p>
+As well as other things, one massive time saver that can allow the AI to think to higher depths is the introduction of alpha-beta pruning. This idea is based upon the idea that if on evaluating my first possible move, I find that I will be able to take the opponents knight and the on evaluating my second possible move, I see that it will lead to me losing a rook after two moves, I no longer need to evaluate the other moves that the opponent could play for that second move by me as I have seen that my first move is already better so I can "prune" the rest of the branches of the tree from my second possible move and move onto my third. This technqiue is easy to code in (just a couple of lines) but can save a lot of time.
+</p>
+
+<p>
+My negamax algorithm can be seen below:
+</p>
+
+<pre>
+function negamax(state, depth, alpha, beta, side){
+	if (depth == 0){
+		return evaluate(state, side)
+	}
+	
+	var moves = availableMoves(state, side)
+	var bestScore = -Infinity
+	var bestMove
+	
+	for (var m = 0; m < moves.length; m++){
+		var score = -negamax(makeMove(state, moves[m]), depth - 1, -beta, -alpha, side == "w" ? "b" : "w")
+		if (score > bestScore){
+			bestScore = score
+			bestMove = moves[m]
+		}
+		alpha = Math.max(alpha, score)
+		if (alpha >= beta){
+			break
+		}
+	}
+	return bestScore
+}
+</pre>
+
+<p>
+N.B. This actual funciton should be called from a seperate funciton at the root node (the current game state) so that the first move taken is returned not the score so the computer actually knows what move to make
+</p>
 
 
 <script>
