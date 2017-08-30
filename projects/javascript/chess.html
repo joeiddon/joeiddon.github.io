@@ -10,12 +10,12 @@ layout: default
 input {
 	cursor: pointer;
 	margin: 0;
-	width: 600px;
+	width: 596px;
 }
 </style>
 
 <p>
-If you do not know what ches is, read about it <a href="https://en.wikipedia.org/wiki/Chess">here.</a> When talking about artificial intelligence, often <a href="https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov">the game</a> between the current grand master (Gary Kasparov) and IBM's Deep Blue comes up. This was the first time that an 'AI' beat the world's best chess player. Since then, things have progressed and an open source multi-platform chess engine called <a href="https://en.wikipedia.org/wiki/Stockfish_(chess)">stockfish</a> has been developed by nearly 100 people and can beat any human alive on any operating system.
+If you do not know what chess is, read about it <a href="https://en.wikipedia.org/wiki/Chess">here.</a> When talking about artificial intelligence, often <a href="https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov">the game</a> between the current grand master (Gary Kasparov) and IBM's Deep Blue comes up. This was the first time that an 'AI' beat the world's best chess player. Since then, things have progressed and an open source multi-platform chess engine called <a href="https://en.wikipedia.org/wiki/Stockfish_(chess)">stockfish</a> has been developed by nearly 100 people and can beat any human alive on any operating system.
 </p>
 
 <p>
@@ -36,14 +36,14 @@ A simple evaluation function can be seen below that only takes into account mate
 <p>
 
 <pre>
-function evaluate(state, side){		//evaluates for white then times by -1 if black wants evaluating (zero-sum game)
+function evaluate(state, side){
 	var score = 0
 	
 	score += 	9 * (noOfPiece(state, 'Q') - noOfPiece(state, 'q')) +
-				5 * (noOfPiece(state, 'R') - noOfPiece(state, 'r')) +
-				3 * (noOfPiece(state, 'B') - noOfPiece(state, 'b')) +
-				3 * (noOfPiece(state, 'N') - noOfPiece(state, 'n')) +
-				1 * (noOfPiece(state, 'P') - noOfPiece(state, 'p'))
+			5 * (noOfPiece(state, 'R') - noOfPiece(state, 'r')) +
+			3 * (noOfPiece(state, 'B') - noOfPiece(state, 'b')) +
+			3 * (noOfPiece(state, 'N') - noOfPiece(state, 'n')) +
+			1 * (noOfPiece(state, 'P') - noOfPiece(state, 'p'))
 	
 	if (noOfPiece(state, ' ') < 44){
 		score += 0.1 * (noDevelopedPieces(state, "w") - noDevelopedPieces(state, "b"))
@@ -73,7 +73,7 @@ function evaluate(state, side){		//evaluates for white then times by -1 if black
 </pre>
 
 <p>
-To increase the quality of moves the computer makes, the depth is crucial. The further it can manage to look into the future before taking too much time, the better as it can evaluate more possible outcomes. In addition, an evaluation function that takes into account more than just material (how many pieces each side has) is also key to a good AI. One last thing is that the minimax algorithm can undergo a coding simplification through use of the mathematical fact that the max(a,b) = -min(-a,-b). The result is a simpler, shorter function named negamaxtakes the max of the negative of each state and makes the evaluation function be in relation to the side playing.
+To increase the quality of moves the computer makes, the depth is crucial. The further it can manage to look into the future before taking too much time, the better as it can evaluate more possible outcomes. In addition, an evaluation function that takes into account more than just material (how many pieces each side has) is also key to a good AI. One last thing is that the minimax algorithm can undergo a coding simplification through use of the mathematical fact that the max(a,b) = -min(-a,-b) and that chess is a <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum game</a>. The result is a simpler, shorter function named negamax that works with the max of the negative of each state and switches the evaluation function to be in relation to the side playing.
 </p>
 
 <p>
@@ -126,7 +126,7 @@ function update(){
 	depthHeight = cnvs.height/(depth+2)
 	ctx.clearRect(0,0,cnvs.width, cnvs.height)
 	branchItBud(cnvs.width /2 , depthHeight, 0)
-	ctx.fillText("current evaluation of board", cnvs.width/2, (depth+1) * depthHeight + 40)
+	ctx.fillText("evaluation of board", cnvs.width/2, (depth+1) * depthHeight + 40)
 }
 
 function branchItBud(x, y, level){
