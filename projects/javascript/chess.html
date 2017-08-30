@@ -6,6 +6,82 @@ layout: default
 
 <h2><a href="http://joeiddon.me/ChessAI">play it here</a></h2>
 
+<style>
+input {
+	cursor: pointer;
+	margin: 0;
+	width: 600px;
+}
+</style>
+
 <p>
 Description coming soon....
 </p>
+
+<canvas id="cnvs" width="1200" height="500" style="border: 2px solid"></canvas>
+<br>
+<input type="range" min="0" max="10" value="3" onchange="branching=parseInt(this.value); update()"></input>
+<input type="range" min="0" max="10" value="3" onchange="depth=parseInt(this.value); update()"></input>
+
+
+<script>
+cnvs = document.getElementById("cnvs")
+ctx = cnvs.getContext("2d")
+
+var branching = 3
+var depth = 3
+update()
+
+function update(){
+	depthHeight = cnvs.height/(depth+2)
+	ctx.clearRect(0,0,cnvs.width, cnvs.height)
+	branchItBud(cnvs.width /2 , depthHeight, 0)
+	ctx.fillText("current evaluation of board", cnvs.width/2, (depth+1) * depthHeight + 40)
+}
+
+function branchItBud(x, y, level){
+	if (level == depth){
+		rand = parseInt((Math.random()-0.5) * 20)
+		drawCircle(x, y, 18)
+		ctx.textAlign = "center"
+		ctx.font = "20px monospace"
+		ctx.fillStyle = "black"
+		ctx.fillText(rand.toString(), x, y+5)
+		return rand
+	} else {
+		var spread = cnvs.width / (Math.pow(branching, level)*branching + 0.05) 
+		var val = level%2==0 ? -Infinity : Infinity
+		for (var n = 0; n < branching; n++){
+			drawLine(x, y, (x-(((branching-1)*spread)/2)) + n * spread, y + depthHeight)
+			if (level % 2 == 0){
+				val = Math.max(val, branchItBud((x-(((branching-1)*spread)/2)) + n * spread, y + depthHeight, level+1))
+			} else {
+				val = Math.min(val, branchItBud((x-(((branching-1)*spread)/2)) + n * spread, y + depthHeight, level+1))
+			}
+		}
+		drawCircle(x, y, 18)
+		ctx.textAlign = "center"
+		ctx.font = "20px monospace"
+		ctx.fillStyle = "black"
+		ctx.fillText(val.toString(), x, y+5)
+		ctx.fillText((level % 2 == 0 ? "max" : "min"), x + 50, y)
+		return val
+	}
+}
+
+
+function drawLine(x1, y1, x2, y2){
+	ctx.beginPath()
+	ctx.moveTo(x1, y1)
+	ctx.lineTo(x2, y2)
+	ctx.stroke()
+}
+
+function drawCircle(x, y, r){
+	ctx.beginPath()
+	ctx.arc(x, y, r, 0, Math.PI * 2)
+	ctx.stroke()
+	ctx.fillStyle="white"
+	ctx.fill()
+}
+</script>
