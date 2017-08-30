@@ -39,11 +39,11 @@ A simple evaluation function can be seen below that only takes into account mate
 function evaluate(state, side){
 	var score = 0
 	
-	score += 	9 * (noOfPiece(state, 'Q') - noOfPiece(state, 'q')) +
-			5 * (noOfPiece(state, 'R') - noOfPiece(state, 'r')) +
-			3 * (noOfPiece(state, 'B') - noOfPiece(state, 'b')) +
-			3 * (noOfPiece(state, 'N') - noOfPiece(state, 'n')) +
-			1 * (noOfPiece(state, 'P') - noOfPiece(state, 'p'))
+	score +=  9 * (noOfPiece(state, 'Q') - noOfPiece(state, 'q')) +
+		 5 * (noOfPiece(state, 'R') - noOfPiece(state, 'r')) +
+		 3 * (noOfPiece(state, 'B') - noOfPiece(state, 'b')) +
+		 3 * (noOfPiece(state, 'N') - noOfPiece(state, 'n')) +
+		 1 * (noOfPiece(state, 'P') - noOfPiece(state, 'p'))
 	
 	if (noOfPiece(state, ' ') < 44){
 		score += 0.1 * (noDevelopedPieces(state, "w") - noDevelopedPieces(state, "b"))
