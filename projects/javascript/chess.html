@@ -28,8 +28,8 @@ How does it work? I built my AI entirely around the minimax framework. Minimax i
 
 <canvas id="cnvs" width="1200" height="500" style="border: 2px solid"></canvas>
 <br>
-<input type="range" min="0" max="10" value="3" onchange="branching=parseInt(this.value); update()"></input>
-<input type="range" min="0" max="10" value="3" onchange="depth=parseInt(this.value); update()"></input>
+<input type="range" min="0" max="10" value="3" oninput="branching=parseInt(this.value); update()"></input>
+<input type="range" min="0" max="10" value="3" oninput="depth=parseInt(this.value); update()"></input>
 
 <p>
 A simple evaluation function can be seen below that only takes into account material, mobility and development:
