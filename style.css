@@ -46,11 +46,6 @@ body {
 	font-family: lucida console;
 }
 
-img {
-	margin: 0 auto;
-	width: 100%;
-}
-
 
 #logo {
 	position: relative;
@@ -157,6 +152,11 @@ h1 {
 	font-size: 45px;
 }
 
+img {
+	margin: 0 auto;
+	width: 100%;
+}
+
 a {
 	font-family: inherit;
 	font-size: inherit;
@@ -180,26 +180,3 @@ pre {
 	padding: 10px;
 	background-color: #E75757;
 }
-
-#wispa_img {
-	display: block;
-	margin: 0 auto;
-	width: 100%;
-}
-
-td {
-	padding: 25px;
-	width: 590px;
-	height: 330px;
-}
-
-.project_img {
-	width: auto;
-	max-width: 100%;
-	max-height: 100%;
-	display: block;
-	margin: 0 auto;
-	box-shadow: 0 0 60px black;
-}
-
-/* div {border: 3px solid pink} */
