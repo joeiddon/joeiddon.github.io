@@ -12,8 +12,10 @@ When normally approached with the task of 3D simulation, one may opt to use the 
 To begin, there are a couple of initial things that must be defined:
 </p>
 
-<ol>all angles are in degrees</ol>
-<ol>the cartesian coordinate system used begins with the y axis ahead, x to right and z going up</ol>
+<pre>
+- all angles are in degrees
+- the cartesian coordinate system used begins with the y axis ahead, x to right and z going up
+</pre>
 
 </p>
 To begin with, we shall attempt simulation with a camera angle looking directly down the y-axis (as adding in the direction complicates things slightly).
@@ -77,7 +79,6 @@ function drawScreen(){
 		
 		var x = width  / 2 + (yaw   * (width / fov))
 		var y = height / 2 - (pitch * (width / fov))
-		console.log(c, x, y, yaw)
 		ctx.lineTo(x, y)	
 	}
 	ctx.closePath()
@@ -122,7 +123,6 @@ function drawScreen(){
 		
 		var x = width  / 2 + (yaw   * (width / fov))
 		var y = height / 2 - (pitch * (width / fov))
-		console.log(c, x, y, yaw)
 		ctx.lineTo(x, y)	
 	}
 	ctx.closePath()
@@ -142,7 +142,7 @@ document.addEventListener("keydown", function (e){
 </script>
 
 <p>
-It is clear that in less than 40 lines of code, a decent simulation can be created. However, there are lots of more things that need adding such as: more complex objects with multiple objects, face ordering, camera direction... I will not explain how I did that, but in <a href="http://joeiddon.me/3dSimulationVR/3dv3.html">this demonstration</a> you can see it working quite well (some issues). The controls are WASD for movement ZX for flying up and down and EQ for looking left and right. From here, I improves it a bit more then created some simple applications which you can browse <a href="http://joeiddon.me/projects/javascript">here</a>.
+It is clear that in less than 45 lines of code, a decent simulation can be created. However, there are lots of more things that need adding such as: more complex objects with multiple objects, face ordering, camera direction... I will not explain how I did that, but in <a href="http://joeiddon.me/3dSimulationVR/3dv3.html">this demonstration</a> you can see it working quite well (some issues). The controls are WASD for movement, ZX for flying up and down and EQ for looking left and right. From here, I improves it a bit more then created some simple applications which you can browse <a href="http://joeiddon.me/projects/javascript">here</a>.
 </p>
 
 
