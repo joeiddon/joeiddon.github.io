@@ -5,5 +5,145 @@ layout: default
 <h1>Simulating 3D in the html5 canvas</h1>
 
 <p>
-Description coming soon....
+When normally approached with the task of 3D simulation, one may opt to use the well-tested JS library <a href="https://threejs.org/">three js</a> however, this is a post explaining how I went about doing it myself from scratch. The end result was pretty decent and lends itself to many different applications but is still a significant way off the capabilities of any well used libraries like the above mentioned.
 </p>
+
+<p>
+To begin, there are a couple of initial things that must be defined:
+</p>
+
+<ol>all angles are in degrees</ol>
+<ol>the cartesian coordinate system used begins with the y axis ahead, x to right and z going up</ol>
+
+</p>
+To begin with, we shall attempt simulation with a camera angle looking directly down the y-axis (as adding in the direction complicates things slightly).
+</p>
+
+<p>
+Now the camera is defined, we just have to look at how a coordinate in the 3D world maps to a coordinate on the canvas in 2D - so from an (x,y,z) to an (x,y). To achieve this, it helped for me to imagine you are looking through a fixed viewport like a letterbox and measuring the angles to the 3D coordinate of an object. The two angles are the one in the horizontal direction (from here on I will call this the pitch) and the one in the vertical direction (the yaw). So looking through the letter box, there are two measurements, how far to the right (as a pitch angle) that the object coordinate is from the center and how far up it is (as a yaw angle). The key to imagining the setup this way is that these angles can be easily calculated with trig. Once we have the angles (pitch and yaw) to the object, we can scale these angles up to fit out screen (in relation to our FOV). And thats it, these new measurements are our (x,y) coordinate for the object on our canvas. Simple?
+</p>
+
+<p>
+To calculate the pitch and yaw angles to our object coordinate, we can use the following calculations):
+</p>
+
+<pre>
+pitch = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
+yaw   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
+</pre>
+
+<p>
+where we assume that 'coord' and 'cam' are simply objects with x, y and z values corresponding to their coordinates in the 3d space.
+</p>
+
+<p>
+Now that we have these angles, we need to convert them to 2d coordinates. This just requires scaling them so that a pitch angle of exactly our FOV reaches the edge of the screen (the definition of FOV). So this means our scale factor is the canvasWidth / fov. Finally, we need to remember that this scaling will result in postive and negative distances (as our angles are positive and negative) that are from the center of the screen. This along with the fact that the canvas' system works with the origin at the top left corner means the final canvas coordinates for the coord are:
+</p>
+
+<pre>
+x = width  / 2 + (yaw   * (width / fov))
+y = height / 2 + (pitch * (width / fov))
+</pre>
+
+<p>
+where width and height are the corresponding dimensions of the canvas and fov is the angle in degrees of our fov.
+</p>
+
+<p>
+We have now achieved the first big step in 3D simulation. Along with a little simple stuff, the code below gives a decent simulation (use 'wasd' to walk around).
+</p>
+
+<pre>
+var cnvs = document.getElementById("cnvs")
+var ctx = cnvs.getContext("2d")
+
+var width = cnvs.width
+var height = cnvs.height
+
+var fov = 90
+var cam = {x: 0, y: 0, z: 0}
+var coordinates = [{x: 5, y: 50, z: 10}, {x: -5, y: 50, z: 10}, {x: -5, y: 50, z: 0}, {x: 5, y: 50, z: 0}]
+
+drawScreen()
+
+function drawScreen(){
+	ctx.clearRect(0, 0, width, height)
+	ctx.beginPath()
+	for (var c = 0; c < coordinates.length; c ++){
+		var coord = coordinates[c]
+		
+		var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
+		var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
+		
+		var x = width  / 2 + (yaw   * (width / fov))
+		var y = height / 2 - (pitch * (width / fov))
+		console.log(c, x, y, yaw)
+		ctx.lineTo(x, y)	
+	}
+	ctx.closePath()
+	ctx.fillStyle = "cyan"
+	ctx.stroke()
+	ctx.fill()
+}
+
+document.addEventListener("keydown", function (e){
+	var key = e.keyCode
+	if (key == 87) cam.y += 2
+	if (key == 83) cam.y -= 2
+	if (key == 68) cam.x += 2
+	if (key == 65) cam.x -= 2
+	drawScreen()
+})
+</pre>
+
+<canvas id="cnvs" width="1280" height="720" style="background-color: #FCFCDA;" ></canvas>
+
+<script>
+var cnvs = document.getElementById("cnvs")
+var ctx = cnvs.getContext("2d")
+
+var width = cnvs.width
+var height = cnvs.height
+
+var fov = 90
+var cam = {x: 0, y: 0, z: 0}
+var coordinates = [{x: 5, y: 50, z: 10}, {x: -5, y: 50, z: 10}, {x: -5, y: 50, z: 0}, {x: 5, y: 50, z: 0}]
+
+drawScreen()
+
+function drawScreen(){
+	ctx.clearRect(0, 0, width, height)
+	ctx.beginPath()
+	for (var c = 0; c < coordinates.length; c ++){
+		var coord = coordinates[c]
+		
+		var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
+		var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
+		
+		var x = width  / 2 + (yaw   * (width / fov))
+		var y = height / 2 - (pitch * (width / fov))
+		console.log(c, x, y, yaw)
+		ctx.lineTo(x, y)	
+	}
+	ctx.closePath()
+	ctx.fillStyle = "cyan"
+	ctx.stroke()
+	ctx.fill()
+}
+
+document.addEventListener("keydown", function (e){
+	var key = e.keyCode
+	if (key == 87) cam.y += 2
+	if (key == 83) cam.y -= 2
+	if (key == 68) cam.x += 2
+	if (key == 65) cam.x -= 2
+	drawScreen()
+})
+</script>
+
+<p>
+It is clear that in less than 40 lines of code, a decent simulation can be created. However, there are lots of more things that need adding such as: more complex objects with multiple objects, face ordering, camera direction... I will not explain how I did that, but in <a href="http://joeiddon.me/3dSimulationVR/3dv3.html">this demonstration</a> you can see it working quite well (some issues). The controls are WASD for movement ZX for flying up and down and EQ for looking left and right. From here, I improves it a bit more then created some simple applications which you can browse <a href="http://joeiddon.me/projects/javascript">here</a>.
+</p>
+
+
+
