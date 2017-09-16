@@ -25,34 +25,35 @@ Following <a href="https://en.wikipedia.org/wiki/Perlin_noise">this wikipedia pa
 <li>Interpolate the 2^n dot products to get the value
 </ol>
 
-<p>The result of my library in 2 dimensions based on the above steps is: (alternating between static noise and my perlin noise to show the difference). To see how this result can be used for something more interesting than blurry gradients, checkout <a href="http://joeiddon.me/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
+<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href="http://joeiddon.me/PerlinNoise/demo">demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href="http://joeiddon.me/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
 
 <canvas id="cnvs"></canvas>
 <script>
 var cnvs = document.getElementById("cnvs")
-cnvs.width = cnvs.height = 480
+cnvs.width = 960
+cnvs.height = 480
 var ctx = cnvs.getContext("2d")
 
 var gridSize = 8
 var resolution = 128
 var pixSize = cnvs.width / resolution
-var random = true
 
-function update(){
-	perlin.seed()
-	for (var y = 0; y < gridSize; y += gridSize / resolution){
-		for (var x = 0; x < gridSize; x += gridSize / resolution){
-			if (random) var v = parseInt(Math.random() * 255)
-			else var v = parseInt(perlin.get(x, y) * 255)
-			ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
-			ctx.fillRect(x * (cnvs.width / gridSize), y * (cnvs.width / gridSize), pixSize, pixSize)
-		}
+for (var y = 0; y < gridSize; y += gridSize / resolution){
+	for (var x = 0; x < gridSize; x += gridSize / resolution){
+		var v = parseInt(Math.random() * 255)
+		ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+		ctx.fillRect(x * (cnvs.height / gridSize), y * (cnvs.height / gridSize), pixSize, pixSize)
 	}
-	random = !random
 }
 
-update()
-setInterval(update, 2000)
+for (var y = 0; y < gridSize; y += gridSize / resolution){
+	for (var x = 0; x < gridSize; x += gridSize / resolution){
+		var v = parseInt(perlin.get(x, y) * 255)
+		ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+		ctx.fillRect(cnvs.height + x * (cnvs.height / gridSize), y * (cnvs.height / gridSize), pixSize, pixSize)
+	}
+}
+
 </script>
 
 <p>
@@ -73,7 +74,7 @@ var cnvs1 = document.getElementById("cnvs1")
 cnvs1.width = cnvs1.height = 256
 var ctx1  = cnvs1.getContext("2d")
 setInterval(function(){
-var vector = rand2dVect()
+var vector = perlin.rand2dVect()
 ctx1.beginPath()
 ctx1.moveTo(cnvs1.width/2, cnvs1.height/2)
 ctx1.lineTo(cnvs1.width/2 + vector.x * 100, cnvs1.height/2 + vector.y * 100)
@@ -120,11 +121,21 @@ function linTerp(a, b, w){
 </pre>
 
 <p>
-So if we run linTerp(56, 98, 0) we will get 56 and if we run with w = 1 we get b so 98 in this case. The point of the interpolation is that now, any value of w will map between the two outer values. So running linTerp(24, 64, 0.5) will give us the value exactly in the middle so 44.
+So if we run linTerp(56, 98, 0) we will get 56 and if we run with w = 1 we get b so 98 in this case. The point of the interpolation is that now, any value of w will map between the two outer values. So running linTerp(24, 64, 0.5) will give us the value exactly in the middle so 44. However, linear interpolation produces slight 'ridges' inbetween each cell as their is no curves, just straight lines. To add a very rounded and smooth looking curve/ fade inbetween the cells, we can use Perlin's smootherstep function (a quintic polynomial):
 </p>
 
+<pre>
+function smootherstep(x){
+	return 6 * Math.pow(x, 5) - 15 * Math.pow(x, 4) + 10 * Math.pow(x, 3)
+},
+
+function smoothTerp(a, b, w){
+	return a + smootherstep(w) * (b - a)
+},
+</pre>
+
 <p>
-To interpolate between the four cell nodes with this function, we must do so in three steps. First by interpolating how far the x distance of the input is into the cell (between 0 and 1) 
+To interpolate between the four cell nodes with this function, we must do so in three steps (bilenear interpolation). First by interpolating how far the x distance of the input is into the cell (between 0 and 1) 
 between the top two dot-products and then interpolating the inputs x value into the cell again between the bottom two dot-products of the cell. Finally, interpolate between the two previous values to get the final value for that noise which will be returned from the library. Note that as the function returns a value between -1 and 1, and I would like it to return a value between 0 and 1, the final value is mapped to my range by incrementing and dividing by 2.
 </p>
 
