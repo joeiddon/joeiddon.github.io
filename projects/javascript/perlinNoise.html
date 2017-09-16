@@ -1,0 +1,187 @@
+---
+layout: default
+---
+
+<h1>Creating Perlin Noise in JS</h1>
+<script src="http://joeiddon.me/PerlinNoise/perlin.js"></script>
+
+<!-- <h2><a href="http://joeiddon.me/3dSimulationVR/terrain.html">have a look at it here controls are same as maze game and other stuf (basically WASD) Use 'b' for fun</a></h2> -->
+
+<p>
+Perlin Noise is a a type of <a href="https://en.wikipedia.org/wiki/Gradient_noise">gradient noise</a> used mainly in computer graphics. It allows for smooth natural-looking randomness which can be applied to a number of things such as: texture of surfaces, flames and terrain - what I will be using it for. The most well known place perlin noise is implented is minecraft where it is used generate the landscape so the hills, caves etc.
+</p>
+
+<p>
+Following <a href="https://en.wikipedia.org/wiki/Perlin_noise">this wikipedia page</a> on generating it, I managed to succesfully write it. These are the steps:
+</p>
+
+<ol>
+<li>Define an n-dimensional grid
+<li>For each node of the grid assign a random gradient vector of unit length in n dimensions.
+<li>Given an n-dimensional argument for the noise function
+<li>Determine its cell in the grid
+<li>For each corner node of that cell, calculate the distance vector between the point and the node
+<li>Compute the dot product between the gradient vector and the distance vector
+<li>Interpolate the 2^n dot products to get the value
+</ol>
+
+<p>The result of my library in 2 dimensions based on the above steps is: (alternating between static noise and my perlin noise to show the difference). To see how this result can be used for something more interesting than blurry gradients, checkout <a href="http://joeiddon.me/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
+
+<canvas id="cnvs"></canvas>
+<script>
+var cnvs = document.getElementById("cnvs")
+cnvs.width = cnvs.height = 480
+var ctx = cnvs.getContext("2d")
+
+var gridSize = 8
+var resolution = 128
+var pixSize = cnvs.width / resolution
+var random = true
+
+function update(){
+	perlin.seed()
+	for (var y = 0; y < gridSize; y += gridSize / resolution){
+		for (var x = 0; x < gridSize; x += gridSize / resolution){
+			if (random) var v = parseInt(Math.random() * 255)
+			else var v = parseInt(perlin.get(x, y) * 255)
+			ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+			ctx.fillRect(x * (cnvs.width / gridSize), y * (cnvs.width / gridSize), pixSize, pixSize)
+		}
+	}
+	random = !random
+}
+
+update()
+setInterval(update, 2000)
+</script>
+
+<p>
+The first step for generating the perlin noise is to create a function that generates random unit vectors. Using Math.sin and Math.cos, the function I coded is:
+</p>
+
+<pre>
+function rand2dVect(){
+    var theta = Math.random() * 2 * Math.PI
+    return {x: Math.cos(theta), y: Math.sin(theta)}
+}
+</pre>
+
+<p>The function itself is fairly self explanatory. It can be tested by plotting some on a canvas:</p>
+<canvas id="cnvs1"></canvas>
+<script>
+var cnvs1 = document.getElementById("cnvs1")
+cnvs1.width = cnvs1.height = 256
+var ctx1  = cnvs1.getContext("2d")
+setInterval(function(){
+var vector = rand2dVect()
+ctx1.beginPath()
+ctx1.moveTo(cnvs1.width/2, cnvs1.height/2)
+ctx1.lineTo(cnvs1.width/2 + vector.x * 100, cnvs1.height/2 + vector.y * 100)
+ctx1.closePath()
+ctx1.stroke()
+}, 500)
+</script>
+
+<p>
+Now we can generate our grid (a 2d array) of random vectors - this function can also be used as a 'seed' function for the library.
+</p>
+
+<p>
+Next, we need a way to work out the containing cell of a 2d coordinate passed into the function. We can do this by just using Math.floor on the x and y coordinates of the inputs to get two of the edges and then add one to these to get the other two edges.
+</p>
+
+<pre>
+var x0 = Math.floor(x)
+var x1 = x0 + 1
+var y0 = Math.floor(y)
+var y1 = y0 + 1
+</pre>
+
+<p>
+Having found the cell nodes, we can calculate the dot product between the distance vector between the point and the node and the random gradient vector from our array. Calculating the distance vector and the dot product can be condensed together into one function:
+</p>
+
+<pre>
+function dotGridGradient(vertX, vertY, x, y){
+	var gVect = gradients[vertY][vertX]
+	var dVect = {x: x - vertX, y: y - vertY}
+	return dVect.x * gVect.x + dVect.y * gVect.y
+}
+</pre>
+
+<p>
+Finally, we need to <a href="https://en.wikipedia.org/wiki/Interpolation">interpolate</a> between the four cell node dot-products (scalars). Interpolation is a way of constructing new data points within a range of others. To do this, a function is used, the simplest being linear:
+</p>
+
+<pre>
+function linTerp(a, b, w){
+	return (1 - w) * a + w * b
+}
+</pre>
+
+<p>
+So if we run linTerp(56, 98, 0) we will get 56 and if we run with w = 1 we get b so 98 in this case. The point of the interpolation is that now, any value of w will map between the two outer values. So running linTerp(24, 64, 0.5) will give us the value exactly in the middle so 44.
+</p>
+
+<p>
+To interpolate between the four cell nodes with this function, we must do so in three steps. First by interpolating how far the x distance of the input is into the cell (between 0 and 1) 
+between the top two dot-products and then interpolating the inputs x value into the cell again between the bottom two dot-products of the cell. Finally, interpolate between the two previous values to get the final value for that noise which will be returned from the library. Note that as the function returns a value between -1 and 1, and I would like it to return a value between 0 and 1, the final value is mapped to my range by incrementing and dividing by 2.
+</p>
+
+<p>
+The final libray (one object) can be seen below.
+</p>
+
+<pre>
+var perlin = {
+	rand2dVect: function(){
+		var theta = Math.random() * 2 * Math.PI
+		return {x: Math.cos(theta), y: Math.sin(theta)}	
+	},
+	
+	dotGridGradient: function(vertX, vertY, x, y){
+		var gVect = this.gradients[vertY][vertX]
+		var dVect = {x: x - vertX, y: y - vertY}
+		return dVect.x * gVect.x + dVect.y * gVect.y
+	},
+	
+	linTerp: function(a, b, w){
+		return (1 - w) * a + w * b
+	},
+	
+	gradients: new Array,
+	
+	seed: function(){
+		for (var y = 0; y < 256; y++){
+			var row = []
+			for (var x = 0; x < 256; x++){
+				row.push(this.rand2dVect())
+			}
+			this.gradients.push(row)
+		}
+	},
+
+	get: function(x, y) {
+		var x0 = Math.floor(x)
+		var x1 = x0 + 1
+		var y0 = Math.floor(y)
+		var y1 = y0 + 1
+		
+		var xWeight = x - x0
+		var yWeight = y - y0
+		
+		//interpolate
+		var tl, tr, bl, br, xTop, xBottom
+		
+		tl = this.dotGridGradient(x0, y0, x, y)
+		tr = this.dotGridGradient(x1, y0, x, y)
+		xTop = this.linTerp(tl, tr, xWeight)
+		bl = this.dotGridGradient(x0, y1, x, y)
+		br = this.dotGridGradient(x1, y1, x, y)
+		xBottom = this.linTerp(bl, br, xWeight)
+		return (this.linTerp(xTop, xBottom, yWeight) + 1) / 2
+	}
+}
+
+perlin.seed()
+</pre>
