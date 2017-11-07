@@ -8,3 +8,22 @@ layout: default
 Log for the money:
 </p>
 
+<table id="log"></table>
+
+<script>
+var tbdy = document.createElement("tbody")
+var rws = [
+["row 1", "row 1"],
+["col 1", "col 2"]
+]
+for (var r = 0; r < rws.length; r++){
+	var tr = document.createElement("tr")
+	for (var c = 0; c < rws[r].length; c++){
+		var td = document.createElement('td')
+		td.innerText = rws[r][c]
+		tr.appendChild(td)	
+	}
+	tbdy.appendChild(tr)
+}	
+document.getElementById("log").appendChild(tbdy)
+</script>
