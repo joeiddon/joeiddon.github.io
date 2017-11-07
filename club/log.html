@@ -5,13 +5,14 @@ layout: default
 <h1>Arduino Club</h1>
 
 <p>
-Log for the money:
+The log:
 </p>
 
 <table id="log"></table>
 
 <style>
 td {
+	color: white;
 	padding: 10px;
 }
 </style>
@@ -19,9 +20,18 @@ td {
 <script>
 var tbdy = document.createElement("tbody")
 var rws = [
-["row 1", "row 1"],
-["col 1", "col 2"]
+["Item", "Price", "Remaining"],
+["LED Matrix", "1.49", "198.51"],
+["Arduino Nano", "1.83"],
+["Arduino Nano", "1.83"],
+["Arduino Nano", "1.83"],
 ]
+for (var r = 2; r < rws.length; r++){
+	console.log(r)
+	ttl = (parseInt((parseFloat(rws[r-1][2]) - parseFloat(rws[r][1]))*100)/100 ).toString()
+	rws[r].push(ttl.includes(".") ? ttl : ttl + ".00")
+}
+
 for (var r = 0; r < rws.length; r++){
 	var tr = document.createElement("tr")
 	for (var c = 0; c < rws[r].length; c++){
