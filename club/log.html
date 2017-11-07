@@ -10,6 +10,12 @@ Log for the money:
 
 <table id="log"></table>
 
+<style>
+td {
+	padding: 10px;
+}
+</style>
+
 <script>
 var tbdy = document.createElement("tbody")
 var rws = [
@@ -21,6 +27,7 @@ for (var r = 0; r < rws.length; r++){
 	for (var c = 0; c < rws[r].length; c++){
 		var td = document.createElement('td')
 		td.innerText = rws[r][c]
+		td.style.backgroundColor = r % 2 == 0 ? "#58b2b7" : "#9eced1"
 		tr.appendChild(td)	
 	}
 	tbdy.appendChild(tr)
