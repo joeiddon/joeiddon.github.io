@@ -8,5 +8,55 @@ layout: default
 <h2><a href="http://joeiddon.me/Paint/floodfill">Floodfill Paint Here</a></h2>
 
 <p>
-Description coming soon....
+These are just some simple paint applications I made so I can use them for when I need to visualise or draw something quickly and I don't have any paper.
+</p>
+
+<p>
+The first one is just simple black lines on a white background and was coded using a combination of the three event listeners:
+</p>
+
+<pre>
+"mousedown"
+"mouseup"
+"mousemove"
+</pre>
+
+<p>
+By calling each event listener from one another, it is very easy to work out where the mouse is when it is pressed down and from there, it was simply a matter of connecting the current dot to the last dot and we have a line!
+</p>
+
+<p>
+The second paint program was written as a kind of proof-of-concept for a question asked on stack overflow. The aim was to incorporate my own floodfill algorithm into a easy to use script that shows the functionality.
+</p>
+
+<p>
+I first built a framework around the idea of large pixels (which you can see when you use it) so that the algorithm had less data to work with and what it was doing was clearer. To do this was quite simple, just have a variable for how many pixels oyu want in one axis and scale this to the other. Then have a 2 dimensional array to store rgb values for each individual pixel and finally update the screen with the values and the pixel squares every 10ms.
+</p>
+
+<p>
+Now came the <a href="https://en.wikipedia.org/wiki/Flood_fill">floodfill</a> algorithm. It is a good example of a concise recursive algorithm and works on the principle that every pixel in a region has a neighbour that is also in this region. Due to this, as long as you can identify one pixel coordinate in a region you want to fill, all you have to do is recursively fill in its neighbours in that region (by testing if off the screen or changed colour) and then the region will be filled.
+</p>
+
+<p>
+With this simple idea, the floodfill funcion became quite simple:
+</p>
+
+<pre>
+function floodfill(x, y, colourToFillIn, colourToFillWith){
+    if (scrn[y][x] == colourToFillWith || scrn[y][x] != colourToFillIn){
+        return
+    }
+    scrn[y][x] = colourToFillWith
+    var neighbours = [[x, y+1], [x, y-1], [x+1, y], [x-1, y]]
+    for (var i = 0; i < 4; i++){
+        var p = neighbours[i]
+        if (p[1] >= 0 && p[1] < rows && p[0] >= 0 && p[0] < cols){
+            floodfill(p[0], p[1], colourToFillIn, colourToFillWith)
+        }
+    }
+}
+</pre>
+
+<p>
+And that was it! See the links at the top of the page to test it out
 </p>
