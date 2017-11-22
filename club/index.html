@@ -5,6 +5,7 @@ layout: default
 <style>
 img {
   width: 33%;
+  display: inline-block;
 }
 </style>
  
@@ -25,7 +26,7 @@ To get used to how the group would work, we decided to begin with something that
 </p>
 
 <p>
-To start with, we used a pre-built LED matrix that would focus our attention on the software (programming the game) rather than the hardware.
+We used the MAX7219 8x8 LED matrix for the display and just wired it up loosely to start with as a prototype so that we could focus our attention on the software (programming the game) rather than the hardware.
 </p>
 
 <p>
@@ -37,12 +38,13 @@ The Arduino sketch for this can be seen over on <a href="https://github.com/Road
 </p>
 
 <p>
-Here it is working:
-[video of game working]
+We were prototyping with an Arduino Mega and a breadboard connected with some jumpers:
 </p>
 
+<img src="http://joeiddon.me/images/prototype.jpg"></img>
+
 <p>
-Now that we had the thing working connected by loose wires, we decided that it would be nice to have a finnished product that was one device. For this, we all needed to be able to solder and this would be a valuable skill for us in the future, so I gave a little demonstration, and everyone picked it up straight away.
+Now that we had the thing working, we decided that it would be nice to have a finnished product that was one device. For this, we all needed to be able to solder (to make a proper controller) and this would be a valuable skill for us in the future, so I gave a little demonstration, and everyone picked it up straight away.
 </p>
 
 <p>
@@ -58,4 +60,20 @@ And here are some pictures of our work soldering it together:
 <img src="http://joeiddon.me/images/matrix/chip.jpg"></img>
 <img src="http://joeiddon.me/images/matrix/capacitor.jpg"></img>
 
-<p>[More pics to come.]</p>
+<p>
+However, after soldering the components together for this, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount the Arduino Nano we would be using and the controller board. So even though this was a valuable lesson on soldering, we ended up not using it!
+</p>
+
+<p>
+Next, we made the controller board by soldering some push buttons to some copper stripboard and wiring this directly to the Nano, along with the LED matrix.
+</p>
+
+<p>
+And that was pretty much it! We uploaded the sketch to the Nano that we had already coded for the Mega (the code is compatible between board types in this case) and that was it. Here are some photos of the finnished product, and finally a video of it in action.
+</p>
+
+<img src="http://joeiddon.me/images/finnishedSide.jpg"></img>
+<img src="http://joeiddon.me/images/finnishedBottom.jpg"></img>
+<img src="http://joeiddon.me/images/finnishedTop.jpg"></img>
+
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/c_MW5CDz?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
