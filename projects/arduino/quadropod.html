@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<h1>A Four-Legged Robot</h1>
+
+<p>After watching how newts move, I thought it would be cool to try and imitate the motion of their legs and how they move around.</p>
+
+<p>Here is my "research" video that I based the project off:</p>
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/q29UK1SToo0?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
+
+<p>I then began building the thing. The frame was to be made out of 3mm plywood which would be easy to cut to the right shapes for the different parts.  Then, each leg neeeded 2 motors so with 4 legs, I ended up using 8 <a href="https://servodatabase.com/servo/towerpro/sg90">sg90</a> servo motors as they are cheap and have sufficient torque for this application. Finally, I used a HC-SR04 ultrasonic sensor to allow the robot to sense obstacles (and hopefully avoid walls).</p>
+
+<p>To put everything together, I just did a quick job with a hot glue gun</p>
+
+<p>Here is what it looked like mid way through programming the arduino:</p>
+
+<img src="https://lh3.googleusercontent.com/rwYN5N9njYHXcftaKt0dVYMhFRQ_09GHP11ON4FA_SLJFLEDdRCtxEg8Rkvm-7qgF1ydkzz3IqVR_w0jvJrEO2OsrAc5tTFhWJYC1KjfwtaQ1-9lat_c516PaQRZPjU-y2zcp-YK3zva-1b4sEAkChicopL5XNkEkgMpmUcyrQNaDlkoVJ10pYak5W76F9jKK6Qepejm4qcNoED8EAvvmy2V32QEcMxoaFKIIU40KWwrCT1Qgo8k-l2aAjLMtwzjmXlYHhBN0aqHfMylgXJ_HUiYfJ8GQVnjeMyVaJCdbIHzfLi0CgZhqPvWVEMnGPVUVBNmhbWo14vYnM3c47PVxZelrXUMzT7W684BzqSdJLUjt83KYsTGnJJp1p1p4TNBs-T3YcbEmQTa_JBynxYI2Afm6oPqytq38VV4kpab3WHCy7Mta27c0QzJIxPQwi6Q9lkq7bckdvxJBK_QLnrIZr3bOLVAQcQG8OJ62MS7DXf5Tp5JVV-HlQ5s0YTBROrnvldkBY39PqHlyH628zBmrbFA7cCoWtpN4VC0-4447w6Yd3MVAEXNtP3iT5QUQy0=s834-w834-h625-no"></img>
+
+<p>Unforunately I did not get a video of it walking at this stage as I made a change to the design after a couple of tests. As you can see in the image above, the sensor is fixed to the main body of the robot so it cannot sense to the sides. I originally thought that this would be good enough as the sensor is meant to have a 15deg field of view. However, it was not quite enough and would often miss an obstacle and clip it with one of the front legs.</p>
+
+<p>To solve this issue, I simply mounted the ultrasonic sensor on another servo that would allow it to rotate and have a much larger view of the obects it encountered.</p>
+
+<p>Here is a video showing that motion:</p>
+
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/q29UK1SToo0?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
