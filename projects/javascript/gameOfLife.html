@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<h1>Conway's Game Of Life</h1>
+
+<h2><a href="http://joeiddon.me/GameOfLife">Check it out here</a></h2>
+
+<p>The Game of Life, created by John Conway, is a cellular automaton. The game is "played" on an infinite, orthogonal 2 dimensional grid that marks out cells.</p>
+
+<p>Each cell can be in one of two states: alive and dead. In my simulation, these have been represente as white and black respaectively.</p>
+
+<p>After an initial start position of cells, the interaction aspect of the game is over, from here on, the game undergoes a series of evolutions. Each evolution involves evaluating every cell in the current board, and applying 4 rules which define how the cell will change for the next generation.</p>
+
+<p>These rules revolve around the neighbours of the cell:</p>
+
+<ol>
+<li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+<li>Any live cell with two or three live neighbours lives on to the next generation.
+<li>Any live cell with more than three live neighbours dies, as if by overpopulation.
+<li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+</ol>
+
+<p>And that's it, game done!</p>
+
