@@ -66,9 +66,10 @@ body {
 #logo_txt {
 	position: relative;
 	text-align: center;
-	font-family: courier;
+	font-family: "Comic Sans MS", cursive, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
+	width:90px
 }
 
 #logo_img {
@@ -179,4 +180,21 @@ pre {
 	color: white;
 	padding: 10px;
 	background-color: #E75757;
+}
+/*why havent you added adaptation for mobile jesus no wonder god made earth and was like fook this im out like cmon*/
+@media screen and (min-width: 600px) {
+	.nav_button{
+	font-size: 35px;
+	}
+	#main_container{font-size: 25px;}
+	#logo_txt {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 20px;
+	width:120
+	}
+	
+
+}
+	
+
 }
