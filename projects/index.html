@@ -6,6 +6,9 @@ layout: default
   img {
     width: 1280px;
   }
+  #cnvs {
+    background-color: black;
+  }
 </style>
 
 
@@ -31,10 +34,48 @@ On the other hand, projects written in JavaScript lend themselves to posts and e
 Finally, my Arduino projects. As with the JavaScript ones, you can access these through the drop down in the site banner. Some of these projects are also interfaced with Python (as mentioned in their descriptions) so you can see another use of that language. In addition to my personal projects posted there, I also run a club at my school which you can see by navigating through the club link at the top.
 </p>
 
+<!--
 <p>
 To fill up space and because this is the only mention of Python here, here's the logo:
 </p>
 
 <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"></img>
-<!--<img src="https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png"></img>
+<img src="https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png"></img>
 <img src="http://domoticx.com/wp-content/uploads/openscad-logo.png"></img>-->
+
+<p>
+And to fill up some space, here's a cool spinning tetrahedron that I never bothered making a post on:
+</p>
+
+<canvas id="cnvs"></canvas>
+
+<script src="https://rawgit.com/RoadKillCat/3dSimulationVR/master/thirdEngine.js"></script>
+<script>
+cnvs = document.getElementById("cnvs");
+ctx = cnvs.getContext("2d");
+
+cnvs.width = innerWidth;
+cnvs.height = innerHeight;
+
+wireframe = false;
+pnts = [{x: -0.5, y: -0.5, z: -0.5}, {x: 0.5, y: 0.5, z: -0.5}, {x: -0.5, y: 0.5, z: 0.5}, {x: 0.5, y: -0.5, z: 0.5}];
+
+world = [
+{verts: [pnts[0], pnts[1], pnts[2]], col: "red"},
+{verts: [pnts[1], pnts[2], pnts[3]], col: "green"},
+{verts: [pnts[0], pnts[1], pnts[3]], col: "blue"},
+{verts: [pnts[0], pnts[2], pnts[3]], col: "yellow"},
+];
+
+cam = {x: 0, y: -3, z: 1, yaw: 0, pitch: -18, roll: 0, fov: 70};
+
+
+angle = {x: 0, y: 0, z: 0};
+
+function update(){
+    angle.z++;
+    render(world.map(o=> ({verts: o.verts.map(yAxisRotate(toRad(angle.y))).map(zAxisRotate(toRad(angle.z))), col: o.col})), cam, cnvs, wireframe);
+}
+
+setInterval(update, 10);
+</script>
