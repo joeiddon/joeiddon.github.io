@@ -59,8 +59,36 @@ A 3d world is described as faces (planes) that make up 3d objects. As we essenti
 </p>
 
 <p>
-The final aspect is the color of each square (so that we have nice color gradients over the terrain/hills). This is really easy as JS allows you to describe colors with hsl (hue, saturation and lightness). The s and l terms are just constant throughout the terrain, but the hue (ranging from 0 to 360) determines the colour from a color wheel - which we need to relate to the height of the square. To convert, we need to first divide the height by our hill height variable again so we are now working with a value between -1 and 1. We now just need to times this by 180 and add 360 which will leave us with a hue value between 0 and 360.
+The final aspect is the color of each square (so that we have nice color gradients over the terrain/hills). This is really easy as JS allows you to describe colors with hsl (hue, saturation and lightness). The s and l terms are just constant throughout the terrain, but the hue (ranging from 0 to 360 but can be modded around) determines the colour from a color wheel - which we need to relate to the height of the square. To convert, we need to first divide the height by our hill height variable again so we are now working with a value between -1 and 1. We now just need to times this by a constant and then add a constant which will affect the range of the colours and which colours appear where on the hills (I decided to have mine loop through 2 cycles of the colour wheel (720 deg) by multiplying by 360 and then offsetting this by 180 so there is a neutral blue at 0 and reds at the peaks and troughs). 
 </p>
+
+<p>
+These two aspects can be seen in this "genWorld" function:
+</p>
+
+<pre>
+function genWorld(){
+    world = []
+    for (var r = 0; r < grid.length; r++){
+        for (var c = 0; c < grid.width; c++){
+            //var col = randCol()
+            var v = parseInt((heights[r][c] / hillHeight) * 360 + 180)
+            var col = 'hsl(' + v + ', 50%, 60%)'
+            world.push(
+                {verts: [{x: c * grid.squareSize, y: r * grid.squareSize, z: heights[r][c]},
+                         {x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize, z: heights[r][c+1]}, 
+                         {x: c * grid.squareSize, y: r * grid.squareSize + grid.squareSize, z: heights[r+1][c]}],
+                          col: col},
+                
+                {verts: [{x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize, z: heights[r][c+1]},
+                         {x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize + grid.squareSize, z:heights[r+1][c+1]}, 
+                         {x: c * grid.squareSize, y: r * grid.squareSize + grid.squareSize, z: heights[r+1][c]}],
+                          col: col}
+            )
+        }
+    }
+}
+</pre>
 
 <p>
 And that's it! The rest of the code (sliders, info stuff, controls) is pretty boring so I won't talk about that, but feel free to checkout the <a href="https://github.com/RoadKillCat/3dSimulationVR/blob/master/terrain.html">source code on GitHub</a> if you are interested.
