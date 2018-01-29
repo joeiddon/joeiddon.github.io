@@ -1,0 +1,69 @@
+---
+layout: default
+---
+
+<h1>A smooth terrain generator using my Perlin Noise and 3D Engine JS libraries</h>
+
+<h2><a href="http://joeiddon.me/3dSimulationVR/terrain.html">take a look here</a></h2>
+
+<p>
+So to summarise the two libraries, we essentially have two funcitons to work with:
+</p>
+
+<p>
+The 3d generation function which takes a world, described through faces, a camera, described with coordinates and angles of which direction its facing etc., a canvas element to write to and a simple boolean wireframe value.
+</p>
+
+<pre>
+//cam = {x: ,y: ,z: , yaw: ,pitch: ,roll: ,fov: }
+//world = [{verts: [{x: ,y: ,z: }, {x: ,y: ,z: }, ...], col: }, {verts: [{x: ,y: ,z: }, {x: ,y: ,z: }, ...], col: }, ...]
+
+function render(world, cam, canvas, wireframe){ ... }
+</pre>
+
+<p>
+We next have my Perlin Noise function which basically has a "get" function (below) that will take a floating point x,y coodinate and return the result of the 2d noise funciton at that point. It is inside a simple "perlin" object:
+</p>
+
+<pre>
+var perlin = {
+	get: function(x, y) { ... }
+}
+</pre>
+
+<p>
+It is then just a matter of converting the output of the noise function to 3d coordinates to describe a world that we can pass into the render function.
+</p>
+
+<p>
+As the noise function wants floats (each cell is defined by integer grids) and we want to be able to have a parameter which sets how many cells there are, we need to divide thenumber of cells by the minimum of the grid width and height (so that the cells are squares, not reactangles) to get floating point coordinates to pass in. Then we need to times the output of the perlin noise function (a float between -1 and 1) by a variable so that we can set the height of the hills. This method for creating a "heights" array is seen in the following code.
+</p>
+
+<pre>
+heights = []
+for (var r = 0; r < grid.length + 1; r++){
+	var row = []
+	for (var c = 0; c < grid.width + 1; c++){
+		row.push(perlin.get(c * (cells/Math.min(grid.width, grid.length)), r * (cells/Math.min(grid.width, grid.length))) * hillHeight)
+	}
+	heights.push(row)
+}
+</pre>
+
+<p>
+Now that we have the heights array, we need to convert this into 3d coordinates in the format at the top of this page.
+</p>
+
+<p>
+A 3d world is described as faces (planes) that make up 3d objects. As we essentially have a grid now of heights (2d array), we need a way of describing this with faces. The method I used is to have two triangles (as you can see in the finished thing) that split the square face so that it can bend. The first triangle is connected between the bottom right, bottom left and top left vertexes and the second between the bottom right, top right and top left. These coordinates then just get scaled up by a variable that describes the size of each square and the height of every corner is simply the corresponding entry in the heights array.
+</p>
+
+<p>
+The final aspect is the color of each square (so that we have nice color gradients over the terrain/hills). This is really easy as JS allows you to describe colors with hsl (hue, saturation and lightness). The s and l terms are just constant throughout the terrain, but the hue (ranging from 0 to 360) determines the colour from a color wheel - which we need to relate to the height of the square. To convert, we need to first divide the height by our hill height variable again so we are now working with a value between -1 and 1. We now just need to times this by 180 and add 360 which will leave us with a hue value between 0 and 360.
+</p>
+
+<p>
+And that's it! The rest of the code (sliders, info stuff, controls) is pretty boring so I won't talk about that, but feel free to checkout the <a href="https://github.com/RoadKillCat/3dSimulationVR/blob/master/terrain.html">source code on GitHub</a> if you are interested.
+</p>
+
+<p>Link at top to try it out!</p>
