@@ -15,17 +15,11 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 		dropdown.style.display = "block";
 	}
 
-	projects.onmouseout = function(e){
-		if (e.relatedTarget.parentNode != dropdown){
+	projects.onmouseout = dropdown.onmouseout = function(e){
+		if (e.relatedTarget.className != "nav_dropdown"){
 			dropdown.style.display = "none";
 		}
 	}
-
-	dropdown.onmouseout = function(e){
-		if (e.relatedTarget.parentNode != this && e.relatedTarget != this){
-			this.style.display = "none";
-		}
-    }
 }
 
 
