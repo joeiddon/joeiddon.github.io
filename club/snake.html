@@ -5,11 +5,14 @@ layout: default
 <h1>A Classic Snake Game</h1>
 
 <p>
-To get used to how the group would work, we decided to begin with something that wouldn't be too challenging, but would create something cool.
+    For our first project, we wanted to make something cool, but at the same time quite basic. We decided on a retro snake game.
 </p>
 
 <p>
-We used a MAX7219 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but is fairly inexpensive. To start with, we just wired it up loosely to an Arduino so we could focus our attention on the software (programming the game) rather than the hardware.
+We used an 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but was fairly cheap. To drive all 64 of the pixels, we used a specialised driver chip that would accept serial inputs called the <a href="https://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf">MAX7219"</a>.
+
+<p>
+We started prototyping the game by connecting it loosely to an Arduino so we could focus our attention on the software (programming the game) rather than the hardware.
 </p>
 
 <p>
@@ -27,36 +30,36 @@ We were prototyping with an Arduino Mega and a breadboard connected with some ju
 <img src="http://joeiddon.me/images/prototype.jpg"></img>
 
 <p>
-Now that we had the thing working, we decided that it would be nice to have a finished product that was one device. For this, we needed to be able to solder (to make a proper controller) and this would be a valuable skill for us in the future, so I gave a quick demonstration, and everyone picked it up straight away.
+Now that the code was working, we decided to start on the finished device. To do this, we needed to be able to solder (to make a proper controller) and this would be a valuable skill for the future. Everyone picked it up straight away.
 </p>
 
 <p>
-Next, we got the components together to build the final product - the main thing being a more compact matrix. We brought an unsoldered one off ebay quite cheaply, but it required us to solder it together including a miniscule surface-mount chip.
+Next, we got the components together to build the final product - the main thing being a more compact matrix. We brought an one off Ebay quite cheaply but it required us to solder it together including a miniscule surface-mount chip.
 </p>
 
 <!--<img src="http://joeiddon.me/images/matrix/matrix.jpg"></img>-->
 
 <p>
-And here are some pictures of our work soldering it together:
+Here's the driver chip that we tried to solder and a close-up of the LED matrix.
 </p>
 
-<img class="half_img" src="http://joeiddon.me/images/matrix/chip.jpg"></img>
-<img class="half_img" src="http://joeiddon.me/images/matrix/capacitor.jpg"></img>
+<img class="half_img" src="/images/matrix/maxim.png"></img><img
+class="half_img" src="/images/matrix/closeup.png"></img>
 
 <p>
-However, after soldering the different components onto the board, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount everything on. So even though this was a valuable lesson on soldering, we ended up <b>not</b> using it!
-</p>
-
-<p>
-Next, we made the controller board by soldering some push buttons to some copper stripboard. This then needed to be connected to the Arduino Nano, along with the LED matrix.
+However, after soldering the different components onto the board, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount everything on (the smaller one was basicall too small!). So even though this was a valuable lesson on soldering, we ended up <b>not</b> using it!
 </p>
 
 <p>
-And that was pretty much it! We uploaded the sketch to the Nano that we had already got working for the Mega (the code is compatible between board types in this case) and that was it. Here are some photos of the finished product, and finally a video of it in action.
+Next, we made the controller board by soldering some push buttons to some copper stripboard. This then needed to be connected to the Arduino Nano (a smaller microcontroller), along with the LED matrix - we just used some single-core wire for this.
+</p>
+
+<p>
+And that was pretty much it! We uploaded the sketch to the Nano that we had already got working for the Mega (the code was compatible between board types in this case) and that was it. Here are some photos of the finished product, and finally a video of it in action.
 </p>
 
 <img class="third_img" src="http://joeiddon.me/images/finnishedSide.jpg"
 ><img class="third_img" src="http://joeiddon.me/images/finnishedBottom.jpg"
 ><img class="third_img" src="http://joeiddon.me/images/finnishedTop.jpg">
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/ASf3uLuhJrI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
+<iframe width="1260" height="720" src="https://www.youtube.com/embed/ASf3uLuhJrI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
