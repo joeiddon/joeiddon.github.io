@@ -30,7 +30,7 @@ body {
 }
 
 #main_container {
-	width: 1280;
+	width: 1260;
 	margin: 0 auto;
 	font-family: courier
 }
@@ -126,10 +126,11 @@ body {
 	cursor: pointer;
 }
 
-.nav_dropdown:hover { display: block; }
+.nav_dropdown:hover {
+    display: block;
+}
 
-
-#logos_container{
+#logos_container {
 	position: fixed;
 	right: 0;
 	top: 0;
@@ -143,8 +144,6 @@ body {
 	cursor: pointer;
 }
 
-
-
 h1 {
 	margin: 0;
 	padding: 12px;
@@ -153,9 +152,12 @@ h1 {
 }
 
 img {
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 	width: 100%;
 }
+
+.half_img {
+    width: 
 
 a {
 	font-family: inherit;
