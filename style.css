@@ -92,7 +92,6 @@ body {
 
 .nav_button {
 	display: inline-block;
-	/* background-color: #00B0E0; */
 	height: 100%;
 	text-align: center;
 	line-height: 40px;
@@ -125,6 +124,10 @@ body {
 
 .nav_dropdown:hover {
     display: block;
+}
+
+.no_underline {
+    text-decoration: none;
 }
 
 #logos_container {
