@@ -5,11 +5,11 @@ layout: default
 <h1>A Classic Snake Game</h1>
 
 <p>
-For our first project, we wanted to make something cool, but at the same time quite basic. We decided on a retro snake game.
+For our first project we wanted to make something cool, but at the same time not too complex. We decided on a retro snake game.
 </p>
 
 <p>
-We used an 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but was fairly cheap. To drive all 64 of the pixels, we used a specialised driver chip that would accept serial inputs called the <a href="https://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf">MAX7219"</a>.
+We used an 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but was fairly cheap. To drive all 64 of the pixels, we used a specialised driver chip that would accept serial inputs called the <a href="https://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf">MAX7219</a>.
 
 <p>
 We started prototyping the game by connecting it loosely to an Arduino so we could focus our attention on the software (programming the game) rather than the hardware.
@@ -30,11 +30,11 @@ We were prototyping with an Arduino Mega and a breadboard connected with some ju
 <img src="http://joeiddon.me/images/prototype.jpg"></img>
 
 <p>
-Now that the code was working, we decided to start on the finished device. To do this, we needed to be able to solder (to make a proper controller) and this would be a valuable skill for the future. Everyone picked it up straight away.
+Now that the code was working, we decided to start on the finished product. To do this, we needed to be able to solder (to make a proper controller) and this would be a valuable skill for the future. Everyone picked it up straight away.
 </p>
 
 <p>
-Next, we got the components together to build the final product - the main thing being a more compact matrix. We brought an one off Ebay quite cheaply but it required us to solder it together including a miniscule surface-mount chip.
+We then gathered the components - the main thing being a more compact matrix. We brought one from Ebay quite cheaply but it required us to solder it together including a miniscule surface-mount chip.
 </p>
 
 <!--<img src="http://joeiddon.me/images/matrix/matrix.jpg"></img>-->
@@ -47,7 +47,7 @@ Here's the driver chip that we tried to solder and a close-up of the LED matrix.
 class="half_img" src="/images/matrix/closeup.png"></img>
 
 <p>
-However, after soldering the different components onto the board, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount everything on (the smaller one was basicall too small!). So even though this was a valuable lesson on soldering, we ended up <b>not</b> using it!
+However, after soldering the different components onto the board, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount everything on (the smaller one was basically too small!). So even though this was a valuable lesson on soldering, we ended up <b>not</b> using it!
 </p>
 
 <p>
@@ -55,7 +55,11 @@ Next, we made the controller board by soldering some push buttons to some copper
 </p>
 
 <p>
-And that was pretty much it! We uploaded the sketch to the Nano that we had already got working for the Mega (the code was compatible between board types in this case) and that was it. Here are some photos of the finished product, and finally a video of it in action.
+And that was pretty much it! We uploaded the sketch to the Nano that we had already got working for the Mega (the code was compatible between board types in this case) and we were ready to play our first game.
+</p>
+
+<p>
+Here are some photos of the finished product, and finally a video of it in action.
 </p>
 
 <img class="third_img" src="http://joeiddon.me/images/finnishedSide.jpg"
