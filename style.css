@@ -151,13 +151,24 @@ h1 {
 	font-size: 45px;
 }
 
+iframe {
+    width: 100%;
+    height: 720px;
+    border: 0;
+}
+
 img {
 	/*margin: 0 auto;*/
 	width: 100%;
 }
 
 .half_img {
-    width: 
+    width: 630px;
+}
+
+.third_img {
+    width: 420px;
+}
 
 a {
 	font-family: inherit;
