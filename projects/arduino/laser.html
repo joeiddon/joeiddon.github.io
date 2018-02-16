@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<h1>A Proof-Of-Concept LASER-LDR Sensor</h1>
+
+<p>Most Arduino boards have analog pins which accurately sense 0-5V. A light dependent resistor (LDR) changes its resistance in iresponse to light. However, since the analog pins only measure voltage (and not resistance), a potential divider circuit is needed: (source wikipedia)</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Resistive_divider2.svg/137px-Resistive_divider2.svg.png"></img>
+
+<p>Once I could then get an accurate reading of the lots of things became possible. One useful thing being to couple this sensor with a LASER. I soldered together a little device that joined these two components together. This would allow me to test it in different applications.</p>
+
+<img class="half_img" src="/images/LDR.jpg">
+<img class="half_img" src="/images/LASER.jpg">
+<img class="half_img" src="/images/laserbeam.jpg">
+
+<p>From here, the main application I had in mind was making some kind of light gate. This would involve bouncing the light off a mirror and back at the LDR. Then, if the laserbeam is broken, the Arduino could carry out some task (for testing purposes I just lit the on-board LED (pin 13)) when the beam was active.</p>
+
+<p>For the mirror itself, it had to be of high quality in order to create a clean reflection. Luckily I had a small rectangular segment that I salvaged from an old scanner.</p>
+
+<p>Here is a video of me breaking the beam:</P>
+
+<iframe width="1260" height="720" src="https://www.youtube.com/embed/msnsm6aShFo?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
+
+<p>Finally, I realised that when the devide was held close to a solid surface, the reflection of the LASER's light off the surface was enough to be noticable by the Arduino. I modified the simple code (it was merely a THRESH #define) and now it worked as a proximity sensor!</p>
+
+<p>A possible appication of this now (video below) would be on a small robot - one where an ultrasound sensor would be too large. The device could be incorporated easily and allow for autonomous navigation.</p>
+
+<iframe width="1260" height="720" src="https://www.youtube.com/embed/czWjbmVSPvI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
