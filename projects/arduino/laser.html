@@ -8,22 +8,24 @@ layout: default
 
 <img class="small_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Resistive_divider2.svg/137px-Resistive_divider2.svg.png"></img>
 
-<p>Once I could then get an accurate reading of the lots of things became possible. One useful thing being to couple this sensor with a LASER. I soldered together a little device that joined these two components together. This would allow me to test it in different applications.</p>
+<p>Once I could then get an accurate reading of the current light intensity, there were now many different applications. One useful thing being to couple this sensor with a LASER. I soldered together a little device that joined these two components together - creating a neat package.</p>
 
-<img class="half_img" src="/images/LDR.jpg"
-><img class="half_img" src="/images/LASER.jpg"
-><img class="half_img" src="/images/laserbeam.jpg">
+<img class="third_img" src="/images/LDR.jpg"
+><img class="third_img" src="/images/LASER.jpg"
+><img class="third_img" src="/images/laserbeam.jpg">
 
-<p>From here, the main application I had in mind was making some kind of light gate. This would involve bouncing the light off a mirror and back at the LDR. Then, if the laserbeam is broken, the Arduino could carry out some task (for testing purposes I just lit the on-board LED (pin 13)) when the beam was active.</p>
+<p>From here, the main thing I had in mind was making some kind of light gate. This would involve bouncing the LASER off a mirror and back at the LDR. Then, depending on the current state, the Arduino could carry out some task (for testing purposes I just lit the on-board LED (pin 13)) when the beam was active.</p>
 
 <p>For the mirror itself, it had to be of high quality in order to create a clean reflection. Luckily I had a small rectangular segment that I salvaged from an old scanner.</p>
 
-<p>Here is a video of me breaking the beam:</P>
+<p>Here is a video of me breaking the beam:</p>
 
 <iframe width="1260" height="720" src="https://www.youtube.com/embed/msnsm6aShFo?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
 
-<p>Finally, I realised that when the devide was held close to a solid surface, the reflection of the LASER's light off the surface was enough to be noticable by the Arduino. I modified the simple code (it was merely a THRESH #define) and now it worked as a proximity sensor!</p>
+<p>Finally, I realised that when the device was held close to a solid surface, the reflection of the LASER's light off the surface was enough to be noticable by the Arduino. I modified the simple code (merely adjusting a threshold #define) and now it worked as a proximity sensor!</p>
 
-<p>A possible appication of this now (video below) would be on a small robot - one where an ultrasound sensor would be too large. The device could be incorporated easily and allow for autonomous navigation.</p>
+<p>A possible appication of this setup could be on a small robot - one where an ultrasound sensor would be too large. The device could be incorporated easily and allow for autonomous navigation.</p>
+
+<p>Here is a video showing the proximity sensing functionality:</p>
 
 <iframe width="1260" height="720" src="https://www.youtube.com/embed/czWjbmVSPvI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
