@@ -156,6 +156,12 @@ img {
 	width: 100%;
 }
 
+.small_img {
+    width: 32%;
+    display: block;
+    margin: auto;
+}
+
 .half_img {
     width: 630px;
     display: inline-block;
