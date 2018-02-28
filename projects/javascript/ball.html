@@ -8,15 +8,22 @@ layout: default
 
 <p>After finishing my 3d engine to a reasnoble level, I thought I'd make a neat demonstration of its functionality.</p>
 
-<p>All you can do is rotate the wireframe ball with your mouse. It is not that interesting, but was useful for me to get used to mapping mouse movements to rotation of an object. This could be useful in the future for some sort of 3d viewer (such as an stl one <a href="https://www.viewstl.com/">this one</a> that uses three.js.</p>
+<p>All you can do is rotate the wireframe ball with your mouse. It is not that interesting, but was useful for me to get used to mapping mouse movements to rotation of an object. This could be useful in the future for a 3d object viewer (such as an stl one like <a href="https://www.viewstl.com/">this</a> that uses three.js).</p>
 
-<p>The actual code for this was pretty short, all that needed to be done was generate the coordinates for a ball using the basic <a href="https://en.wikipedia.org/wiki/Trigonometry">trig functions</a>. As a sidenote, that wikipedia articles was one of my inspirations for making it. From the following image, the sin() and cos() functions become suddenly so obvious. I was taught trigonometry from SOHCAHTOA and the methods of how to apply the funcitons to basic triangles (and then obviously this progressed to non-right angled trianges with the sine and cosine rules later), but when reading that article, felt as if there was a sizeable gap in my understanding of what they fundamentally meant. It makes so much sense now!</p>
+<p>The actual code for this was pretty short, all that needed to be done was generate the coordinates for a ball using the basic <a href="https://en.wikipedia.org/wiki/Trigonometry">trig functions</a>.</p>
+
+<p>As a sidenote, that wikipedia articles was one of my inspirations for making it. From the following image, the sin() and cos() functions become suddenly so obvious. I was taught trigonometry from SOHCAHTOA and the methods with right angled triangles (and then obviously this progressed to non-right angled trianges with the sine and cosine rules later), but when reading that article, I felt as if there was a sizeable gap in my understanding of what they fundamentally meant. It makes so much sense now! - theta is just the angle of a certain normal to a unit circle, and sin(theta) is merely the x-coordinate (distance across ) and cosine the y-coordinate (distance up) to the point on the circle. This explains perfectly the nature of the curve and precisely *why* SOHCAHTOA works - it is just scaling of this circle/triangle seen here. It also explains why both sine and cosine are period 360 deg or 2 pi, because once theta has gone around once, it is the same as it having not gone around at all - the lengths are back to how they were before. The only thing I haven't mentioned is tan(theta) which is simply the gradient of this line (explaining the identity we were "told to learn" of: tan = sin / cos). Which explains why tan tends to infinity (and -infinity) every 180 degrees (starting at 90) as the gradient of the line is infinity (straight up) at theta = 90, 270, 540 and so on. And this of course also obeys the scaling rule too.</p>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Sinus_und_Kosinus_am_Einheitskreis_1.svg"></img>
 
 <p>So now generating the coordinates that describe the sphere was simple, I just created a simple function (below) that takes a yaw and pitch angle and returns the coordinate at that point on a sphere with radius 1. The code is fairly self-explanatory and I believe to be fairly succinct.</p>
 
 <pre>
+function circleCoord(yaw, pitch){
+    return {x: Math.sin(yaw) * Math.cos(pitch),
+            y: Math.cos(yaw) * Math.cos(pitch),
+            z: Math.sin(pitch)};
+}
 </pre>
 
 <p>Apart from the above function, the rest of the code is pretty simple and boring so I won't bother going into depth here. However, as always, feel free to checkout <a href="https://github.com/RoadKillCat/3dSimulationVR/blob/master/ball.html">the source</a> on github.</p>
