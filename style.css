@@ -1,125 +1,123 @@
 html {
-	/* min-width: 1280px; */
+    /* min-width: 1280px; */
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	overflow: auto;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
 }
 
 #banner {
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	width: 100%;
-	background-color: #00979F;
-	max-width: none;
-	height: 100px;
-	box-shadow: 0 -20px 20px 20px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    background-color: #00979F;
+    max-width: none;
+    height: 100px;
+    box-shadow: 0 -20px 20px 20px;
 }
 
 #main {
-	position: absolute;
-	overflow-y: scroll;
-	top: 100px;
-	height: calc(100vh - 100px);
-	width: 100%;
-	padding: 0;
-	/*padding: 10px 0px 10px 0px;*/
+    position: absolute;
+    overflow-y: scroll;
+    top: 100px;
+    height: calc(100vh - 100px);
+    width: 100%;
+    padding: 0;
+    /*padding: 10px 0px 10px 0px;*/
 }
 
 #main_container {
-	width: 1260;
-	margin: 0 auto;
-	font-family: courier
+    width: 1260;
+    margin: 0 auto;
+    font-family: courier
 }
 
 #footer {
-	bottom: 0;
-	width: 100%;
-	background-color: #00979F;
-	margin-top: 5px;
-	padding: 5px 0 3px 0;
-	text-align: center;
-	font-size: 12px;
-	font-family: monospace;
+    bottom: 0;
+    width: 100%;
+    background-color: #00979F;
+    margin-top: 5px;
+    padding: 5px 0 3px 0;
+    text-align: center;
+    font-size: 12px;
+    font-family: monospace;
 }
 
 
 #logo {
-	position: relative;
-	display: block;
-	padding: 5px;
-	width: 80px;
-	height: 80px;
-	top: 5px;
-	left: 5px;
-	color: white;
+    position: relative;
+    display: block;
+    padding: 5px;
+    width: 80px;
+    height: 80px;
+    top: 5px;
+    left: 5px;
+    color: white;
 }
 
 #logo:hover, .logo_link:hover, .nav_button:hover, .nav_dropdown:hover{
-	background-color: #20B7BF;
+    background-color: #20B7BF;
 }
 
 #logo_txt {
-	position: relative;
-	text-align: center;
-	font-family: monospace;
-	font-size: 14px;
-	line-height: 20px;
+    position: relative;
+    text-align: center;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 #logo_img {
-	display: block;
-	margin: auto;
-	width: 60px;
-	height: 60px;
+    display: block;
+    margin: auto;
+    width: 60px;
+    height: 60px;
 }
 
 #menu {
-	position: relative;
-	display: inline-block;
-	height: 40px;
-	padding: 10px;
-	bottom: 45px;
-	left: 50%;
-	transform: translate(-50%, 0);
-	
-	/*margin-left: -131.5px;	 /*half of the menu div which doesn't change but does w/ font-size */
-	font-size: 0;
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    padding: 10px;
+    bottom: 45px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 0;
 }
 
 .nav_button {
-	display: inline-block;
-	height: 100%;
-	text-align: center;
-	line-height: 40px;
-	color: white;
-	font-family: courier;
-	font-size: 20px;
-	margin: 0px 2px 0px 2px;
-	padding: 0px 6px 0px 6px;
+    display: inline-block;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    font-family: courier;
+    font-size: 20px;
+    margin: 0px 2px 0px 2px;
+    padding: 0px 6px 0px 6px;
 }
 
 #dropdown {
-	display: none;
-	position: absolute;
-	width: 112px;
-	left: 74px;
-	z-index: 1;
+    display: none;
+    position: absolute;
+    width: 112px;
+    left: 74px;
+    z-index: 1;
 }
 
 .nav_dropdown {
-	height: 100%;
-	background-color: #00979F;
-	text-align: center;
-	line-height: 34px;
-	color: white;
-	font-family: courier;
-	font-size: 15px;
-	margin: 0px 2px 0px 2px;
-	padding: 0px 6px 0px 6px;
+    height: 100%;
+    background-color: #00979F;
+    text-align: center;
+    line-height: 34px;
+    color: white;
+    font-family: courier;
+    font-size: 15px;
+    margin: 0px 2px 0px 2px;
+    padding: 0px 6px 0px 6px;
 }
 
 .nav_dropdown:hover {
@@ -131,29 +129,29 @@ body {
 }
 
 #logos_container {
-	position: fixed;
-	right: 0;
-	top: 0;
-	padding: 4px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 4px;
 }
 
 .logo_link {
-	display: inline-block;
-	padding: 2px;
-	width: 35px;
-	cursor: pointer;
+    display: inline-block;
+    padding: 2px;
+    width: 35px;
+    cursor: pointer;
 }
 
 h1 {
-	margin: 0;
-	padding: 12px;
-	text-align: center;
-	font-size: 45px;
+    margin: 0;
+    padding: 12px;
+    text-align: center;
+    font-size: 45px;
 }
 
 img {
-	/*margin: 0 auto;*/
-	width: 100%;
+    /*margin: 0 auto;*/
+    width: 100%;
 }
 
 .small_img {
@@ -173,25 +171,25 @@ img {
 }
 
 a {
-	font-family: inherit;
-	font-size: inherit;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 ol {
-	list-style-type: tibetan;
-	padding-left: 2em;
+    list-style-type: tibetan;
+    padding-left: 2em;
 }
 
 p {
-	margin: 0;
-	padding: 6px;
-	font-size: 16px;
-	font-family: courier;
+    margin: 0;
+    padding: 6px;
+    font-size: 16px;
+    font-family: courier;
 }
 
 pre {
-	border-radius: 6px;
-	color: white;
-	padding: 10px;
-	background-color: #E75757;
+    border-radius: 6px;
+    color: white;
+    padding: 10px;
+    background-color: #E75757;
 }
