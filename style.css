@@ -43,7 +43,7 @@ body {
 }
 
 #main_container {
-    /*width: 1260; <-- ~experimental~ */
+    min-width: 1260;
     margin: 0 auto;
     font-family: courier
 }
