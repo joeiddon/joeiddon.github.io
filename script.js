@@ -2,11 +2,10 @@
 
 */
 
-let gid = document.getElementById;
-let projects       = gid('projects');
-let dropdown       = gid('dropdown');
-let main           = gid('main');
-let main_container = gid('main_container');
+let projects       = document.getElementById('projects');
+let dropdown       = document.getElementById('dropdown');
+let main           = document.getElementById('main');
+let main_container = document.getElementById('main_container');
 
 //if on phone, dropdown menu buttons require click instead of mouse hover to show
 if (/android|webos|iphone|ipad|ipod|blackberry/i.test(navigator.userAgent) ) {
