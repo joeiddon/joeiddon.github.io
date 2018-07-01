@@ -3,7 +3,7 @@ layout: default
 ---
 
 <h1>Creating Perlin Noise in JS</h1>
-<script src="http://joeiddon.me/perlin/perlin.js"></script>
+<script src="http://joeiddon.github.io/perlin/perlin.js"></script>
 
 <p>
 Perlin Noise is a a type of <a href="https://en.wikipedia.org/wiki/Gradient_noise">gradient noise</a> used mainly in computer graphics. It allows for smooth natural-looking randomness which can be applied to a number of things such as: texture of surfaces, flames and terrain - what I will be using it for. The most well known place perlin noise is implented is minecraft where it is used generate the landscape so the hills, caves etc.
@@ -23,7 +23,7 @@ Following <a href="https://en.wikipedia.org/wiki/Perlin_noise">this wikipedia pa
 <li>Interpolate the 2^n dot products to get the value
 </ol>
 
-<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href="http://joeiddon.me/perlin/demo">demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href="http://joeiddon.me/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
+<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href="http://joeiddon.github.io/perlin/demo">demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href="http://joeiddon.github.io/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
 
 <canvas id="cnvs"></canvas>
 <script>
@@ -135,4 +135,4 @@ interp: function(x, a, b){
 To interpolate between the four cell nodes with this function, we must do so in three steps (bilenear interpolation). First by interpolating how far the x distance of the input is into the cell (between 0 and 1) between the top two dot-products and then interpolating the inputs x value into the cell again between the bottom two dot-products of the cell. Finally, interpolate between the two previous values to get the final value for that noise which will be returned from the library. Note that as the function returns a value between -1 and 1, and I would like it to return a value between 0 and 1, the final value is mapped to my range by incrementing and dividing by 2.
 </p>
 
-And that's it for the explanation. Head over to GitHub where you can view my finished <a href='https://github.com/roadkillcat/perlin'>Perlin Noise library</a>.
+And that's it for the explanation. Head over to GitHub where you can view my finished <a href='https://github.com/joeiddon/perlin'>Perlin Noise library</a>.
