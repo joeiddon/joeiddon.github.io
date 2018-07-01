@@ -30,8 +30,8 @@ if (/android|webos|iphone|ipad|ipod|blackberry/i.test(navigator.userAgent) ) {
 //resize any <iframe> elements to be the size of the main_container
 let iframes = document.getElementsByTagName('iframe');
 for (let i = 0; i < iframes.length; i++){
-    iframes[i].width = main.clientWidth;
-    iframes[i].height = main.clientWidth/16*9;
+    iframes[i].width  = main_container.clientWidth;
+    iframes[i].height = main_container.clientWidth/16*9;
 }
 
 //google analytics
