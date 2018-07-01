@@ -1,6 +1,8 @@
-html {
-    /* min-width: 1280px; */
-}
+/*
+
+remove all comments when deciding to remove url message
+
+*/
 
 body {
     margin: 0;
@@ -8,21 +10,25 @@ body {
     overflow: auto;
 }
 
+#message_banner_wrap {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    height: 160px;
+}
+
 #url_message {
-    text-align: centre;
-    margin: auto;
-    max-width: 60%;
+    height: 60px;
     background-color: #e55;
     font-family: courier;
 }
 
 #banner {
-    position: fixed;
-    z-index: 1;
-    top: 0;
+    position: relative; /* fixed */
+/*    z-index: 1;*/
+/*    top: 0;    */
     width: 100%;
     background-color: #00979F;
-    max-width: none;
     height: 100px;
     box-shadow: 0 0 20px 0;
 }
@@ -30,15 +36,14 @@ body {
 #main {
     position: absolute;
     overflow-y: scroll;
-    top: 100px;
-    height: calc(100vh - 100px);
+    top: 160px; /*100px;*/
+    height: calc(100vh - 160px); /*100px);*/
     width: 100%;
     padding: 0;
-    /*padding: 10px 0px 10px 0px;*/
 }
 
 #main_container {
-    width: 1260;
+    /*width: 1260; <-- ~experimental~ */
     margin: 0 auto;
     font-family: courier
 }
@@ -154,7 +159,6 @@ h1 {
 }
 
 img {
-    /*margin: 0 auto;*/
     width: 100%;
 }
 
