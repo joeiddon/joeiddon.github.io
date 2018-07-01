@@ -44,7 +44,7 @@ body {
 }
 
 #main_container {
-    min-width: 1260;
+    max-width: 1260;
     margin: 0 auto;
     font-family: courier
 }
