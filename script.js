@@ -35,7 +35,7 @@ for (let i = 0; i < iframes.length; i++){
 }
 
 //resize any <script> elements to be the size of the main_container
-let scripts = document.getELementsByTagName('script');
+let scripts = document.getElementsByTagName('script');
 for (let i = 0; i < scripts.length; i++){
     scripts[i].width  = main_container.clientWidth;
     scripts[i].height = main_container.clientWidth/16*9;
