@@ -4,7 +4,7 @@ layout: default
 
 <h1>Bouncing Balls</h1>
 
-<h2><a href="https://joeiddon.github.io/UltiBouncingBall/BallHtml.html">run the simulation here</a></h2>
+<h2><a href='https://joeiddon.github.io/balls'>run the simulation here</a></h2>
 
 <p>
 This simulation was one of the first things I coded in JS. Yes it has obviously been done before, but I wanted try and create an accurate, realistic and clean solution to demonstrate the physics of how balls react in a system with some paramaters to play with.
@@ -16,17 +16,17 @@ The basic simulation of a bouncing ball is relatively simple and I did using obj
 <ol>
   <li> create a canvas in html
 	<li> create a ball object with an x,y position, x,y velocity and radius
-	<li> trace a circle using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc">canvas arc method</a> at the position of the ball on the canvas
+	<li> trace a circle using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc'>canvas arc method</a> at the position of the ball on the canvas
 	<li> check if the ball's next position will be outside of walls
 	<li> if it will be, times the respective (x for top and bottom, y for edges) velocity by -1
 	<li> update the ball's x,y position by its velocity
 	<li> clear the canvas
-	<li> use javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">set interval</a> to repeat the last 3 steps every couple ms
+	<li> use javascript's <a href='https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval'>set interval</a> to repeat the last 3 steps every couple ms
 </ol>
 
 <pre>
-canvas1 = document.getElementById("canvas1");								//get the canvas from the html
-ctx1 = canvas1.getContext("2d");									//get 2d context
+canvas1 = document.getElementById('canvas1');								//get the canvas from the html
+ctx1 = canvas1.getContext('2d');									//get 2d context
 ball = {x: 100, y: 100, vx: 4, vy: 1, r: 20};							   	//create ball object
 function update(){
   if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > canvas1.width - ball.r) ball.vx *= -1;	//check if future position of ball off screen sides
@@ -37,16 +37,16 @@ function update(){
   ctx1.beginPath();											//begin canvas path
   ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);							//trace circle outline
   ctx1.stroke();											//draw outline				
-  ctx1.fillStyle="#1d7";
+  ctx1.fillStyle='#1d7';
   ctx1.fill();												//fill it in
 }
 setInterval(update, 10);										//set interval for function update every 10ms
 </pre>
 
-<canvas id="canvas1" width="500" height="300" style="border: 0;margin: 0;background-color: black;"></canvas>
+<canvas id='canvas1' width='500' height='300' style='border: 0;margin: 0;background-color: black;'></canvas>
 <script>
-canvas1 = document.getElementById("canvas1")
-ctx1 = canvas1.getContext("2d")
+canvas1 = document.getElementById('canvas1')
+ctx1 = canvas1.getContext('2d')
 ball = {x: 100, y: 100, vx: 4, vy: 1, r: 20}
 setInterval(function(){
   if (ball.x + ball.vx < 0 + ball.r || ball.x + ball.vx > canvas1.width - ball.r) ball.vx *= -1
@@ -57,7 +57,7 @@ setInterval(function(){
   ctx1.beginPath()
   ctx1.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
   ctx1.stroke()
-  ctx1.fillStyle="#1d7"
+  ctx1.fillStyle='#1d7'
   ctx1.fill()
 }, 10)
 </script>

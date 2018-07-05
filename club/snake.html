@@ -9,7 +9,7 @@ For our first project we wanted to make something cool, but at the same time not
 </p>
 
 <p>
-We used an 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but was fairly cheap. To drive all 64 of the pixels, we used a specialised driver chip that would accept serial inputs called the <a href="https://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf">MAX7219</a>.
+We used an 8x8 LED matrix for the display as it would allow us for enough resolution to play the game, but was fairly cheap. To drive all 64 of the pixels, we used a specialised driver chip that would accept serial inputs called the <a href='https://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf'>MAX7219</a>.
 
 <p>
 We started prototyping the game by connecting it loosely to an Arduino so we could focus our attention on the software (programming the game) rather than the hardware.
@@ -20,14 +20,14 @@ After a couple of weeks we managed to get the core design of the snake game work
 </p>
 
 <p>
-The Arduino sketch (code) for this can be seen over on <a href="https://github.com/joeiddon/LEDMatrixSnake">github</a>.
+The Arduino sketch (code) for this can be seen over on <a href='https://github.com/joeiddon/led_matrix_snake'>GitHub</a>.
 </p>
 
 <p>
 We were prototyping with an Arduino Mega and a breadboard connected with some jumpers:
 </p>
 
-<img src="https://joeiddon.github.io/images/prototype.jpg"></img>
+<img src='https://joeiddon.github.io/images/prototype.jpg'></img>
 
 <p>
 Now that the code was working, we decided to start on the finished product. To do this, we needed to be able to solder (to make a proper controller) and this would be a valuable skill for the future. Everyone picked it up straight away.
@@ -37,14 +37,14 @@ Now that the code was working, we decided to start on the finished product. To d
 We then gathered the components - the main thing being a more compact matrix. We brought one from Ebay quite cheaply but it required us to solder it together including a miniscule surface-mount chip.
 </p>
 
-<!--<img src="https://joeiddon.github.io/images/matrix/matrix.jpg"></img>-->
+<!--<img src='https://joeiddon.github.io/images/matrix/matrix.jpg'></img>-->
 
 <p>
 Here's the driver chip that we tried to solder and a close-up of the LED matrix.
 </p>
 
-<img class="half_img" src="/images/matrix/maxim.png"></img><img
-class="half_img" src="/images/matrix/closeup.png"></img>
+<img class='half_img' src='/images/matrix/maxim.png'></img><img
+class='half_img' src='/images/matrix/closeup.png'></img>
 
 <p>
 However, after soldering the different components onto the board, we realised that to make the project as small as possible, it would make sense to just use the larger matrix as this had enough space to mount everything on (the smaller one was basically too small!). So even though this was a valuable lesson on soldering, we ended up <b>not</b> using it!
@@ -62,8 +62,8 @@ And that was pretty much it! We uploaded the sketch to the Nano that we had alre
 Here are some photos of the finished product, and finally a video of it in action.
 </p>
 
-<img class="third_img" src="https://joeiddon.github.io/images/finnishedSide.jpg"
-><img class="third_img" src="https://joeiddon.github.io/images/finnishedBottom.jpg"
-><img class="third_img" src="https://joeiddon.github.io/images/finnishedTop.jpg">
+<img class='third_img' src='https://joeiddon.github.io/images/finnishedSide.jpg'
+><img class='third_img' src='https://joeiddon.github.io/images/finnishedBottom.jpg'
+><img class='third_img' src='https://joeiddon.github.io/images/finnishedTop.jpg'>
 
-<iframe width="1260" height="720" src="https://www.youtube.com/embed/ASf3uLuhJrI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
+<iframe width='1260' height='720' src='https://www.youtube.com/embed/ASf3uLuhJrI?mute=1&rel=0&modestbranding=1&showinfo=0&color=white' frameborder='0' allowfullscreen=''></iframe>
