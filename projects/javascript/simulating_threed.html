@@ -5,7 +5,7 @@ layout: default
 <h1>Simulating 3D in the html5 canvas</h1>
 
 <p>
-When normally approached with the task of 3D simulation, one may opt to use the well-tested JS library <a href="https://threejs.org/">three js</a> however, this is a post explaining how I went about doing it myself from scratch. The end result was pretty decent and lends itself to many different applications but is still a significant way off the capabilities of any well used libraries like the above mentioned.
+When normally approached with the task of 3D simulation, one may opt to use the well-tested JS library <a href='https://threejs.org/'>three js</a> however, this is a post explaining how I went about doing it myself from scratch. The end result was pretty decent and lends itself to many different applications but is still a significant way off the capabilities of any well used libraries like the above mentioned.
 </p>
 
 <p>
@@ -56,8 +56,8 @@ We have now achieved the first big step in 3D simulation. Along with a little si
 </p>
 
 <pre>
-var cnvs = document.getElementById("cnvs")
-var ctx = cnvs.getContext("2d")
+var cnvs = document.getElementById('cnvs')
+var ctx = cnvs.getContext('2d')
 
 var width = cnvs.width
 var height = cnvs.height
@@ -69,39 +69,39 @@ var coordinates = [{x: 5, y: 50, z: 10}, {x: -5, y: 50, z: 10}, {x: -5, y: 50, z
 drawScreen()
 
 function drawScreen(){
-	ctx.clearRect(0, 0, width, height)
-	ctx.beginPath()
-	for (var c = 0; c < coordinates.length; c ++){
-		var coord = coordinates[c]
-		
-		var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
-		var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
-		
-		var x = width  / 2 + (yaw   * (width / fov))
-		var y = height / 2 - (pitch * (width / fov))
-		ctx.lineTo(x, y)	
-	}
-	ctx.closePath()
-	ctx.fillStyle = "cyan"
-	ctx.stroke()
-	ctx.fill()
+        ctx.clearRect(0, 0, width, height)
+        ctx.beginPath()
+        for (var c = 0; c < coordinates.length; c ++){
+                var coord = coordinates[c]
+                
+                var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
+                var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
+                
+                var x = width  / 2 + (yaw   * (width / fov))
+                var y = height / 2 - (pitch * (width / fov))
+                ctx.lineTo(x, y)        
+        }
+        ctx.closePath()
+        ctx.fillStyle = 'cyan'
+        ctx.stroke()
+        ctx.fill()
 }
 
-document.addEventListener("keydown", function (e){
-	var key = e.keyCode
-	if (key == 87) cam.y += 2
-	if (key == 83) cam.y -= 2
-	if (key == 68) cam.x += 2
-	if (key == 65) cam.x -= 2
-	drawScreen()
+document.addEventListener('keydown', function (e){
+        var key = e.keyCode
+        if (key == 87) cam.y += 2
+        if (key == 83) cam.y -= 2
+        if (key == 68) cam.x += 2
+        if (key == 65) cam.x -= 2
+        drawScreen()
 })
 </pre>
 
-<canvas id="cnvs" width="1280" height="720" style="background-color: #FCFCDA;" ></canvas>
+<canvas id='cnvs' width='1280' height='720' style='background-color: #FCFCDA;' ></canvas>
 
 <script>
-var cnvs = document.getElementById("cnvs")
-var ctx = cnvs.getContext("2d")
+var cnvs = document.getElementById('cnvs')
+var ctx = cnvs.getContext('2d')
 
 var width = cnvs.width
 var height = cnvs.height
@@ -113,36 +113,36 @@ var coordinates = [{x: 5, y: 50, z: 10}, {x: -5, y: 50, z: 10}, {x: -5, y: 50, z
 drawScreen()
 
 function drawScreen(){
-	ctx.clearRect(0, 0, width, height)
-	ctx.beginPath()
-	for (var c = 0; c < coordinates.length; c ++){
-		var coord = coordinates[c]
-		
-		var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
-		var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
-		
-		var x = width  / 2 + (yaw   * (width / fov))
-		var y = height / 2 - (pitch * (width / fov))
-		ctx.lineTo(x, y)	
-	}
-	ctx.closePath()
-	ctx.fillStyle = "cyan"
-	ctx.stroke()
-	ctx.fill()
+        ctx.clearRect(0, 0, width, height)
+        ctx.beginPath()
+        for (var c = 0; c < coordinates.length; c ++){
+                var coord = coordinates[c]
+                
+                var yaw = Math.atan2(coord.x - cam.x, coord.y - cam.y) * (180 / Math.PI)
+                var pitch   = Math.atan2(coord.z - cam.z, coord.y - cam.y) * (180 / Math.PI)
+                
+                var x = width  / 2 + (yaw   * (width / fov))
+                var y = height / 2 - (pitch * (width / fov))
+                ctx.lineTo(x, y)
+        }
+        ctx.closePath()
+        ctx.fillStyle = 'cyan'
+        ctx.stroke()
+        ctx.fill()
 }
 
-document.addEventListener("keydown", function (e){
-	var key = e.keyCode
-	if (key == 87) cam.y += 2
-	if (key == 83) cam.y -= 2
-	if (key == 68) cam.x += 2
-	if (key == 65) cam.x -= 2
-	drawScreen()
+document.addEventListener('keydown', function (e){
+        var key = e.keyCode
+        if (key == 87) cam.y += 2
+        if (key == 83) cam.y -= 2
+        if (key == 68) cam.x += 2
+        if (key == 65) cam.x -= 2
+        drawScreen()
 })
 </script>
 
 <p>
-It is clear that in less than 45 lines of code, a decent simulation can be created. However, there are lots of more things that need adding such as: more complex objects with multiple objects, face ordering, camera direction... I will not explain how I did that, but in <a href="https://joeiddon.github.io/3dSimulationVR/3dv3.html">this demonstration</a> you can see it working quite well (some issues). The controls are WASD for movement, ZX for flying up and down and EQ for looking left and right. From here, I improved it a bit more then created some simple applications which you can browse <a href="https://joeiddon.github.io/projects/javascript">here</a>.
+It is clear that in less than 45 lines of code, a decent simulation can be created. However, there are lots of more things that need adding such as: more complex objects with multiple objects, face ordering, camera direction... I will not explain how I did that, but in <a href='https://joeiddon.github.io/3d_simulation/3dv3.html'>this demonstration</a> you can see it working quite well (some issues). The controls are WASD for movement, ZX for flying up and down and EQ for looking left and right. From here, I improved it a bit more then created some simple applications which you can browse <a href='https://joeiddon.github.io/projects/javascript'>here</a>.
 </p>
 
-<p>From here, I added all those extra features I talked of and neatened the code up into a neat js library, available <a href="https://github.com/joeiddon/zengine">here</a>.</p>
+<p>Finally, I added all those extra features I talked of and neatened the code up into a neat JS library, available <a href='https://github.com/joeiddon/zengine'>here</a>.</p>

@@ -16,7 +16,7 @@ A special property of the Sierpinski curve is that it fills two-dimensional spac
 
 <style>
 img {
-	width: 300px;
+        width: 300px;
 }
 </style>
 
@@ -30,31 +30,31 @@ The generation of these curves can be done really succinctly with recursion. Two
 
 <pre>
 function zig(n){
-	if (n == 1){
-		bendLeft()
-		bendLeft()
-	} else {
-		zig(n/2)
-		zag(n/2)
-		zig(n/2)
-		zag(n/2)
-	}
+        if (n == 1){
+                bendLeft()
+                bendLeft()
+        } else {
+                zig(n/2)
+                zag(n/2)
+                zig(n/2)
+                zag(n/2)
+        }
 }
 
 function zag(n){
-	if (n == 1){
-		bendRight()
-		bendRight()
-		bendLeft()
-	} else {
-		zag(n/2)
-		zag(n/2)
-		zig(n/2)
-		zag(n/2)
-	}
+        if (n == 1){
+                bendRight()
+                bendRight()
+                bendLeft()
+        } else {
+                zag(n/2)
+                zag(n/2)
+                zig(n/2)
+                zag(n/2)
+        }
 }
 </pre>
 
 <p>
-Having both these defined, we can simply call zig(2 ** n) in the 'main program' to generate the curve. You can watch them be generated <a href='https://joeiddon.github.io/SierpinskiCurve'>here</a> if you didn't already follow the link at the top.
+Having both these defined, we can simply call zig(2 ** n) in the 'main program' to generate the curve. You can watch them be generated <a href='https://joeiddon.github.io/sierpinski_curve'>here</a> if you didn't already follow the link at the top.
 </p>

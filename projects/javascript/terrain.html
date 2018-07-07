@@ -4,7 +4,7 @@ layout: default
 
 <h1>A smooth terrain generator using my Perlin Noise and 3D Engine JS libraries</h>
 
-<h2><a href="https://joeiddon.github.io/3dSimulationVR/terrain.html">take a look here</a></h2>
+<h2><a href='https://joeiddon.github.io/zengine/demos/terrain.html'>take a look here</a></h2>
 
 <p>
 So to summarise the two libraries, we essentially have two funcitons to work with:
@@ -22,12 +22,12 @@ function render(world, cam, canvas, wireframe){ ... }
 </pre>
 
 <p>
-We next have my Perlin Noise function which basically has a "get" function (below) that will take a floating point x,y coodinate and return the result of the 2d noise funciton at that point. It is inside a simple "perlin" object:
+We next have my Perlin Noise function which basically has a 'get' function (below) that will take a floating point x,y coodinate and return the result of the 2d noise funciton at that point. It is inside a simple 'perlin' object:
 </p>
 
 <pre>
 var perlin = {
-	get: function(x, y) { ... }
+        get: function(x, y) { ... }
 }
 </pre>
 
@@ -36,17 +36,17 @@ It is then just a matter of converting the output of the noise function to 3d co
 </p>
 
 <p>
-As the noise function wants floats (each cell is defined by integer grids) and we want to be able to have a parameter which sets how many cells there are, we need to divide thenumber of cells by the minimum of the grid width and height (so that the cells are squares, not reactangles) to get floating point coordinates to pass in. Then we need to times the output of the perlin noise function (a float between -1 and 1) by a variable so that we can set the height of the hills. This method for creating a "heights" array is seen in the following code.
+As the noise function wants floats (each cell is defined by integer grids) and we want to be able to have a parameter which sets how many cells there are, we need to divide thenumber of cells by the minimum of the grid width and height (so that the cells are squares, not reactangles) to get floating point coordinates to pass in. Then we need to times the output of the perlin noise function (a float between -1 and 1) by a variable so that we can set the height of the hills. This method for creating a 'heights' array is seen in the following code.
 </p>
 
 <pre>
 heights = []
 for (var r = 0; r < grid.length + 1; r++){
-	var row = []
-	for (var c = 0; c < grid.width + 1; c++){
-		row.push(perlin.get(c * (cells/Math.min(grid.width, grid.length)), r * (cells/Math.min(grid.width, grid.length))) * hillHeight)
-	}
-	heights.push(row)
+        var row = []
+        for (var c = 0; c < grid.width + 1; c++){
+                row.push(perlin.get(c * (cells/Math.min(grid.width, grid.length)), r * (cells/Math.min(grid.width, grid.length))) * hillHeight)
+        }
+        heights.push(row)
 }
 </pre>
 
@@ -63,7 +63,7 @@ The final aspect is the color of each square (so that we have nice color gradien
 </p>
 
 <p>
-These two aspects can be seen in this "genWorld" function:
+These two aspects can be seen in this 'genWorld' function:
 </p>
 
 <pre>
@@ -79,7 +79,6 @@ function genWorld(){
                          {x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize, z: heights[r][c+1]}, 
                          {x: c * grid.squareSize, y: r * grid.squareSize + grid.squareSize, z: heights[r+1][c]}],
                           col: col},
-                
                 {verts: [{x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize, z: heights[r][c+1]},
                          {x: c * grid.squareSize + grid.squareSize, y: r * grid.squareSize + grid.squareSize, z:heights[r+1][c+1]}, 
                          {x: c * grid.squareSize, y: r * grid.squareSize + grid.squareSize, z: heights[r+1][c]}],
@@ -91,7 +90,7 @@ function genWorld(){
 </pre>
 
 <p>
-And that's it! The rest of the code (sliders, info stuff, controls) is pretty boring so I won't talk about that, but feel free to checkout the <a href="https://github.com/joeiddon/3dSimulationVR/blob/master/terrain.html">source code on GitHub</a> if you are interested.
+And that's it! The rest of the code (sliders, info stuff, controls) is pretty boring so I won't talk about that, but feel free to checkout the <a href='https://github.com/joeiddon/zengine/blob/master/demos/terrain.html'>source code on GitHub</a> if you are interested.
 </p>
 
 <p>Link at top to try it out!</p>

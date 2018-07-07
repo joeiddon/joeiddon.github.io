@@ -3,14 +3,14 @@ layout: default
 ---
 
 <h1>Creating Perlin Noise in JS</h1>
-<script src="https://joeiddon.github.io/perlin/perlin.js"></script>
+<script src='https://joeiddon.github.io/perlin/perlin.js'></script>
 
 <p>
-Perlin Noise is a a type of <a href="https://en.wikipedia.org/wiki/Gradient_noise">gradient noise</a> used mainly in computer graphics. It allows for smooth natural-looking randomness which can be applied to a number of things such as: texture of surfaces, flames and terrain - what I will be using it for. The most well known place perlin noise is implented is minecraft where it is used generate the landscape so the hills, caves etc.
+Perlin Noise is a a type of <a href='https://en.wikipedia.org/wiki/Gradient_noise'>gradient noise</a> used mainly in computer graphics. It allows for smooth natural-looking randomness which can be applied to a number of things such as: texture of surfaces, flames and terrain - what I will be using it for. The most well known place perlin noise is implented is minecraft where it is used generate the landscape so the hills, caves etc.
 </p>
 
 <p>
-Following <a href="https://en.wikipedia.org/wiki/Perlin_noise">this wikipedia page</a> on generating it, I managed to succesfully write it. These are the steps:
+Following <a href='https://en.wikipedia.org/wiki/Perlin_noise'>this wikipedia page</a> on generating it, I managed to succesfully write it. These are the steps:
 </p>
 
 <ol>
@@ -23,14 +23,14 @@ Following <a href="https://en.wikipedia.org/wiki/Perlin_noise">this wikipedia pa
 <li>Interpolate the 2^n dot products to get the value
 </ol>
 
-<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href="https://joeiddon.github.io/perlin/demo">demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href="https://joeiddon.github.io/projects/javascript/terrainGeneration">my 3d terrain generator</a>.</p>
+<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href='https://joeiddon.github.io/perlin/demo'>demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href='https://joeiddon.github.io/projects/javascript/terrain_generation'>my 3d terrain generator</a>.</p>
 
-<canvas id="cnvs"></canvas>
+<canvas id='cnvs'></canvas>
 <script>
-var cnvs = document.getElementById("cnvs")
+var cnvs = document.getElementById('cnvs')
 cnvs.width = 960
 cnvs.height = 480
-var ctx = cnvs.getContext("2d")
+var ctx = cnvs.getContext('2d')
 
 var gridSize = 8
 var resolution = 128
@@ -66,11 +66,11 @@ function rand_vect(){
 </pre>
 
 <p>The function itself is fairly self explanatory. It can be tested by plotting some on a canvas:</p>
-<canvas id="cnvs1"></canvas>
+<canvas id='cnvs1'></canvas>
 <script>
-var cnvs1 = document.getElementById("cnvs1");
+var cnvs1 = document.getElementById('cnvs1');
 cnvs1.width = cnvs1.height = 256;
-var ctx1  = cnvs1.getContext("2d");
+var ctx1  = cnvs1.getContext('2d');
 setInterval(function(){
 var vector = perlin.rand_vect();
 ctx1.beginPath();
@@ -109,7 +109,7 @@ function dot_prod_grid(x, y, vert_x, vert_y){
 </pre>
 
 <p>
-Finally, we need to <a href="https://en.wikipedia.org/wiki/Interpolation">interpolate</a> between the four cell node dot-products (scalars). Interpolation is a way of constructing new data points within a range of others. To do this, a function is used, the simplest being linear:
+Finally, we need to <a href='https://en.wikipedia.org/wiki/Interpolation'>interpolate</a> between the four cell node dot-products (scalars). Interpolation is a way of constructing new data points within a range of others. To do this, a function is used, the simplest being linear:
 </p>
 
 <pre>
