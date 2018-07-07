@@ -32,18 +32,19 @@ From that second article, this table was very useful for selecting which algorit
 </p>
 
 <table id='mazeTable'></table>
+
 <script>
 var tbdy = document.createElement('tbody')
-var rws = [['Algorithm', 'Dead End %', 'Type', 'Focus', 'Bias Free?', 'Uniform?', 'Memory', 'Time', 'Solution %'], ['Unicursal', '0', 'Tree', 'Wall', 'Yes', 'never', 'N^2', '379', '100.0'], ['Recursive Backtracker', '10', 'Tree', 'Passage', 'Yes', 'never', 'N^2', '27', '19.0'], ['Hunt and Kill', '11 (21)', 'Tree', 'Passage', 'Yes', 'never', '0', '100 (143)', '9.5 (3.9)'], ['Recursive Division', '23', 'Tree', 'Wall', 'Yes', 'never', 'N*', '10', '7.2'], ['Binary Tree', '25', 'Set', 'Either', 'no', 'never', '0*', '10', '2.0'], ['Sidewinder', '27', 'Set', 'Either', 'no', 'never', '0*', '12', '2.6'], ['Eller's Algorithm', '28', 'Set', 'Either', 'no', 'no', 'N*', '20', '4.2 (3.2)'], ['Wilson's Algorithm', '29', 'Tree', 'Either', 'Yes', 'Yes', 'N^2', '48 (25)', '4.5'], ['Aldous-Broder Algorithm', '29', 'Tree', 'Either', 'Yes', 'Yes', '0', '279 (208)', '4.5'], ['Kruskal's Algorithm', '30', 'Set', 'Either', 'Yes', 'no', 'N^2', '33', '4.1'], ['Prim's Algorithm (true)', '30', 'Tree', 'Either', 'Yes', 'no', 'N^2', '160', '4.1'], ['Prim's Algorithm (simplified)', '32', 'Tree', 'Either', 'Yes', 'no', 'N^2', '59', '2.3'], ['Prim's Algorithm (modified)', '36 (31)', 'Tree', 'Either', 'Yes', 'no', 'N^2', '30', '2.3'], ['Growing Tree', '49 (39)', 'Tree', 'Either', 'Yes', 'no', 'N^2', '48', '11.0'], ['Growing Forest', '49 (39)', 'Both', 'Either', 'Yes', 'no', 'N^2', '76', '11.0']]
+var rws = [['Algorithm', 'Dead End %', 'Type', 'Focus', 'Bias Free?', 'Uniform?', 'Memory', 'Time', 'Solution %'], ['Unicursal', '0', 'Tree', 'Wall', 'Yes', 'never', 'N^2', '379', '100.0'], ['Recursive Backtracker', '10', 'Tree', 'Passage', 'Yes', 'never', 'N^2', '27', '19.0'], ['Hunt and Kill', '11 (21)', 'Tree', 'Passage', 'Yes', 'never', '0', '100 (143)', '9.5 (3.9)'], ['Recursive Division', '23', 'Tree', 'Wall', 'Yes', 'never', 'N*', '10', '7.2'], ['Binary Tree', '25', 'Set', 'Either', 'no', 'never', '0*', '10', '2.0'], ['Sidewinder', '27', 'Set', 'Either', 'no', 'never', '0*', '12', '2.6'], ["Eller's Algorithm", '28', 'Set', 'Either', 'no', 'no', 'N*', '20', '4.2 (3.2)'], ["Wilson's Algorithm", '29', 'Tree', 'Either', 'Yes', 'Yes', 'N^2', '48 (25)', '4.5'], ['Aldous-Broder Algorithm', '29', 'Tree', 'Either', 'Yes', 'Yes', '0', '279 (208)', '4.5'], ["Kruskal's Algorithm", '30', 'Set', 'Either', 'Yes', 'no', 'N^2', '33', '4.1'], ["Prim's Algorithm (true)", '30', 'Tree', 'Either', 'Yes', 'no', 'N^2', '160', '4.1'], ["Prim's Algorithm (simplified)", '32', 'Tree', 'Either', 'Yes', 'no', 'N^2', '59', '2.3'], ["Prim's Algorithm (modified)", '36 (31)', 'Tree', 'Either', 'Yes', 'no', 'N^2', '30', '2.3'], ['Growing Tree', '49 (39)', 'Tree', 'Either', 'Yes', 'no', 'N^2', '48', '11.0'], ['Growing Forest', '49 (39)', 'Both', 'Either', 'Yes', 'no', 'N^2', '76', '11.0']]
 for (var r = 0; r < rws.length; r++){
         var tr = document.createElement('tr')
         for (var c = 0; c < rws[r].length; c++){
                 var td = document.createElement('td')
                 td.innerText = rws[r][c]
-                tr.appendChild(td)      
+                tr.appendChild(td)
         }
         tbdy.appendChild(tr)
-}       
+}
 document.getElementById('mazeTable').appendChild(tbdy)
 </script>
 
@@ -62,8 +63,8 @@ While there are unvisited cells
 </pre>
 <p>and the result is:</p>
 <canvas id='backtrackerCanvas' width='600' height='600'></canvas>
-<button onclick=' height++; width++; initilise(); algorithm='backtracker''>Increase Size</button>
-<button onclick=' width--; height--; initilise(); algorithm='backtracker''>Decrease Size</button>
+<button onclick="height++;width++;initilise();algorithm='backtracker'">Increase Size</button>
+<button onclick="width--;height--;initilise();algorithm='backtracker'">Decrease Size</button>
 
 <p>Although the backtracker algorithm produces some long paths that make it reasnobly difficult to solve in 2d when presented an overview from above, in 3d the maze is simple, you just follow the path and you end up at the end as the majority of the time (especially in smaller mazes), you can see the dead ends from the main path so you know not to take them.</p>
 
@@ -87,11 +88,11 @@ While there are frontier cells
 <p>and the result is: </p>
 
 <canvas id='primsCanvas' width='600' height='600'></canvas>
-<button onclick=' height++; width++; initilise(); algorithm='prims''>Increase Size</button>
-<button onclick=' width--; height--; initilise(); algorithm='prims''>Decrease Size</button>
+<button onclick="height++;width++;initilise();algorithm='prims'">Increase Size</button>
+<button onclick="width--;height--;initilise();algorithm='prims'">Decrease Size</button>
 
 <p>Overall, as stated above, the backtracker algorithm is best for generating 2d mazes to be solved from above but when walking around in 3d inside the mazes, the prims algorithm makes escaping more difficult as it is really disorientating walking down all the dead-ends.</p>
-<p>Of course, you can solve the mazes in 2d from the ones generated above or if you want them to be generated instantly without waiting, you can see them side by side <a href='https://joeiddon.github.io/3dMazeGame/exampleMazes.html'>here</a>. And if you want to attempt escaping a maze in 3d, have a go <a href='https://joeiddon.github.io/3dMazeGame/maze.html'>here</a></p>
+<p>Of course, you can solve the mazes in 2d from the ones generated above or if you want them to be generated instantly without waiting, you can see them side by side <a href='https://joeiddon.github.io/3d_maze_game/mazes_side_by_side'>here</a>. And if you want to attempt escaping a maze in 3d, have a go <a href='https://joeiddon.github.io/3d_maze_game'>here</a></p>
 
 <script>
 width = height = 10
@@ -128,7 +129,7 @@ initilise()
 function drawMaze(mx, my, points, join, canvas){
         var cnvs = document.getElementById(canvas)
         var ctx = cnvs.getContext('2d')
-        ctx.clearRect(0,0,cnvs.width,cnvs.height)       
+        ctx.clearRect(0,0,cnvs.width,cnvs.height)
         ctx.fillStyle = 'white'
 
         blockWidth = cnvs.width / (width * 2 + 1)
