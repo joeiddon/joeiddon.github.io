@@ -1,9 +1,3 @@
-/*
-
-remove all comments when deciding to remove url message
-
-*/
-
 body {
     margin: 0;
     padding: 0;
@@ -17,17 +11,10 @@ body {
     height: 160px;
 }
 
-#url_message {
-    padding: 5px;
-    height: 50px;
-    background-color: #e55;
-    font-family: courier;
-}
-
 #banner {
     position: relative; /* fixed */
-/*    z-index: 1;*/
-/*    top: 0;    */
+    z-index: 1;
+    top: 0;
     width: 100%;
     background-color: #00979F;
     height: 100px;
@@ -37,8 +24,8 @@ body {
 #main {
     position: absolute;
     overflow-y: scroll;
-    top: 160px; /*100px;*/
-    height: calc(100vh - 160px); /*100px);*/
+    top: 100px;
+    height: clc(100vh - 100px);
     width: 100%;
     padding: 0;
 }
