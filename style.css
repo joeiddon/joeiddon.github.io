@@ -2,10 +2,11 @@ body {
     margin: 0;
     padding: 0;
     overflow: auto;
+    font-family: serif;
 }
 
 h1 {
-    font-family: Helvetica;
+    font-family: helvetica;
 }
 
 img {
@@ -28,8 +29,6 @@ img {
 
 p {
     font-size: 18px;
-    /*sans-serif for non-curly*/
-    font-family: serif;
 }
 
 pre {
