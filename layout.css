@@ -12,7 +12,7 @@
 #main {
     position: absolute;
     overflow-y: scroll;
-    top: 8px;
+    top: 80px;
     /* (100vh - banner_height) */
     height: calc(100vh - 80px);
     width: 100%;
