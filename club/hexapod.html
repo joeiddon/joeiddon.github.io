@@ -5,10 +5,10 @@ layout: default
 <h1>Hexapod</h1>
 
 <p>
-Hexapods are six-legged robots that scuttle along the ground. I attempted a similar project by myself (<a href="/projects/arduino/quadropod">see here</a>), but as that creation only had four legs, it was very unstable when walking, but it was really fun to make. That as why I suggested we try and construct one with six legs in the hope that it would be more stable - allowing us to mount additional accessories on it.</a>
+Hexapods are six-legged robots that scuttle along the ground. I attempted a similar project by myself (<a href='/projects/arduino/quadropod'>see here</a>), but as that creation only had four legs, it was very unstable when walking, but it was really fun to make. That as why I suggested we try and construct one with six legs in the hope that it would be more stable - allowing us to mount additional accessories on it.</a>
 
 <p>
-So once we were agreed on the aim for this second project, we began by designing the frame. It needed to be strong, and since we have an amazing <a href="https://www.gravograph.co.uk/products-and-consumables/products/laser-solutions/energy-series/ls900-energy-large-format-cost-effective-laser-engraving-machine">laser cutter</a> available to us at school, it would be silly to not get some use out of it!
+So once we were agreed on the aim for this second project, we began by designing the frame. It needed to be strong, and since we have an amazing <a href='https://www.gravograph.co.uk/products-and-consumables/products/laser-solutions/energy-series/ls900-energy-large-format-cost-effective-laser-engraving-machine'>laser cutter</a> available to us at school, it would be silly to not get some use out of it!
 </p>
 
 <p>
@@ -16,32 +16,32 @@ In order to laser cutter a shape out of acrylic, you need to send the machine in
 </p>
 
 <p>
-The software we had available to us is called <a href="https://www.techsoft.co.uk/Products/Software/2DDesignV2">2D Design</a> and turned out to be really intuitive to use.
+The software we had available to us is called <a href='https://www.techsoft.co.uk/Products/Software/2DDesignV2'>2D Design</a> and turned out to be really intuitive to use.
 </p>
 
 <p>
 We then cut it out! Here is a video of it going:
 </p>
 
-<iframe width="1260" height="720" src="https://youtube.com/embed/CRZ5cF358gg?start=68&mute=1&rel=0&modestbranding=1&showinfo=0&color=white" frameborder="0" allowfullscreen=""></iframe>
+<video src='/videos/hexapod_laser_cuttter.mp4' controls='controls'></video>
 
 <p>
 Now that we had the frame, it was time to work on the electronics.
 </p>
 
 <p>
-The design was based around the idea that each leg had two servos - making 12 in total. The type of servo we decided to use was the <a href="https://servodatabase.com/servo/towerpro/sg92r">sg92r</a> which has a reasonable torque of 2.5kg/cm and were relatively cheap (roughly two pounds each).
+The design was based around the idea that each leg had two servos - making 12 in total. The type of servo we decided to use was the <a href='https://servodatabase.com/servo/towerpro/sg92r'>sg92r</a> which has a reasonable torque of 2.5kg/cm and were relatively cheap (roughly two pounds each).
 </p>
 
 <p>
-However, an issue was that the Arduino board which we were planning on using only has 14 GPIO pins, which is enough, but would have restriced what we could add to the robot in the future. For this reason, we also got <a href="https://www.banggood.com/PCA9685-16-Channel-12-bit-PWM-Servo-Motor-Driver-I2C-Module-For-Arduino-Robot-p-1170343.html?rmmds=search&cur_warehouse=CN">the PCA9685 servo driver</a>. This board is great as it its own dedicated processor that accepts signals for the positions of the motors and then handles the rest (the pulse width modulation) itself. This has many advantages: we free up our Arduino processing power, we will have more pins to work with and connecting the servos would be really easy (the board comes with pre-installed headers ready for 16 different servos).
+However, an issue was that the Arduino board which we were planning on using only has 14 GPIO pins, which is enough, but would have restriced what we could add to the robot in the future. For this reason, we also got <a href='https://www.banggood.com/PCA9685-16-Channel-12-bit-PWM-Servo-Motor-Driver-I2C-Module-For-Arduino-Robot-p-1170343.html?rmmds=search&cur_warehouse=CN'>the PCA9685 servo driver</a>. This board is great as it its own dedicated processor that accepts signals for the positions of the motors and then handles the rest (the pulse width modulation) itself. This has many advantages: we free up our Arduino processing power, we will have more pins to work with and connecting the servos would be really easy (the board comes with pre-installed headers ready for 16 different servos).
 </p>
 
 <p>
 Here is a picture of us setting things up for the first time and testing the board out:
 </p>
 
-<img src="/images/hexapod/testingServos.jpg"></img>
+<img src='/images/hexapod/pca9685.jpg'></img>
 
 <p>
 The next step was to use a glue-gun to secure everything together.
