@@ -1,0 +1,122 @@
+#banner {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    background-color: #00979F;
+    height: 100px;
+    box-shadow: 0 0 20px 0;
+}
+
+#main {
+    position: absolute;
+    overflow-y: scroll;
+    top: 100px;
+    height: calc(100vh - 100px);
+    width: 100%;
+}
+
+#main_container {
+    max-width: 1260px;
+    margin: 0 auto;
+    font-family: courier;
+}
+
+#footer {
+    width: 100%;
+    background-color: #00979F;
+    margin-top: 5px;
+    padding: 5px 0 3px 0;
+    text-align: center;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+#logo {
+    position: absolute;
+    display: block;
+    padding: 5px;
+    width: 80px;
+    height: 80px;
+    top: 5px;
+    left: 5px;
+    color: white;
+}
+
+#logo:hover, .logo_link:hover, .nav_button:hover, .nav_dropdown:hover{
+    background-color: #20b7bf;
+}
+
+#logo_txt {
+    text-align: center;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#logo_img {
+    display: block;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+}
+
+#menu {
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    padding: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 0;
+}
+
+.nav_button {
+    display: inline-block;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    font-family: courier;
+    font-size: 20px;
+    margin: 0px 2px 0px 2px;
+    padding: 0px 6px 0px 6px;
+}
+
+#dropdown {
+    display: none;
+    position: absolute;
+    width: 112px;
+    left: 74px;
+    z-index: 1;
+}
+
+.nav_dropdown {
+    height: 100%;
+    background-color: #00979F;
+    text-align: center;
+    line-height: 34px;
+    color: white;
+    font-family: courier;
+    font-size: 15px;
+    margin: 0px 2px 0px 2px;
+    padding: 0px 6px 0px 6px;
+}
+
+.nav_dropdown:hover {
+    display: block;
+}
+
+#logos_container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+}
+
+.logo_link {
+    display: inline-block;
+    padding: 2px;
+    width: 35px;
+    cursor: pointer;
+}
