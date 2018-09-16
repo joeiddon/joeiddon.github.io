@@ -4,30 +4,33 @@ layout: default
 
 <h1>Wireless bitcoin price display</h1>
 
-<p>I had had one of these <a href='https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/overview'>adafruit feathers</a> lying around which has a built-in ESP8266 wifi module. So I decided to test out its capabilities by making a quick little project that would display the current bitcoin price in binary on some rows of LEDs.</p>
+<p>Having aquired one of these <a href='https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/overview'>adafruit feathers</a> which has a built-in ESP8266 wifi module, I thought I'd put it to the test. I had never used the ESP8266 module before, but I have heard a lot about them and so I thought I'd try and create something small that would test its capabilities. If successful, I could then consider using this board (or just a regular arduino hooked up to an ESP6288 module) in place of a full Raspberry Pi setup when I want to incorporate wifi into projects.
+</p>
+
+<p>
+The projects aim was to display the current bitcoin price in binary over some rows of LEDs.
+</p>
 
 <p>After reading up on the module, I setup a nodeJS server to practice some HTTP requests and get the board working.</p>
 
 <p>I then needed to find a lightweight website that would allow me to extract the current price. I came across this <a href='https://api.coindesk.com/v1/bpi/currentprice.json'>coindesk json api</a></p>
 
-<p>After succesfully working out a way of extracting the price from that, I then worked on the LED display aspect. The price of bitcoin was roughly 8000 pounds, but having spiked on the 16th December to 14,592, I would need 14 bits to safely be able to display the full price (allowing me up to 16383).</p>
+<p>After succesfully working out a way of extracting the price from that (<a href='https://github.com/joeiddon/bitcoin_in_binary'>GitHub</a>), I then worked on the LED display aspect. The price of bitcoin was roughly £8000, but having spiked on the 16th December, 2017 to £14,592, I would need <code>14</code> bits to be able to safely display the full price (allowing me up to <code>2^14-1</code> which is <code>16383</code>).</p>
 
-<p>However, as seen in the pinout of the board below, there were only 9 GPIO pins available. And so with 14 leds, I would need a different method, so I soldered them into a grid circuit (two rows of 7 leds) which would allow me to scan back and forth between the rows at a high speed and create the impression that the LEDs are constantly on. For this, I would then only need 8 of the 9 pins.</p>
+<p>However, as seen in the pinout of the board below, there were only <code>9</code> pins available, so with 14 leds, I would need an alternative method to a pin per LED. I soldered them into a grid circuit (two rows of <code>7</code> leds) which would allow me to scan back and forth between the rows at a high speed and create the impression that the LEDs are constantly on. For this, I would then only need <code>8</code> of the <code>9</code> pins.</p>
+
+<img src='https://cdn-learn.adafruit.com/assets/assets/000/046/249/original/adafruit_products_Huzzah_ESP8266_Pinout_v1.2-1.png?1504885873'></img>
 
 <p>I tested the circuit with some jumpers:</p>
 
-<iframe width='1280' height='720' src='https://www.youtube.com/embed/zsb0kWt-egM?mute=1&rel=0&modestbranding=1&showinfo=0&color=white' frameborder='0' allowfullscreen=''></iframe>
-
-<!--<p>And when I put my phone in slow-motion, you can see them flickering (partly also due to the shutter speed)</p>
-<iframe width='1280' height='720' src='https://www.youtube.com/embed/?mute=1&rel=0&modestbranding=1&showinfo=0&color=white' frameborder='0' allowfullscreen=''></iframe>
--->
+<video src='/videos/led_grid_test.mp4' controls='controls'></video>
 
 <p>I then just needed to finish writing the code (<a href='https://github.com/joeiddon/bitcoin_in_binary'>GitHub</a>) and connnect an old 1S lipo from a quadcopter and it was working!</p>
 
-<p>Here are some photos of the finished thing. (the price at the time was: 01111110100110 which is 8102 pounds).</a>
+<p>Here are some photos of the finished thing. (the price at the time was: <code>01111110100110</code> which is £8102).</a>
 
-<img src='/images/bitcoin_side.jpeg'></img>
-<img src='/images/bitcoin_top.jpg'></img>
-<img src='/images/feather_top.jpg'></img>
-<img src='/images/feather_front.jpg'></img>
-<img src='/images/lipo.jpg'></img>
+<img src='/images/bitcoin/side.jpeg'></img>
+<img src='/images/bitcoin/top.jpg'></img>
+<img src='/images/bitcoin/top.jpg'></img>
+<img src='/images/bitcoin/front.jpg'></img>
+<img src='/images/bitcoin/lipo.jpg'></img>
