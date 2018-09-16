@@ -1,121 +1,77 @@
-#banner {
+#top-bar {
     position: fixed;
-    z-index: 1;
     top: 0;
+    z-index: 1;
     width: 100%;
-    background-color: #00979F;
-    height: 80px;
+    height: 48px;
+    /*menu is inline-block so
+    it will get centered*/
+    text-align: center;
+    background-color: #00979f;
     box-shadow: 0 0 16px 0;
-    /*sans-serif for non-curly*/
 }
 
 #main {
     position: absolute;
-    overflow-y: scroll;
-    top: 80px;
-    /* (100vh - banner_height) */
-    height: calc(100vh - 80px);
+    top: 48px;
+    /* (100vh - banner-height) */
+    height: calc(100vh - 48px);
     width: 100%;
+    overflow-y: scroll;
 }
 
-#main_container {
+#content {
     max-width: 1260px;
     margin: 0 auto;
 }
 
 #footer {
     width: 100%;
-    background-color: #00979F;
     margin-top: 5px;
-    padding: 5px 0 3px 0;
+    background-color: #00979f;
     text-align: center;
     font-size: 12px;
+    color: white;
 }
 
 #logo {
     position: absolute;
     display: block;
-    padding: 5px;
-    width: 60px;
-    height: 60px;
-    top: 5px;
-    left: 5px;
-    color: white;
-}
-
-#logo:hover, .logo_link:hover, .nav_button:hover, .nav_dropdown:hover{
-    background-color: #20b7bf;
-}
-
-#logo_txt {
-    text-align: center;
-    font-family: helvetica;
-    font-size: 14px;
-    line-height: 20px;
-}
-
-#logo_img {
-    display: block;
-    margin: auto;
+    margin: 4px;
     width: 40px;
     height: 40px;
 }
 
+.color-hover:hover {
+    background-color: #20b7bf;
+}
+
 #menu {
-    position: absolute;
-    bottom: 0;
     height: 40px;
-    padding: 10px;
-    left: 50%;
-    transform: translate(-50%, 0);
+    margin: 4px;
     font-size: 0;
     font-family: helvetica;
 }
 
-.nav_button {
+.nav-but {
     display: inline-block;
-    height: 100%;
+/*line-height not set exactly to height as not quite centered so made 5px more*/
+    line-height: 45px;
+    height: 40px;
+    font-size: 16px;
     text-align: center;
-    line-height: 40px;
     color: white;
-    font-size: 20px;
-    margin: 0px 2px 0px 2px;
-    padding: 0px 6px 0px 6px;
+    padding: 0 4px 0 4px;
+    margin: 0 5px 0 5px;
 }
 
-#dropdown {
-    display: none;
-    position: absolute;
-    width: 112px;
-    left: 74px;
-    z-index: 1;
-}
-
-.nav_dropdown {
-    height: 100%;
-    background-color: #00979F;
-    text-align: center;
-    line-height: 34px;
-    color: white;
-    font-size: 15px;
-    margin: 0px 2px 0px 2px;
-    padding: 0px 6px 0px 6px;
-}
-
-.nav_dropdown:hover {
-    display: block;
-}
-
-#logos_container {
+#profiles {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 4px;
 }
 
-.logo_link {
-    display: inline-block;
-    padding: 2px;
-    width: 35px;
-    cursor: pointer;
+.profile {
+    margin: 4px;
+    width: 40px;
 }

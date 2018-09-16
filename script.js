@@ -7,39 +7,19 @@ let dropdown       = document.getElementById('dropdown');
 let main           = document.getElementById('main');
 let main_container = document.getElementById('main_container');
 
-//if on phone, dropdown menu buttons require click instead of mouse hover to show
+//if on phone
 if (/android|webos|iphone|ipad|ipod|blackberry/i.test(navigator.userAgent) ) {
-    projects.onclick = function(){
-        if (dropdown.style.display == 'block'){
-            window.location.href = this.getAttribute('href');
-        } else {
-            dropdown.style.display = 'block';
-        }
-    }
 } else {
-    projects.onmouseover = function(){
-        dropdown.style.display = 'block';
-    }
-    projects.onmouseout = dropdown.onmouseout = function(e){
-        if (e.relatedTarget.className != 'nav_dropdown'){
-            dropdown.style.display = 'none';
-        }
-    }
 }
 
-//resize any <iframe> elements to be the size of the main_container
-let iframes = document.getElementsByTagName('iframe');
-for (let i = 0; i < iframes.length; i++){
-    iframes[i].width  = main_container.clientWidth;
-    iframes[i].height = main_container.clientWidth/16*9;
-}
-
-//resize any <script> elements to be the size of the main_container
+/*
+//resize any <canvas> elements to be the size of the main_container
 let scripts = document.getElementsByTagName('script');
 for (let i = 0; i < scripts.length; i++){
     scripts[i].width  = main_container.clientWidth;
     scripts[i].height = main_container.clientWidth/16*9;
 }
+*/
 
 
 //google analytics
