@@ -36,7 +36,11 @@ p {
     font-size: 16px;
 }
 
-code, pre code {
+code, pre {
     font-family: Lucida Console;
     background-color: #efefef;
+}
+
+video {
+    width: 100%;
 }
