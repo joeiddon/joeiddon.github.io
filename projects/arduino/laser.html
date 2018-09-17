@@ -4,15 +4,13 @@ layout: default
 
 <h1>A Proof-Of-Concept LASER-LDR Sensor</h1>
 
-<p>Most Arduino boards have analog pins which accurately sense 0-5V. A light dependent resistor (LDR) changes its resistance in iresponse to light. However, since the analog pins only measure voltage (and not resistance), a potential divider circuit is needed: (source wikipedia)</p>
-
-<img class="small_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Resistive_divider2.svg/137px-Resistive_divider2.svg.png"></img>
+<p>Most Arduino boards have analog pins which accurately sense 0-5V. A light dependent resistor (LDR) changes its resistance in iresponse to light. However, since the analog pins only measure voltage (and not resistance), a <a href='https://en.wikipedia.org/wiki/Voltage_divider'>potential divider</a>circuit is needed.</p>
 
 <p>Once I could then get an accurate reading of the current light intensity, there were now many different applications. One useful thing being to couple this sensor with a LASER. I soldered together a little device that joined these two components together - creating a neat package.</p>
 
-<img class="third_img" src="/images/LDR.jpg"
-><img class="third_img" src="/images/LASER.jpg"
-><img class="third_img" src="/images/laserbeam.jpg">
+<img class='third_img' src='/images/laser/ldr.jpg'
+><img class='third_img' src='/images/laser/laser.jpg'
+><img class='third_img' src='/images/laser/laserbeam.jpg'>
 
 <p>From here, the main thing I had in mind was making some kind of light gate. This would involve bouncing the LASER off a mirror and back at the LDR. Then, depending on the current state, the Arduino could carry out some task (for testing purposes I just lit the on-board LED (pin 13)) when the beam was active.</p>
 

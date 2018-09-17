@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<h1>My second attempt at building a robot arm... </h1>
+<h1>My second attempt at building a robot arm (very violent).</h1>
 
 <p>
 If you haven't seen my first arduino robot arm, then please checkout that project <a href='https://joeiddon.github.io/projects/arduino/slideRobotArm'>here</a>. The idea of that project was a test of what was possible using servos and an arduino. I wanted to see if I could build a strong, accurate and repeatable robot arm and I think I succeeded in doing so shown by that video. However, I spent no time planning or thinking through the design, I was just foccused on the one goal of picking and dropping stuff down a slide. This led to me building the frame out of some weak wood and having a bad bottom axel where the whole weight of the arm was resting on the flimsy plastic servo at the bottom.
@@ -24,16 +24,16 @@ As this was going to be a bigger project than my last robot arm, I needed the de
 When I have the time, I will write some posts on openSCAD and 3D printing in general, but I thought it might be interesting just to put in a screenshot of the most intricate part of the design - the gripper. This took many revisions to get right but works really well.
 </p>
 
-<img src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/gripperOpenSCAD.JPG'></img>
+<img src='/images/violent_robot_arm/gripper_scad.jpg'></img>
 
 <p>
 Finally, once I had finished the design of the frame, I printed them out and put the thing together with the servos. Here it is:
 </p>
 
-<img src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/robotArm.jpg'></img>
-<img class='third_img' src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/robotArmNano.jpg'></img
-><img class='third_img' src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/powerSupply.jpg'></img
-><img class='third_img' src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/robotArmGripper.jpg'></img>
+<img src='/images/violent_robot_arm/arm.jpg'></img>
+<img class='third_img' src='/images/violent_robot_arm/nano.jpg'></img
+><img class='third_img' src='/images/violent_robot_arm/power_supply.jpg'></img
+><img class='third_img' src='/images/violent_robot_arm/gripper.jpg'></img>
 
 <p>
 The actual design is now obvious and I was pleased with how it came out. I then soldered together a mini circuit board which just had some headers for the servo leads and for the arduino nano I used to program it. I had to setup the servos power to come from an external 7v power suppply (bottom) because they drew a lot of current which the arduino wouln't have been able to handle.
@@ -43,7 +43,7 @@ The actual design is now obvious and I was pleased with how it came out. I then 
 I then began programming some tasks for it and testing its limits through the Arduino IDE. In the process, I created a Serial program which would accept ASCII chars and convert these to postions for motors. However, this became tedious and for instance when I wanted to move the gripper forward, it would mean decreasing motor 4 and increasing motor 3 (motor 5 being the bottom motor). It would be preferable for me to be able to program it in terms of distances from the center say a length, height and rotation angle. This meant some looking up inverse kinematics and doing some trig. These are my final calculations (the final ones are in the bottom left):
 </p>
 
-<img src='https://raw.githubusercontent.com/joeiddon/joeiddon.github.io/master/images/robotArmCalculations.jpg'></img>
+<img src='/images/violent_robot_arm/calculations.jpg'></img>
 
 <p>
 Now I had a good way of controlling the motion of it, I could hardcode some set positions and get it to move between them. This got me thinking of a relatively simple task I could get it to do. I decided on chess. More specifically, I set me goal to be getting it to setup a chess board. Something that proved to be quite difficult...
