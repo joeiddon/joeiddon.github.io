@@ -56,8 +56,7 @@
 
 .nav-but {
     display: inline-block;
-/*line-height not set exactly to height as not quite centered so made 5px more*/
-    line-height: 45px;
+    line-height: 40px;
     height: 40px;
     font-size: 16px;
     text-align: center;
