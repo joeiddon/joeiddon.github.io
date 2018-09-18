@@ -3,14 +3,24 @@ layout: default
 ---
 
 
-<h1>Tuoba</h1>
+<h1>About</h1>
+
+<h2>Me</h2>
 
 <p>
-  Coding some stuf. Answer questions on stack when bored:
+I dabble in some <code>JavaScript</code>, <code>Python</code> and some <code>C++</code>. I've also played in some other languages like <code>ML</code> and <code>Java</code> but wouldn't consider myself proficient in them. In addition, I know enough `OpenScad` to allow me to code the 3d design models I send to my 3d printer.
 </p>
 
-<a href="https://stackoverflow.com/users/7434365">
-	<img style="width: 208px; height: 58px;" src="https://stackoverflow.com/users/flair/7434365.png?theme=dark">
-</a>
+<p>In my spare time, you will find me over on <code>stackoverflow.com</code>. I have built up a reasonable standing there (<code>10,000</code> reputation, and about <code>700</code> posts) and my claim to fame is that one week I had gained the second most reputation out of the nine million users, surpassing the infamous Jon Skeet, however I must admit that I spent nearly that entire week on the site - hitting the <code>200</code> rep cap (excluding accepts) every day and that is way above my usual commitment. The majority of questions I answer there are Python-based as these are commonly asked and I enjoy helping out new coders who often pick this language to get into programming.
+</p>
 
-<img style="width: 208px; height: 58px;" src="https://projecteuler.net/profile/Eulers_Cat_Walker.png"?
+<a href='https://stackoverflow.com/users/7434365'><img style='width: 208px; height: 58px;' src='https://stackoverflow.com/users/flair/7434365.png?theme=dark'></img></a>
+<img style='width: 208px; height: 58px;' src='https://projecteuler.net/profile/Eulers_Cat_Walker.png'></img>
+
+<h2>The Website</h2>
+
+<p>This website was created on June 13th, 2017. Since the initial formatting, I have been using it to collate my projects. You can view the source <a href='https://github.com/joeiddon/joeiddon.github.io'>here on GitHub</a> which is  where I make as much as my code as possible publicly available as well.</p>
+
+<p>It is hosted by Github (hence the <code>.github.io</code> domain name). My original aim was to write the entire thing from scratch, however the HTML and CSS for the banner (menu) at the top and the styling is all identical for every page on the site so it would be ideal to have the http server insert each post between these two HTML snippets. I did, in the future, write a Python TCPServer that inherited from the <code>http.BaseHTTPRequestHandler</code> which implemented this functionality, however to have my whole site hosted from, for instance, a Google VM instance would end up being slow and/or cost money. So as a result, I settled on sticking with Github.</p>
+
+<p>To implement this HTML-post-inserting, I discovered I could use some basic Jekyll funcitonality that Github Pages natively supports. Initially I was against this idea since I am, in general, against using frameworks and high-levelpackaged (since I always find myself fighting against them or wisihig they were written a different way), but in the end it proved to be very simple. All that was required was to create a <code>_layouts</code> directory in the root of the repo and then create this "template" HTML file. I named this <code>default.HTML</code>. In this file, I wrote the banner HTML and linked my stylesheets  and then used the special <code>{{content}}</code> flag which signals to Jekyll to insert every HTML file which contains the info <code>layout: default</code> in the Jekyll metadata to this place in the HTML. As I say, I would prefer to not have to rely on Jekyll, but since the functionality is there, I thought I'd take advantage of it.</p>
