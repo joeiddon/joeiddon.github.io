@@ -2,10 +2,44 @@
 layout: default
 ---
 
-<h1>The useless-box</h1>
+<h1>Useless Box</h1>
 
 <p>
-Description and images soon...
+Having seen these boxes floating around <a href='https://thingiverse.com'>Thingiverse</a> (a site where people share their designs for models to 3d print), I thought I'd try make one myself.
 </p>
 
+<p>The basic idea is to hide a servo, batteries and switches inside a box so they are as concealed as possible. Then when the main switch is flicked, it will start the DC Motor in the servo moving towards the main switch. Then when the switch is flipped by the servo arm, the direction of the motor will be reversed so that it is now moving back down towards the bottom of the box. It will then stop when it reaches the endstop switch which is wired in such a way that it is open when pressed so the circuit is broken when the arm reaches the resting point.</p>
+
+<p>By having a weighted hinge, the servo will be able to push through the lid, flick the switch, and then the lid will fall back down when the servo returns home.</p>
+
+<p>Here is the useless creation in action:</p>
+
 <video src='/videos/useless_box.mp4' controls></video>
+
+<h2>The design process</h2>
+
+<p>
+As usual I used OpenSCAD to make the design for my 3d printer (I'll make the code available on Thingiverse at some point).
+</p>
+
+<p>This is my <em>extremely scientific</em> design:</p>
+
+<img src='/images/useless_box/design.jpg'>
+
+<p> Here are some images of it printing:</p>
+
+<img src='/images/useless_box/printing_top.jpg'
+><img src='/images/useless_box/printing_closeup.jpg'
+><img src='/images/useless_box/printing_side.jpg'>
+
+<p>Here is some images of the printed model:</p>
+
+<img src='/images/useless_box/printed_corner.jpg'
+><img src='/images/useless_box/printed_parts_side.jpg'
+><img src='/images/useless_box/printed_top.jpg'>
+
+<p>In particular, the part of the design that I am most proud of is the hinge. It has rounded corners on the back edge so that the lid can rotate around it, pivoting on the two 3mm screws that act as the hinge. Here it is:</p>
+
+<img src='/images/useless_box/hinge.jpg'>
+
+<p>As for the electronics, I needed to remove the circuit board from an old servo so that I could use it as just a regular DC Motor (but with the much-needed gearing that the servo provides). In addition, 
