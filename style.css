@@ -37,12 +37,8 @@ p {
 }
 
 code, pre {
-<<<<<<< HEAD
     font-family: monospace;
     word-wrap: pre-wrap;
-=======
-    font-family: Lucida Console;
->>>>>>> 8071f6ec6f7c694ba33ee3e7f6a4db1529ace37c
     background-color: #efefef;
 }
 
