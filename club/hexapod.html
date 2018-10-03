@@ -4,6 +4,8 @@ layout: default
 
 <h1>Hexapod</h1>
 
+<h2>Note: This project was put on hold due to mechanical failures. We hope to revisit it soon.</h2>
+
 <p>
 Hexapods are six-legged robots that scuttle along the ground. I attempted a similar project by myself (<a href='/projects/arduino/quadropod'>see here</a>), but as that creation only had four legs, it was very unstable when walking, but it was really fun to make. That as why I suggested we try and construct one with six legs in the hope that it would be more stable - allowing us to mount additional accessories on it.</a>
 
@@ -20,7 +22,7 @@ The software we had available to us is called <a href='https://www.techsoft.co.u
 </p>
 
 <p>
-We then cut it out! Here is a video of it going:
+We then cut it out, here's a video:
 </p>
 
 <video src='/videos/club/hexapod_laser_cutter.mp4' controls></video>
@@ -34,19 +36,45 @@ The design was based around the idea that each leg had two servos - making 12 in
 </p>
 
 <p>
-However, an issue was that the Arduino board which we were planning on using only has 14 GPIO pins, which is enough, but would have restriced what we could add to the robot in the future. For this reason, we also got <a href='https://www.banggood.com/PCA9685-16-Channel-12-bit-PWM-Servo-Motor-Driver-I2C-Module-For-Arduino-Robot-p-1170343.html?rmmds=search&cur_warehouse=CN'>the PCA9685 servo driver</a>. This board is great as it its own dedicated processor that accepts signals for the positions of the motors and then handles the rest (the pulse width modulation) itself. This has many advantages: we free up our Arduino processing power, we will have more pins to work with and connecting the servos would be really easy (the board comes with pre-installed headers ready for 16 different servos).
+However, an issue was that the Arduino board which we were planning on using only has 14 GPIO pins, which is enough, but would have restriced what we could add to the robot in the future. For this reason, we also got <a href='https://www.banggood.com/PCA9685-16-Channel-12-bit-PWM-Servo-Motor-Driver-I2C-Module-For-Arduino-Robot-p-1170343.html?rmmds=search&cur_warehouse=CN'>the PCA9685 servo driver</a>. This board is great as it has its own dedicated processor that accepts signals for the positions of the motors over serial and then handles the rest (the pulse width modulation) itself. This has many advantages: we free up our Arduino processing power, we will have more pins to work with and connecting the servos would be really easy (the board comes with pre-installed headers ready for up to 16 different servos).
 </p>
 
 <p>
-Here is a picture of us setting things up for the first time and testing the board out:
+This is what the situation looked like with all the motors hooked up:
 </p>
 
 <img src='/images/club/hexapod/pca9685.jpg'></img>
 
 <p>
-The next step was to use a glue-gun to secure everything together.
+The next step was to use a glue-gun to secure everything together and program the first movements.
 </p>
 
 <p>
-This is as far as we currently are with this project and are in the processor of programming it to take its first steps.
+At first, it looked promising...
 </p>
+
+<video src='/videos/club/hexapod_first_movements.mp4' controls></video>
+
+<p>...but we soon encountered a problem. Namely, after about 30 seconds of executing a pre-defined sequence of movements, the entire system would just halt and behave iratically. Either the servos would stop entirely, or only one or two would contrinue to work.</p>
+
+<p>In spite of this issue, we started to write the code (available on <a href='https://github.com/joeiddon/arduino_club/tree/master/hexapod'>GitHub here</a>) to make the hexapod walk.</p>
+
+<p>Here is a picture of our (<em>terrible</em>) plan for that:</p>
+
+<img style='width: 50%; margin: auto;' src='/images/club/hexapod/design.jpg'></img>
+
+<p>However, after tinkering with the board and the code for many a week, we were on the verge of giving up since the aforementioned problem of the eratic behaviour was impossible to work with. Amongst other things, we even tried eliminating the PCA9685 servo controller board entirely and dedicated a GPIO pin to each individual servo (this took a fair amount of soldering work!), but to no avail.<p>
+
+<p>In a final attempt to salvage the project, I bagged it up and took it home so I can spend a weekend trying everything I could think of. This included wiring in capcitors to remove any noise in the pulse width modulation and using a ridiculously high-current 15A power supply to eliminate the possibility of it failing due to overloading its power source. Again, there was no change, the hexapod just kept stopping and "jittering".</p>
+
+<p>The furthest I got was a brief walk, but it was hardly impressive since it could barely keep itself stable as there was no time to tune the angles.</p>
+
+<video src='/videos/club/hexpaod_walking.mp4' controls></video>
+
+<p>We then re-grouped the following week and tried some final debugging. Finally we discovered at least part of the cause. It turned out that a couple of the servos had been mechanically damaged (probably from when we mucked up the initial angles and rammed the legs into the main body :/). And due to these servos being unable to reach their desired positions, they were disrupting the power distribution to the others and breaking the whole system. Unfortunately I did not get a video showing this strange behaviour, but it was evident to us that when we disconnected enough servos, it would behave less randomly.</p>
+
+<p>However, since a significant proportion of them were damaged, we kind of reached a dead end. I put an order in for 6 more servos (that would come in useful anyway if not used for this), but we still don't know whether the servos were the only cause of the issue (I suspected not).</p>
+
+<p>So, in addition to the fact that some of us would soon be going off on study leave (followed by an extended summer break), we settled on putting the hexapod to rest and would start something new the next academic year.</p>
+
+<p>It was a shame to invest so much time into a project which had a disapointing outcome, but we did learn lots - especially how useful the laser cutter could be - so it was still useful and definetely fun to work on. I also have hope that once are next project is well underway, some of us can re-visit the hexapod and give the new motors a proper go.</p>
