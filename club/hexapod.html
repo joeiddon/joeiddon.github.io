@@ -61,7 +61,7 @@ At first, it looked promising...
 
 <p>Here is a picture of our (<em>terrible</em>) plan for that:</p>
 
-<img style='width: 50%; margin: auto;' src='/images/club/hexapod/design.jpg'></img>
+<img style='width: 50%; margin: auto;' src='/images/club/hexapod/digram.jpg'></img>
 
 <p>However, after tinkering with the board and the code for many a week, we were on the verge of giving up since the aforementioned problem of the eratic behaviour was impossible to work with. Amongst other things, we even tried eliminating the PCA9685 servo controller board entirely and dedicated a GPIO pin to each individual servo (this took a fair amount of soldering work!), but to no avail.<p>
 
@@ -69,7 +69,7 @@ At first, it looked promising...
 
 <p>The furthest I got was a brief walk, but it was hardly impressive since it could barely keep itself stable as there was no time to tune the angles.</p>
 
-<video src='/videos/club/hexpaod_walking.mp4' controls></video>
+<video src='/videos/club/hexapod_walking.mp4' controls></video>
 
 <p>We then re-grouped the following week and tried some final debugging. Finally we discovered at least part of the cause. It turned out that a couple of the servos had been mechanically damaged (probably from when we mucked up the initial angles and rammed the legs into the main body :/). And due to these servos being unable to reach their desired positions, they were disrupting the power distribution to the others and breaking the whole system. Unfortunately I did not get a video showing this strange behaviour, but it was evident to us that when we disconnected enough servos, it would behave less randomly.</p>
 
