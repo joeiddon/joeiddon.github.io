@@ -2,15 +2,48 @@
 layout: default
 ---
 
-<h1>Welcome to my website (still work in progress...)</h1>
+<h1>Hi,</h1>
 
 <p>
-Hello, here I will be posting my projects and other things. To see my projects, use the drop-down menu under the 'Projects' tab at the top.
+My name is Joe, and this website is the home of my projets.
 </p>
 
 <p>
-I don't know what to put on the front page, so here are some pictures of my cat:
+Use the top navigation tabs to explore the site - in particular, the <code>about</code> section for something on me.
 </p>
 
-<img src='/images/wisps.jpg'></img>
-<img src='/images/wisps2.jpg'></img>
+<p><strong>!NEW!</strong></p>
+
+<p>
+Since I haven't posted any contact details, there is no method for any comments/suggestions on any of my work. Yes I could use a third-party like Disqus, but services which require you to sign-in discourage me from dropping a short comment (also I like to write everyhing myself), so instead I wrote a short (like <code>30</code> line) HTTPS server that accepts the POST requests which you send below, and writes them to a log.
+</p>
+
+<p>
+Type what you want in the text area below, click the <code>send</code> button, and I'll read it!
+</p>
+
+<input type='text' id='input'></input>
+<input type='button' id='button' value='send'></input>
+
+<p><em>
+Note that this is merely simplex communication. I.e. you can send me messages, but I can't send you anything. Of course, if you were to send an email address or similar, I could get back to you.
+</em></p>
+
+<p>
+Finally, to increase the cat to non-cat content on the web, here's mine:
+</p>
+
+<img class='half_img' src='/images/cats/wisps.jpg'></img
+><img class='half_img' src='/images/cats/wisps2.jpg'></img>
+
+<img class='half_img' src='/images/cats/kitkat.jpg'></img
+><img class='half_img' src='/images/cats/cats.jpg'></img>
+
+<script>
+'use strict';
+document.getElementById('button').addEventListener('click', function(){
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://joe.iddon.com:8765');
+    xhr.send(document.getElementById('input').value);
+});
+</script>
