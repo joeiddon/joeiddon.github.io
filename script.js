@@ -2,11 +2,6 @@
 
 */
 
-let projects       = document.getElementById('projects');
-let dropdown       = document.getElementById('dropdown');
-let main           = document.getElementById('main');
-let main_container = document.getElementById('main_container');
-
 //if on phone
 if (/android|webos|iphone|ipad|ipod|blackberry/i.test(navigator.userAgent) ) {
 } else {
