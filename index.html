@@ -5,11 +5,11 @@ layout: default
 <h1>Hi,</h1>
 
 <p>
-My name is Joe, and this website is the home of my projets.
+My name is Joe, and this website is the home to my projets.
 </p>
 
 <p>
-Use the top navigation tabs to explore the site - in particular, the <code>about</code> section for something on me.
+Use the top navigation tabs to explore the site - in particular the <code>about</code> section for something on me.
 </p>
 
 <p><strong>!NEW!</strong></p>
@@ -22,8 +22,11 @@ Since I haven't posted any contact details, there is no method for any comments/
 Type what you want in the text area below, click the <code>send</code> button, and I'll read it!
 </p>
 
-<input type='text' id='input'></input>
-<input type='button' id='button' value='send'></input>
+<input type='textarea' id='input' style='width:500px; height:100px;'></input>
+<div>
+  <input type='button' id='button' value='send'></input>
+  <div id='status' style='color:orange;display:inline-block;'>status: awaiting</div>
+</div>
 
 <p><em>
 Note that this is merely simplex communication. I.e. you can send me messages, but I can't send you anything. Of course, if you were to send an email address or similar, I could get back to you.
@@ -41,9 +44,26 @@ Finally, to increase the cat to non-cat content on the web, here's mine:
 
 <script>
 'use strict';
+let status = document.getElementById('status');
+let already_sent = false;
 document.getElementById('button').addEventListener('click', function(){
+    if (already_sent) return;
     let xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://joe.iddon.com:8765');
+    xhr.onerror = function(){
+        status.innerText = 'server error';
+        status.style.color = 'red';
+    }
+    xhr.onreadystatechange = function(){
+        if (xhr.response == 'thanks'){
+            status.innerText = 'sent';
+            status.style.color = 'green';
+            already_sent = true;
+        } else {
+            status.innerText = 'sending...';
+            status.style.color = 'dark orange';
+        }
+    }
     xhr.send(document.getElementById('input').value);
 });
 </script>
