@@ -6,13 +6,15 @@ layout: default
 
 <p>The rough idea for this project is to build 4 cars (small groups working on each).</p>
 
-<p>Each car will follow the same rough design: front-wheel drive with 2 DC Motors which we bought with built-in gearboxes, a third caster wheel at the back for stabilisation and enough room to mount an Arduino Uno/Nano and a Raspberry Pi 3.</p>
+<p>Each car follows the same rough design: front-wheel drive with 2 geared DC Motors, a third caster wheel at the back for stabilisation and enough room to mount at least an Arduino UNO</p>
 
-<p>As with the hexapod, we decided to take advantage of the school laser cutter to manufacture the frames. Two of the designs were just one piece - a basic frame that the wheels can be glued/screwed to the bottom of and enough space on the top to mount th electronics. The other two designs built upon this idea - adding sides and tops which will be glued together to conceal the electronics and make the final outcome more robust.</p>
+<h3>Hardware</h3>
 
-<p>Here is a screenshot of the final designs which took about 2 meetings to do:</p>
+<p>As with the hexapod, we decided to take advantage of the school laser cutter to manufacture the frames. Two of the designs were just one piece - a basic frame that the wheels can be glued/screwed to the bottom of and enough space on the top to mount the electronics. The other two designs built upon this idea - adding sides and tops which will be glued together to conceal the electronics and make the final outcome more robust.</p>
 
-<p><em>*note to self, take a screenshot</em></p>
+<p>Here is a screenshot of the final designs which took about 2 meetings to complete:</p>
+
+<p><em>*note to self, take a screenshot*</em></p>
 
 <p>We then laser cut them:</p>
 
@@ -24,21 +26,48 @@ layout: default
 <p><strong>WARNING: The next video is in portrait which is horrible,</strong> however I thought the coolness of the cutting made up for it.</p>
 <video style='display:block;margin:auto;width:50%;' src='/videos/club/cars_laser_cutter.mp4' controls></video>
 
-<p>However, unfortunately, when we were tuning the power settings of the laser cutter, we had been doing so by testing cutting a small circle. This proved to be a different type of cut to trying to cut something larger (especially long straight lines). As a result, not all of the parts had <em>fully</em> been cut out.</p>
-
-<p>This was no issue however, we just popped them out (sometimes with the addition of some significant force):</p>
-
-<img src='/images/club/cars/laser_cut_pieces.jpg'></img>
-
 <p>And that was the frames finnished!</p>
 
 <img class='half_img' src='/images/club/cars/laser_cut_side.jpg'></img
 ><img class='half_img' src='/images/club/cars/laser_cut_top.jpg'></img>
 
-<p><em>sorry for the non-orthogonal arrangement, it was a rushed picture!</em></p>
+<p><em>(Sorry for the non-orthogonal arrangement, it was a rushed picture!)</em></p>
 
 <p>Then, as some glued their "roofs" together, the others got to soldering the motors:</p>
 
 <img src='/images/club/cars/soldering.jpg'></img>
 
-<p>And that's our current progress.</p>
+<p>As for powering the cars, we had to consider the motors' power source and the Aduino's. The motors take roughly 5V-9V; the Arduino needs either a regulated 5V power source, or a 7V-22V unregulated source. However, if were to make the two parts share the same power source, the backlash from the DC Motors would wreck the power supply for the Arduino. Thus we decided on using a seperate 9V battery for the Arduino and 5 AA batteries for the motors - giving ~7.5 (we later upgraded to 6 for the extra speed).</p>
+
+<p>Here is how we mounted the batteries to one of the cars:</p>
+
+<img src='/images/club/cars/batteries.jpg'></img>
+
+<p>And that pretty much concludes the hardware, it is clear in the next section how we ended up mounting the rest of the components (switch, 9V battery, motor driver, Aduino etc.).</p>
+
+<h3>Software</h3>
+
+<p>To test the electronics and the core functionality of the cars, we just wrote some basic code to send signals to the motor drivers.</p>
+
+<p>The L298N motor H-bridge controllers are the perfect modules, because they allow bi-directional pulse-width-modulated control of each motor individually. In addition, the code is ridiculously simple, there are 6 pins that are connected to the driver board, and then depending on the states of these digital directions, you can select the different modes: forward, backward, off. In addition, the final 2 pins are used to "enable" each motor. This allows you to send a pulse-width-modulated signal down those lines to control the speed of the motors.</p>
+
+<p>That test code can be found <a href='https://github.com/joeiddon/arduino_club/blob/master/cars/l298n_test.ino'>here</a>.</p>
+
+<p>Now that we could reliable control the direction and speed of the car, we decided to have a little fun with the cheap 433mhz radio modules which are really lightweight and easy to setup.</p>
+
+<p>For this, we did have to use a library which implemented the <a href='https://en.wikipedia.org/wiki/Amplitude-shift_keying'>amplitude shift keying</a> procedure that allows a reciever and transmitter to communicate.</p>
+
+<p>With the transmitter hooked up to another Arduino UNO and the reciever hooked up to the Arduino UNO on the car, we created <a href='https://github.com/joeiddon/arduino_club/tree/master/cars/433_mhz_tests'>a little test</a>. It listens for input on the serial line and then sends that over radio to the reciever. The reciever then writes that message to serial. Unfortunately I didn't get a video of it working, but it was really neat because it was wireless communication of text without WiFi which we'd made ourselves.</p>
+
+<p>Now that we had the communications working, we adapted the serial funcitonality to just sending bytes which were read from potentiometers and push buttons. These represented the motor speeds and motor directions respectively.</p>
+
+<p>And with a little bit of C magic (<strong><a href='https://github.com/joeiddon/arduino_club/tree/master/cars/basic_radio_remote'>final code here</a></strong>), we had an RC car.
+
+<h3>In Action</h3>
+
+<video src='/videos/club/follow_car.mp4' controls></video>
+<video src='/videos/club/remote_car.mp4' controls></video>
+
+<h3>Next Steps?</h3>
+
+<p>We hope to add a Raspberry Pi to the car so that we can control it over WiFi and then start writing complex algorithms, e.g. autonomous navigation.</p>
