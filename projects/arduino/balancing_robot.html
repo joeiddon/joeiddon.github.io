@@ -20,7 +20,7 @@ layout: default
 
 <img src='/images/balancing_robot/layers.jpg'><img>
 
-<p>The driver board took quite a while to make, because there are a lot of things to take into account when working with the <a href='https://www.pololu.com/product/1182'>Pololu A4988 Stepper Driver</a>. The main things are: the main power for the motors (from the lipo); a logic power supply (from the arduino's regulated 5V); a step pin that steps the motor when it receives a pulse; a direction pin, and then finally the four wires that connect to the stepper motor. There are also an additional three pins that allow you to prescribe the driving mode either: full, hald, quater, eigth or sixteenth step. Finally, you should also wire in a capacitor across the power supply to protect the electronics from backlash (voltage spikes from the motors stopping and starting).</p>
+<p>The driver board took quite a while to make, because there are a lot of things to take into account when working with the <a href='https://www.pololu.com/product/1182'>Pololu A4988 Stepper Driver</a>. The main things are: the main power for the motors (from the lipo); a logic power supply (from the arduino's regulated 5V); a step pin that steps the motor when it receives a pulse; a direction pin, and then finally the four wires that connect to the stepper motor. There are also an additional three pins that allow you to prescribe the driving mode either: full, half, quarter, eighth or sixteenth step. Finally, you should also wire in a capacitor across the power supply to protect the electronics from backlash (voltage spikes from the motors stopping and starting).</p>
 
 <p>Because there was so much to wire up, I created a dedicated power board that had headers that linked to the board that the arduino sits on and some 4pin connectors to plug the motors into. This can be seen below along with the lipo battery.</p>
 
@@ -34,15 +34,18 @@ layout: default
 
 <p>To make a robot balance, what I thought would be a "simple" PID loop is required.</p>
 
-<p><strong>However</strong>, the jittering from the stepper motors meant that the readings from the accelerometer were very noisy.</p>
+<p><strong>However</strong>, the jittering from the stepper motor pulses caused high mechanical shocks that meant the readings from the accelerometer were very noisy.</p>
 
 <p>This could be remedied by averaging, say 32, readings over a period of time.</p>
 
-<p>I won't go into details about <em>how</em> I wrote the code, because there is lots online about how a PID loop works. If you are interested in my specific implementation details and how I interfaced with the accelerometer and the motor driver boards, then feel free to look at the code <a href='https://github.com/joeiddon/balancing_robot/blob/master/balancing_robot.ino'>here on my GitHub</a>.</p>
+<p>I won't go into details about <em>how</em> I wrote the code, because there is lots online about how a PID loop works. If you are interested in my specific implementation details and how I interfaced with the accelerometer and the motor driver boards, then feel free to look at the code <a href='https://github.com/joeiddon/balancing_robot/blob/master/balancing_robot.ino'>here on my GitHub</a> (I've used some nifty tricks with unsigned counters and time deltas to efficiently calculate when to pulse the motors).</p>
 
-<p>After a lot of tuning of the parameters (like hours of tuning) here is the thing vaguely balancing:</p>
+<p>I then spent hours tuning it - at one point I wrote an addition to the code that streams all the sensor data over serial back to my laptop <em>after</em> a test, since streaming data during a test changed the behavious of the robot. I also improved its grip by wrapping the wheels in a couple of rubber bands.</p>
+
+<p>Eventually, it could balance:</p>
 
 <video src='/videos/balancing_robot.mp4' controls></video>
 
-<p>Unfortunately, that is as far as I got. The motors didn't have enough speed to counteract big wobbles, and bigger wheels lacked the torque to rotate the heavy mass, this meant I never got to the stage of having it actually drive about. Nevertheless it was a fun project and I learnt a lot about stepper motors.</p>
+<p>I'd like to have got it driving about, but the motors didn't quite have enough speed to counteract big wobbles, and bigger wheels lacked the torque to rotate the heavy mass, this meant I never got to the stage of having it actually drive about. I also tried moving the lipo to be in-line with the motors, so the centre of mass was lower and it would required less effort to rotate, but this still wasn't enough.</p>
 
+<p>If I had money to spare, I could invest in faster, higher torque motors, but nevertheless it was a fun project and I learnt a lot about stepper motors.</p>
