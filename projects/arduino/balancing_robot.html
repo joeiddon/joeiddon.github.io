@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<h1>A Self-Balancing Robot</h1>
+
+<p>A two-wheeled balancing robot is is a fairly standard project idea. Seeing one for the first time on <a href='https://www.youtube.com/watch?v=8jFh75Kwncc'> Kris Termmerman's YouTube channel</a> (all his creations are awesome), I decided to give it a go.</p>
+
+<p>I had left over stepper drivers from when I built my 3d printer, but unfortunately no spare stepper motors, so I bought some cheap ones from ebay.</p>
+
+<p>I designed, then 3d printed, the frame for the robot.</p>
+
+<p>Mechanically, it just needed to be strong to support the power of the motors and have enough room to mount a lipo battery and the electronics.</p>
+
+<p>Here is a little shot of how the motors were screwed in:</p>
+
+<img src='/images/balancing_robot/frame.jpg'></img>
+
+<p>The design consisted of a series of layers (below) that were held apart by nylon standoffs. From the top down, I strapped a 3S (~12V) 1300mah lipo battery (that used to be for a quadcopter, but I broke the battery leads partially in a crash), an MPU-9250 accelerometer IMU unit, an Arduino Nano (popped into some headers soldered to a piece of stripboard along with a fuse and some male headers to attatch wires to the required pins) and then finally my custom power distribution board which I'll talk about later.</p>
+
+<img src='/images/balancing_robot/layers.jpg'><img>
+
+<p>The driver board took quite a while to make, because there are a lot of things to take into account when working with the <a href='https://www.pololu.com/product/1182'>Pololu A4988 Stepper Driver</a>. The main things are: the main power for the motors (from the lipo); a logic power supply (from the arduino's regulated 5V); a step pin that steps the motor when it receives a pulse; a direction pin, and then finally the four wires that connect to the stepper motor. There are also an additional three pins that allow you to prescribe the driving mode either: full, hald, quater, eigth or sixteenth step. Finally, you should also wire in a capacitor across the power supply to protect the electronics from backlash (voltage spikes from the motors stopping and starting).</p>
+
+<p>Because there was so much to wire up, I created a dedicated power board that had headers that linked to the board that the arduino sits on and some 4pin connectors to plug the motors into. This can be seen below along with the lipo battery.</p>
+
+<img class='third_img' src='/images/balancing_robot/driver_board.jpg'></img
+><img class='third_img' src='/images/balancing_robot/a4988.jpg'></img
+><img class='third_img' src='/images/balancing_robot/lipo.jpg'></img>
+
+<p><em>Note, this was taken mid-step-adjustment, so two of the wires are loose!</em></p>
+
+<p>And that's it for the mechanical and electrical engineering, now for the software...</p>
+
+<p>To make a robot balance, what I thought would be a "simple" PID loop is required.</p>
+
+<p><strong>However</strong>, the jittering from the stepper motors meant that the readings from the accelerometer were very noisy.</p>
+
+<p>This could be remedied by averaging, say 32, readings over a period of time.</p>
+
+<p>I won't go into details about <em>how</em> I wrote the code, because there is lots online about how a PID loop works. If you are interested in my specific implementation details and how I interfaced with the accelerometer and the motor driver boards, then feel free to look at the code <a href='https://github.com/joeiddon/balancing_robot/blob/master/balancing_robot.ino'>here on my GitHub</a>.</p>
+
+<p>After a lot of tuning of the parameters (like hours of tuning) here is the thing vaguely balancing:</p>
+
+<video src='/videos/balancing_robot.mp4' controls></video>
+
+<p>Unfortunately, that is as far as I got. The motors didn't have enough speed to counteract big wobbles, and bigger wheels lacked the torque to rotate the heavy mass, this meant I never got to the stage of having it actually drive about. Nevertheless it was a fun project and I learnt a lot about stepper motors.</p>
+
