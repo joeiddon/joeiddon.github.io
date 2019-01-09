@@ -1,0 +1,192 @@
+---
+layout: default
+---
+
+<h1>Blocks</h1>
+
+<h2>Play the game here: <a href='https://joeiddon.github.io/blocks'>https://joeiddon.github.io/blocks</a>.</h2>
+
+<p>This project is my ultimate 3d rendering outcome - a multiplayer minecraft-like game that can be played in the browser.</p>
+
+<p>It all began with being shown how to project some 3d coordinates onto a 2d graph in MS Excel. Then, after learning to use the HTML5 Canvas, how to then render 3d graphics using the core ideas from trigonometry. This progression can be found in <a href='https://github.com/joeiddon/3d_simulation'>my github repo named 3d simulation</a> and I have a separate post on those core ideas <a href='https://joeiddon.github.io/simulating_3d'>here on this website</a> which includes a mention of my library <a href='https://github.com/joeiddon/zengine'><code>zengine.js</code></a>.</p>
+
+<p>After formulating this reasnobly well-working library, I made some basic games like <a href='https://github.com/joeiddon/apocalombie'>apocalombie</a>, but nothing really all that ambitious. I then came up with this idea.</p>
+
+<p>For the frontend, I would of course be using JavaScript (and some HTML and CSS for the formatting and inputs of course) and for the backend, I wrote a Python server using websockets.</p>
+
+<p>In terms of the JavaScript, which runs in "offline mode" if the server is down, the coding wasn't too difficult. There are three files in <strong><a href='https://github.com/joeiddon/blocks'>the GitHub repository</a></strong>: <code>script.js</code>, <code>objects.js</code> and <code>world_generation.js</code>.</p>
+
+<p>The <strong><code>objects.js</code></strong> file contains one object, named <code>objects</code>, for which each attribute is a function which will calculate an array of world faces (equipt with unit vectors, colors, etc.). This file also defines a function, <code>get_cuboid</code> that is just useful for the different objects which generally involve cuboids of some shape or form. The function takes an <code>x,y,z</code> position for the cubid and three side lengths. This can be seen below in the most basic of objects, a cube.</p>
+
+<pre>
+let objects = {
+    cube: function(){
+        let col = {h: 37, s: 100, l: 60};
+        return get_cuboid(0, 0, 0, 1, 1, 1, col);
+    },
+    ...
+}
+</pre>
+
+<p>The <strong><code>world_generation.js</code></strong> file is one of the coolest parts of this project. In a nut shell, given a world seed, this file provides a function which will return an array of "objects" in the 4 current "chunks" (block sections, roughly 16 by 16 but I change it every now again). The neat bit being that the function appears random so that the world feels natural, but can actually generate an infinite number of different chunks from just one seed. I.e. anyone who joins the game and has the seed can walk infinitely and experience (place blocks etc.) the same world as anyone else. This is just so awesome. Let me re-iterate. With one byte of data, an entirely unique, infinitely sized world is described as a result of the power of a mathematical function.</p>
+
+<p>To actually code this, I only made the world consist of two seemingly random (but actual determined) types of features - grass floor blocks and trees. Both these features require a random function that is determined based on two parameters (as the world terrain is 2 dimensional) and the seed. This could be achieved with a proper PRNG, but instead I just hacked together a little function involving primes. It can be seen below.</p>
+
+<pre>
+function random(x, y){
+    //times seed by x and y multiplied by two primes and then normalise
+    //with the size of the seed
+    return seed * 193 * (x * 197 + y * 199) % 97 / 97;
+}
+</pre>
+
+<p>As you can see, the function is clearly deterministic (it does not depend on any external variables such as time, or temperature etc.) and is normalised (the mod 97 followed by a div 97) to give an output in the range 0 to 1 (inclusive). This function can then be used to determine the "seemingly random" placement of trees and the "seemingly random" heights of hills.</p>
+
+<p>A naive approach for the grass ground blocks would be to scale up the result of the random function by a maximum hill height variable. However this would result in a horrible landscape - just loads of spikey pillars everywhere. To get around this, I adapted my <a href='https://github.com/joeiddon/perlin'>perlin.js</a> libray (a post on that project can be found <a href='https://joeiddon.github.io/projects/javascript/perlin'>here</a>) to have access to a smooth "terrain function" which I sample to know how high to place each block.</p>
+
+<p>To know where to place a tree however is much simpler, I simply say "is the result of the random function at this (x,y) coordinate greater than some arbitrary constant of tree-spawn-probability".</p>
+
+<p>And that's about it. I did add some basic memoization so that if you walk back into a chunk you have walked through before, the previously calculated array of blocks is immediately returned which saves on computation time and increases the game frames-per-second.</p>
+
+<p>In total, this file does not contain too much code (bar the perlin noise calculations), but the effect is really very cool - being able to walk infinitely and the terrain generate in front of you.</p>
+
+<p>Finally, the <strong><code>script.js</code></strong> file therefore contains the core of the code. It defines many initial variables relating to the player, the websocket connection, the world setup etc. and then goes into declaring the main event loop which is controlled by <code>requestAnimationFrame</code>. Following are the event listeneres. These include ones for the pointer lock, ones for asynchronous websocket communications, and then finally some basic user ones like mouse, keyboard and input boxes.</p>
+
+<p>As usual, I don't have the effort to step through the code line-by-line and explain what everything does, but I would love for, if you are interested, you took a look at the source which is linked above.</p>
+
+<p>I will however go into a bit of detail on the Python server and in particular the websockets that enable the multiplayer funcitonality. If for some reason the server is down so you can only play the game in "offline mode", you can see in the thumbnail of this post the multiplayer play in action where the user can see another player in blue standing ahead of him in the world.</p>
+
+<p>The websocket communication was new to me. I had however made a few HTTP servers before, but for quick two-way communication, straight up sockets are the way to go. The foundation of my protocol was to always send a JSON string as the message, where the encoded object must include a <code>type</code> attribute. This allows for the identification on both sides of what the message is about. For instance a type of <code>"seed"</code> indicates that the <code>data</code> attribute of the object represents the world seed. And a type of <code>"positions"</code> indicate that the data descibes the positions of the players who are currently online.</p>
+
+<p>Having defined my protocol this way, the JavaScript <code>websocket.onmessage</code> event handler was really straight-forward to code.</p>
+
+<pre>
+websocket.onmessage = function(e){
+    let message = JSON.parse(e.data);
+    switch (message['type']){
+        case 'positions':
+            positions = message['data'];
+            break;
+        case 'seed':
+            seed = parseInt(message['data']);
+            break;
+        case 'user_blocks':
+            user_blocks = message['data'];
+            break;
+        case 'log':
+            log.innerText += message['data'] + '\n';
+            log.scrollTop = log.scrollHeight;
+            break;
+        default:
+            console.log('unknown message type:',
+                        message['type']);
+    }
+}
+</pre>
+
+<p>The rest of the front-end websocket code is also basic. There is the initial creation of the connection, a couple of event handlers for when the websocket closes or there is an error and then finally the periodic code to send my updated position to the server as well as the initial send of your username when you join the game.</p>
+
+<p>The code did however get a little harder on the Python side...</p>
+
+<p>As requests need to be handled <em>asynchronously</em>, i.e. the server needs to listen to all the clients and handle messages whenever it needs to rather than hae a clock signal or similar that defines when events are to be sent or recieved, all functions must be defined with the additional <code>async</code> keyword on top of the usual <code>def</code> keyword as well as the allowed use of an <code>async for</code> loop to enter a listening state for messages. Then, through use of the <code>asyncio</code> module, Python can be told to run its own internal event loop that will, on just a single thread, switch between the differnet asynschronous functions; taking action when required.</p>
+
+<p>All in all, the code is very neat for all its functionality. It does lack protection against malicious users, e.g. a user can send a message updating their position to a million blocks away from where they were and the server will happily accept that, but I am fine with this as this is not proper production code.</p>
+
+<p>I would urge you again to take a quick look at the code <a href='https://github.com/joeiddon/blocks/blob/master/server.py'>here on GitHub</a>, but just because I can, I will just dump it at the bottom of this post too for the sake of it. :)</p>
+
+<p>And that concludes what is one of my projects that I am most proud of. Please have a play by following the link at the top of this article.</p>
+
+<h3>Contents of <a href='https://github.com/joeiddon/blocks/blob/master/server.py'><code>server.py</code></a> (slightly modified).</h3>
+
+<pre>
+#! /usr/bin/python3.6
+import asyncio, websockets, json, random, ssl
+
+PORT = 443
+USERS = set()                   #set of WebSocketServerProtocol instances
+POSITIONS = {}                  #will store the positions in the format {user_name: {x: ,y: ,z: ,yaw: }, ...}
+USER_BLOCKS = set()             #stores the user placed blocks
+SEED = random.randint(0, 50)    #seeds perlin noise func on client side to generate all grass terrain
+
+def users_str():
+    return 'online: ['+','.join(user.name for user in USERS)+']'
+
+async def broadcast(dic):
+    for user in USERS.copy():
+        try:
+            await user.send(json.dumps(dic))
+        except websockets.exceptions.ConnectionClosed:
+            await handle_leave(user)
+
+async def send(websocket, dic):
+    try:
+        await websocket.send(json.dumps(dic))
+    except websockets.exceptions.ConnectionClosed:
+        await handle_leave(websocket)
+
+async def handle_leave(websocket):
+    if websocket in USERS:
+        USERS.remove(websocket)
+    if websocket.name in POSITIONS:
+        POSITIONS.pop(websocket.name)
+        await broadcast({'type':'log', 'data': websocket.name+' left'})
+
+async def handle_ws(websocket, path):
+    ip, port = websocket.remote_address
+    await send(websocket, {'type':'seed', 'data': SEED})
+    await send(websocket, {'type':'positions', 'data':POSITIONS})
+    try:
+        async for message in websocket:
+            message = json.loads(message)
+            if message['type'] == 'join':
+                    if message['data'] in (user.name for user in USERS):
+                        print('user somehow managed to choose someone elses name...')
+                        await websocket.close()
+                        break
+                    websocket.name = message['data']
+                    USERS.add(websocket)
+                    await send(websocket, {'type':'log','data':'hello, '+websocket.name+'\n[ip: '+ip+']\n'+users_str()})
+                    await broadcast({'type':'log','data':websocket.name+' joined'})
+            elif not hasattr(websocket, 'name'):
+                print('different mesage type before a succesfull query_name!')
+                await websocket.close()
+                break
+            elif message['type'] == 'update_position':
+                POSITIONS[websocket.name] = message['data']
+            elif message['type'] == 'block_place':
+                #stored as tuples in set
+                USER_BLOCKS.add(tuple(message['data'][k] for k in ['x','y','z','obj']))
+            elif message['type'] == 'block_remove':
+                t = tuple(message['data'][k] for k in ['x','y','z','obj'])
+                if t in USER_BLOCKS:
+                    USER_BLOCKS.remove(t)
+            elif message['type'] == 'cmd':
+                commands = ['help: list commands',
+                            'ls: list users']
+                if message['data'] == 'help':
+                    await send(websocket, {'type':'log','data':'\n'.join(commands)})
+                elif message['data'] == 'ls':
+                    await send(websocket, {'type':'log','data':users_str()})
+                else:
+                    await broadcast({'type':'log','data':websocket.name+': '+message['data']})
+            else:
+                print('message type', message['type'], 'not recognised')
+    except:
+        await handle_leave(websocket);
+
+async def pinger():
+    while True:
+        await broadcast({'type':'positions', 'data': POSITIONS})
+        await broadcast({'type':'user_blocks', 'data': [dict(zip(['x','y','z','obj'],t)) for t in USER_BLOCKS]})
+        await asyncio.sleep(0.05)
+
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain(certfile='/etc/letsencrypt/live/joe.iddon.com/fullchain.pem',
+                            keyfile ='/etc/letsencrypt/live/joe.iddon.com/privkey.pem')
+
+loop = asyncio.get_event_loop()
+task = loop.create_task(pinger())
+loop.run_until_complete(websockets.serve(handle_ws,port=PORT,ssl=ssl_context))
+loop.run_until_complete(task)
+loop.run_forever()
+</pre>
