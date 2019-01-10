@@ -1,10 +1,21 @@
-/*
-
-*/
+'use strict';
 
 //if on phone
 if (/android|webos|iphone|ipad|ipod|blackberry/i.test(navigator.userAgent) ) {
+    //resize the top_bar and menu
+    let menu = document.getElementById('menu');
+    let top_bar = document.getElementById('top-bar');
+    let main = document.getElementById('main');
+    let es = document.getElementsByClassName('nav-but');
+    let banner_height = es.length * es[0].clientHeight;
+    top_bar.style.height = menu.style.height = main.style.top = banner_height;
+    let mw = 0;
+    for (let i = 0; i < es.length; i++){
+        mw = Math.max(mw, es[i].clientWidth);
+    }
+    menu.style.width = mw;
 } else {
+    //...
 }
 
 /*
