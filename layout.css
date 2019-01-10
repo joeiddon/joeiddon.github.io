@@ -21,7 +21,7 @@
 }
 
 #content {
-    width: 1260px;
+    max-width: 1080;
     padding: 0 16px;
     margin: 0 auto;
 }
