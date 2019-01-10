@@ -8,7 +8,7 @@ layout: default
 
 <p>This project is my ultimate 3d rendering outcome - a multiplayer minecraft-like game that can be played in the browser.</p>
 
-<p>It all began with being shown how to project some 3d coordinates onto a 2d graph in MS Excel. Then, after learning to use the HTML5 Canvas, how to then render 3d graphics using the core ideas from trigonometry. This progression can be found in <a href='https://github.com/joeiddon/3d_simulation'>my github repo named 3d simulation</a> and I have a separate post on those core ideas <a href='https://joeiddon.github.io/simulating_3d'>here on this website</a> which includes a mention of my library <a href='https://github.com/joeiddon/zengine'><code>zengine.js</code></a>.</p>
+<p>It all began with being shown how to project some 3d coordinates onto a 2d graph in MS Excel. Then, after learning to use the HTML5 Canvas, how to then render 3d graphics using the core ideas from trigonometry. This progression can be found in <a href='https://github.com/joeiddon/3d_simulation'>my github repo named 3d simulation</a> and I have a separate post on those core ideas <a href='/simulating_3d'>here on this website</a> which includes a mention of my library <a href='https://github.com/joeiddon/zengine'><code>zengine.js</code></a>.</p>
 
 <p>After formulating this reasnobly well-working library, I made some basic games like <a href='https://github.com/joeiddon/apocalombie'>apocalombie</a>, but nothing really all that ambitious. I then came up with this idea.</p>
 
@@ -42,7 +42,7 @@ function random(x, y){
 
 <p>As you can see, the function is clearly deterministic (it does not depend on any external variables such as time, or temperature etc.) and is normalised (the mod 97 followed by a div 97) to give an output in the range 0 to 1 (inclusive). This function can then be used to determine the "seemingly random" placement of trees and the "seemingly random" heights of hills.</p>
 
-<p>A naive approach for the grass ground blocks would be to scale up the result of the random function by a maximum hill height variable. However this would result in a horrible landscape - just loads of spikey pillars everywhere. To get around this, I adapted my <a href='https://github.com/joeiddon/perlin'>perlin.js</a> libray (a post on that project can be found <a href='https://joeiddon.github.io/projects/javascript/perlin'>here</a>) to have access to a smooth "terrain function" which I sample to know how high to place each block.</p>
+<p>A naive approach for the grass ground blocks would be to scale up the result of the random function by a maximum hill height variable. However this would result in a horrible landscape - just loads of spikey pillars everywhere. To get around this, I adapted my <a href='https://github.com/joeiddon/perlin'>perlin.js</a> libray (a post on that project can be found <a href='/projects/javascript/perlin'>here</a>) to have access to a smooth "terrain function" which I sample to know how high to place each block.</p>
 
 <p>To know where to place a tree however is much simpler, I simply say "is the result of the random function at this (x,y) coordinate greater than some arbitrary constant of tree-spawn-probability".</p>
 
