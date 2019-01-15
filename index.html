@@ -75,7 +75,7 @@ let already_sent = false;
 document.getElementById('button').addEventListener('click', function(){
     if (already_sent) return;
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://joe.iddon.com:8765');
+    xhr.open('POST', 'https://joe.iddon.com:443'); //8765
     xhr.onerror = function(){
         status.innerText = 'server error';
         status.style.color = 'red';
