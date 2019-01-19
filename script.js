@@ -29,7 +29,7 @@ for (let i = 0; i < scripts.length; i++){
 
 //joe's analytics :)
 let xhr = new XMLHttpRequest();
-xhr.open('POST', 'https://joe.iddon.com:8765');
+xhr.open('POST', 'https://joe.iddon.com:443');
 xhr.send(window.location.href);
 
 //google analytics
