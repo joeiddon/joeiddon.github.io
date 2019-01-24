@@ -75,7 +75,7 @@ let already_sent = false;
 document.getElementById('button').addEventListener('click', function(){
     if (already_sent) return;
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://joe.iddon.com:443'); //8765
+    xhr.open('POST', 'https://joe.iddon.com')
     xhr.onerror = function(){
         status.innerText = 'server error';
         status.style.color = 'red';
@@ -90,6 +90,6 @@ document.getElementById('button').addEventListener('click', function(){
             status.style.color = 'dark orange';
         }
     }
-    xhr.send(document.getElementById('input').value);
+    xhr.send(JSON.stringify({'type':'log_this', 'data':document.getElementById('input').value}));
 });
 </script>
