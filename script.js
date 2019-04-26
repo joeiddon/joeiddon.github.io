@@ -41,6 +41,7 @@ function log_to_server(str){
 }
 
 //joe's analytics :)
+/*
 if (localStorage['name'] && localStorage['num_visits']) {
     log_to_server('Hi, its '+localStorage['name']+'. I have visited '+localStorage['num_visits']+' times before!');
     localStorage['num_visits'] = parseInt(localStorage['num_visits']) + 1; //converted back to a string
@@ -50,6 +51,7 @@ if (localStorage['name'] && localStorage['num_visits']) {
     localStorage['name'] = new_name;
     localStorage['num_visits'] = 0; //warning! converted to string immediately
 }
+*/
 
 log_to_server('--> '+window.location.href);
 
