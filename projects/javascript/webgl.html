@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<h1>Learning WebGL</h1>
+
+<h2><a href='https://joeiddon.github.io/webgl/wispa_grid'>A Wispa grid finale!</a></h2>
+
+<p>After working out for myself the basic ideas that go into rendering 3D things when making <a href='https://github.com/joeiddon/zengine'>my 3D engine, zengine.js</a>. I felt I was ready to progress to the next, more professional level, with a more speedy renderer.</p>
+
+<p>When using OpenSCAD 3D modelling software, I had noticed that the preview image was being rendered with something called "OpenGL". In addition, when browsing a 3D rendering engine for use in the web (THREE.js), I came across this package called WebGL. My first impression was that it was some sort of 3D rendering software to do with OpenGL. After some short research, I discovered it is OpenGL for the Web. Hence the name, A <strong>Web G</strong>raphics <strong>L</strong>ibrary. It differs slightly in the language of the shaders it uses (OpenGL ES - for "Embedded Systems"), and in a couple of other ways; but the main philosophies of the two libraries remain the same. That is, to be <strong>2D</strong> rasterization engines. And yes, they are both fundamentally <strong>2D</strong> libraries. Of course, yes, they can be used to render 3D, but their main design features (using vertex and fragment shaders, buffers and attributes and functions to setup state) are entirely surrounded around the idea of passing <strong>2D</strong> data efficiently to a GPU (integrated or external) to be rendered to some form of Canvas.</p>
+
+<p>This is where the confusion arrises though. WebGL has many built-in functions and useful features (such as built-in vector and matrix operations) that make it useful for rendering <strong>3D</strong> objects, but at its heart, it rasterizes (converts vector representations of shapes to pixel representations - see below) <strong>2D</strong> triangles and draws them; it is down to the programmer (user of the library) to work out the correct maths (4D matricies etc.) to project their 3D world representations to 2D.</p>
+
+<p>If my explanation sounds bad, that's probably because it is. See the fundamentals page of the excellent guide, webglfundamentals.org, that I followed to learn WebGL <a href='https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html'>here</a>, for a better explanation of this "Is WebGL a 3D API?" question.</p>
+
+<p>Anyway, now we have cleared up the premise that learning WebGL is not the same process as learning a 3D library like THREE.js. Learning to use a 3D library, I would guess, would boil down to essentially learning some methods of representing your world and the names and syntax of different functions. The reason I chose the challenge to learn WebGL, was so that I could have a true understanding of how to write a 3D library, or equivalent, that takes advantage of a GPU. This is in contrast to my zengine.js project which used HTML5's default '2d' context of the Canvas element to render to the screen. Yes this worked, but it was slow. Little did I know what I was getting into though...</p>
+
+<p>This leads me to my first epiphany: not only was my zengine.js library slow and inefficient as well as being outright wrong in it's rendering techniques in some places, but rendering 3D with matricies (as is entirely the way to go for huge optimisations) is beautiful.<p>
+
+<p>I hope to finish this page explaining how these matricies work, but until then, you can can read my code and some further explanations on my GitHub <a href='https://github.com/joeiddon/webgl'>here</a>. In addition, to complement the less-mathsy explanations on the webglfundamentals.org site (linked above), I leave pictures of my maths notes I sued along my learning journey below.</p>
+
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190730_192648950.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190730_193202508.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190731_204600945.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190731_204609502.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190801_121647034.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190802_113307838.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190802_113718055.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190802_120700818.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190802_154455885.jpg'></img>
+<img src='https://joeiddon.github.io/webgl/calculations/IMG_20190802_154459719.jpg'></img>
