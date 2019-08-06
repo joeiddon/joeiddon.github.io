@@ -12,6 +12,8 @@ layout: default
 
 <p>This is where the confusion arrises though. WebGL has many built-in functions and useful features (such as built-in vector and matrix operations) that make it useful for rendering <strong>3D</strong> objects, but at its heart, it rasterizes (converts vector representations of shapes to pixel representations - see below) <strong>2D</strong> triangles and draws them; it is down to the programmer (user of the library) to work out the correct maths (4D matricies etc.) to project their 3D world representations to 2D.</p>
 
+<img src='/images/webgl/rasterization.png'></img>
+
 <p>If my explanation sounds bad, that's probably because it is. See the fundamentals page of the excellent guide, webglfundamentals.org, that I followed to learn WebGL <a href='https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html'>here</a>, for a better explanation of this "Is WebGL a 3D API?" question.</p>
 
 <p>Anyway, now we have cleared up the premise that learning WebGL is not the same process as learning a 3D library like THREE.js. Learning to use a 3D library, I would guess, would boil down to essentially learning some methods of representing your world and the names and syntax of different functions. The reason I chose the challenge to learn WebGL, was so that I could have a true understanding of how to write a 3D library, or equivalent, that takes advantage of a GPU. This is in contrast to my zengine.js project which used HTML5's default '2d' context of the Canvas element to render to the screen. Yes this worked, but it was slow. Little did I know what I was getting into though...</p>
