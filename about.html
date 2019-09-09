@@ -24,3 +24,19 @@ I dabble in some <code>JavaScript</code>, <code>Python</code> and some <code>C++
 <p>It is hosted by Github (hence the <code>.github.io</code> domain name). My original aim was to write the entire thing from scratch, however the HTML and CSS for the banner (menu) at the top and the styling is all identical for every page on the site so it would be ideal to have the http server insert each post between these two HTML snippets. I did, in the future, write a Python TCPServer that inherited from the <code>http.BaseHTTPRequestHandler</code> which implemented this functionality, however to have my whole site hosted from, for instance, a Google VM instance would end up being slow and/or cost money. So as a result, I settled on sticking with Github.</p>
 
 <p>To implement this HTML-post-inserting, I discovered I could use some basic Jekyll functionality that Github Pages natively supports. Initially I was against this idea since I am, in general, against using frameworks and high-level packages (since I always find myself fighting against them or wisihig they were written in a different way), but in the end it proved to be very simple. All that was required was to create a <code>_layouts</code> directory in the root of the repo and then create this "template" HTML file. I named this <code>default.html</code>. In this file, I wrote the banner HTML and linked my stylesheets  and then used a special Jekyll-defined flag which signals to Jekyll to insert every HTML file which contains <code>layout: default</code> in the Jekyll metadata to this place in the HTML. As I say, I would prefer to not have to rely on Jekyll, but since the functionality is there, I thought I'd take advantage of it.</p>
+
+
+<h2>Be the first?</h2>
+
+<p>This website is hosted for free, but my projects do cost me money. Although I do not struggle to fund these, when toying with ideas for new projects, I always have price in mind - trying to keep the cost to a minimum by re-using spare parts of salvaging things where possible.<p>
+
+<p>I have only ever got a tiny amount of traffic, so I'd rate the chances of anyone donating me to be very low. Nevertheless, I thought I'd give it a try. Maybe somebody who is particularly grateful for one of my postings on StackOverflow may be so kind?</p>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="text-align:center">
+<input type="hidden" name="cmd" value="_donations" />
+<input type="hidden" name="business" value="ZRALSLBMRXW6Y" />
+<input type="hidden" name="item_name" value="Any donations would be wonderful for funding projects and equipment. Thank you very much for any support." />
+<input type="hidden" name="currency_code" value="GBP" />
+<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1" />
+</form>
