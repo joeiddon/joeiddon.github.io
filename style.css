@@ -28,6 +28,11 @@ img {
     display: inline-block;
 }
 
+.quater_img {
+    width: calc(100%/4);
+    display: inline-block;
+}
+
 .no_underline {
     text-decoration: none;
 }
