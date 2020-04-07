@@ -1,0 +1,22 @@
+/* 
+ Theme Name:     Open Cosmos
+ Author:         Forepoint Ltd
+ Author URI:     https://www.forepoint.co.uk
+ Template:       Divi
+ Version:        1.0 
+*/ 
+
+
+/* ----------- PUT YOUR CUSTOM CSS BELOW THIS LINE -- DO NOT EDIT ABOVE THIS LINE --------------------------- */ 
+
+
+/* Custom page width */
+
+.container {
+max-width: 1200px !important;
+}
+
+body.single-casestudy .page-container,
+body.single-casestudy .page-container {
+    max-width: 800px !important;
+}
