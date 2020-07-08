@@ -2,7 +2,7 @@ table {
     font: inherit;
 }
 
-table > a {
+td > a {
     text-decoration: none;
     color: black;
 }
