@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<h1>A Bipedial Robot</h1>
+
+<p>After watching lots of <a
+href='https://www.youtube.com/watch?v=_sBBaNYex3E'>Boston Dynamics</a> videos,
+I thought to myself: "How hard can making a walking robot really be?", so I
+made this prototype.</p>
+
+<p>I did not want to spend a lot of time on this project because it could of
+course be only so good with the hardware available to me. So instead of
+designing and 3D printing a frame for the robot, I just cut links out of
+cardboard and glue gunned them to the servos that I would be using to control
+the limbs. I take a similar approach for my <a
+href='/projects/arduino/quadrupod'>quadrupod robot</a>, but used plywood
+there.</p>
+
+<p>The key to making the two-legged robot work is to be able to have some kind
+of method of adjusting weight distribution. A more advanced robot than mine
+could then use an inertial measurement unit (accelerometer + gyro) to compute
+the robot's motion and adjust how it balances accordingly. This is just like
+how we sense our rotation with the fluid in our ears and then move our arms and
+torso to stop us falling over, or how a cat can right itself using its
+tail.</p>
+
+<p>I did not want to go to the lengths of developing the control software for
+this though, and I also didn't think the servos I had would be accurate enough
+to facilitate this. So instead of having full arms that wave about to adjust
+weight, I went for a simple "heavy head" approach: glue about ten 2p coins to
+the head of the robot and then shift this side to side as it walks to free up
+one leg to move into the air.</p>
+
+<p>This was a pre-defined appraoch whereby the robot does not do ay active
+stabalisation and just sequences through a set of motor positions. To set
+these motor positions I created a little Tkinter application that writes the
+positions over serial to the controlling Arduino microprocessor. This then also
+has a replay button. I took a similar approach when making my <a
+href='/projects/arduino/violent_robot_arm'>my second robot arm</a>.</p>
+
+<p>And that's all for this project: it can just about walk, but very slowly,
+and very wobbly! I have no futher plans for this project, it was just a little
+experimentation.</p>
+
+<p>Here is a video of me demonstrating the Tkinter application and then playing
+a pre-programmed sequence of walking moves.</p>
+
+<p><video src='/videos/bipedal.mp4' controls></video>
+
+<p>Finally here is a sped up video of it walking.</p>
+<p><video src='/videos/bipedal_walking_fast.mp4' controls></video>
