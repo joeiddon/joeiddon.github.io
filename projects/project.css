@@ -2,17 +2,17 @@ table {
     font: inherit;
 }
 
-td > a {
-    text-decoration: none;
-    color: black;
-}
-
 td {
     padding: 2vw; /*in vw so scales well on mobile*/
     width: 50%;
 }
 
-td > div {
+td > a {
+    text-decoration: none;
+    color: black;
+}
+
+td > a > div {
     display: flex;
     justify-content: space-between;
 }
