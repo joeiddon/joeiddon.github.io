@@ -10,3 +10,7 @@ Handily updated by `.git/hooks/pre-commit`:
 tree --dirsfirst -H . > tree.html
 git add tree.html
 ```
+
+To run locally download this repository, install jekyll and bundler, then in
+the downloaded directory, run `bundle init` and to serve run `bundle exec
+jekyll serve`.
