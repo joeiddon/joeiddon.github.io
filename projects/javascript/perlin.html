@@ -135,4 +135,10 @@ interp: function(x, a, b){
 To interpolate between the four cell nodes with this function, we must do so in three steps (bilenear interpolation). First by interpolating how far the x distance of the input is into the cell (between 0 and 1) between the top two dot-products and then interpolating the inputs x value into the cell again between the bottom two dot-products of the cell. Finally, interpolate between the two previous values to get the final value for that noise which will be returned from the library. Note that as the function returns a value between -1 and 1, and I would like it to return a value between 0 and 1, the final value is mapped to my range by incrementing and dividing by 2.
 </p>
 
-And that's it for the explanation. Head over to GitHub where you can view my finished <a href='https://github.com/joeiddon/perlin'>Perlin Noise library</a>.
+<p>And that's it for the explanation. Head over to GitHub where you can view my
+finished <a href='https://github.com/joeiddon/perlin'>Perlin Noise
+library</a>.</p>
+
+<p>
+Update 06/01/2021: Shoutout to Julian Fietkau for <a
+href='https://fietkau.plus/#perlin_terrain'>his use of my library.</a></p>
