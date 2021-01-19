@@ -5,26 +5,48 @@ layout: default
 <h1>Creating Perlin Noise in JS</h1>
 <script src='https://joeiddon.github.io/perlin/perlin.js'></script>
 
+<em>Article updated 2021 to improve usefulness for future visitors.</em>
+
 <p>
-Perlin Noise is a a type of <a href='https://en.wikipedia.org/wiki/Gradient_noise'>gradient noise</a> used mainly in computer graphics. It allows for smooth natural-looking randomness which can be applied to a number of things such as: texture of surfaces, flames and terrain - what I will be using it for. The most well known place perlin noise is implented is minecraft where it is used generate the landscape so the hills, caves etc.
+Perlin noise is a term for a particular smooth, natural-looking randomness and
+the associate  algorithm used to generate it. The output is particularly useful
+in computer graphics where it can be employed in textures, flames, smoke, and
+terrain - what I will be using it for. The most well known place Perlin noise
+is implemented is Minecraft where it is used generate the landscape so the
+hills, caves and so
+on.
 </p>
 
 <p>
-Following <a href='https://en.wikipedia.org/wiki/Perlin_noise'>this wikipedia page</a> on generating it, I managed to succesfully write it. These are the steps:
+Following <a href='https://en.wikipedia.org/wiki/Perlin_noise'>the
+Wikipedia article on this topic</a>, I managed to successfully write code to
+generate it. These are the steps:
 </p>
 
 <ol>
-<li>Define an n-dimensional grid
+<li>Define an n-dimensional grid.
 <li>For each node of the grid assign a random gradient vector of unit length in n dimensions.
-<li>Given an n-dimensional argument for the noise function
-<li>Determine its cell in the grid
-<li>For each corner node of that cell, calculate the distance vector between the point and the node
-<li>Compute the dot product between the gradient vector and the distance vector
-<li>Interpolate the 2^n dot products to get the value
+<li>Given an n-dimensional argument for the noise function.
+<li>Determine its cell in the grid.
+<li>For each corner node of that cell, calculate the distance vector between
+the point and the node.
+<li>Compute the dot product between the gradient vector and the distance
+vector.
+<li>Interpolate the 2^n dot products to get the value.
 </ol>
 
-<p>The result of my library in 2 dimensions based on the above steps is: (static noise on left and my perlin noise on the right to show the difference). To see a demo in colour, visit my <a href='https://joeiddon.github.io/perlin/demo'>demo page</a>.To see how this result can be used for something more interesting than blurry gradients, checkout <a href='https://joeiddon.github.io/projects/javascript/terrain'>my 3d terrain generator</a>.</p>
+<p>Of course we will be generating two-dimensional (n = 2) noise. [On a side
+note, there is <a href='https://youtu.be/obCjODeoLVw?t=148'>a good clip of
+Richard Feynman making a joke</a> about Mathematicians always generalising to
+n-dimensions, but Physicist wanting the real world, so the mathematician says
+to "substitute n equals three!".]<p>
 
+<p>
+The result (always start from the end) is seen below - a comparison with
+static noise on the left, and the Perlin noise on the right.
+</p>
+
+is seen below.
 <canvas id='cnvs'></canvas>
 <script>
 var cnvs = document.getElementById('cnvs')
@@ -54,19 +76,50 @@ for (var y = 0; y < gridSize; y += gridSize / resolution){
 
 </script>
 
-<p>
-The first step for generating the perlin noise is to create a function that generates random unit vectors. Using Math.sin and Math.cos, the function I coded is:
-</p>
+<p>See a <a href='https://joeiddon.github.io/perlin/demo'>color demonstration
+here</a>.</p>
+
+<p>Okay so how do we write this in JavaScript? First we will write it the
+straightforward way, then we will optimise it for efficiency and
+simplicity.</p>
+
+<p><strong>Step 1:</strong> We need a two-dimensional grid. The size of this
+grid determines roughly how zoomed in our noise is going to be.</p>
+
+<p>In JavaScript, we can use an array for this. We will initialise it as empty,
+and also define the size of it. This size determines how many nodes we have in
+each dimension (a node is a point we interpolate between).</p>
 
 <pre>
-function rand_vect(){
-    var theta = Math.random() * 2 * Math.PI;
-    return {x: Math.cos(theta), y: Math.sin(theta)};
-}
+let grid = [];
+let nodes = 8;
 </pre>
 
-<p>The function itself is fairly self explanatory. It can be tested by plotting some on a canvas:</p>
-<canvas id='cnvs1'></canvas>
+<p><strong>Step 2:</strong> Assign a random gradient vector of unit length to
+each node of the grid.</p>
+
+<p>A random gradient vector of unit length is simply a pair of numbers
+<code>[x,y]</code> where the length of them is equal to one (I.e. <code>x^2 +
+y^2 = 1</code>).</p>
+
+<p>To generate a pair of numbers like these, it is easiest to use the sine and
+cosine functions with a random angle, theta!</p>
+
+<p>Let's make a function out for this. It will return the coordinate as an
+object with <code>x</code> and <code>y</code> attributes.</p>
+
+<p>To the right of the code below is a canvas element that is drawing vectors
+created using this random function.</p>
+
+<div style='display: flex; flex-direction: row; justify-content:space-between;
+align-items: center;'>
+<div><pre>
+function random_unit_vector(){
+    let theta = Math.random() * 2 * Math.PI;
+    return {x: Math.cos(theta), y: Math.sin(theta)};
+}
+</pre></div>
+<canvas id='cnvs1' style='border: 1px solid grey'></canvas>
 <script>
 var cnvs1 = document.getElementById('cnvs1');
 cnvs1.width = cnvs1.height = 256;
@@ -80,13 +133,60 @@ ctx1.closePath();
 ctx1.stroke();
 }, 500);
 </script>
+</div>
+
+<p>Now we need to populate the grid with these random vectors. A nested
+for-loop is easiest to do this with.</p>
+
+<pre>
+for (let i = 0; i < nodes; i++) {
+    let row = [];
+    for (let j = 0; j < nodes; j++) {
+        row.push(random_unit_vector());
+    }
+    grid.push(row);
+}
+</pre>
+
+<p><strong>Step 3:</strong> We need to accept the input to the function a
+two-dimensional argument.</p>
+
+<p>Taking a step back - what functionality are we trying to provide here? The
+Perlin noise algorithm describes a function. This takes an input of a
+coordinate ("a two-dimensional argument"), and returns a number. The number
+determines the height/intensity of the noise at that coordinate.</p>
+
+<p>But how can a function that returns an intensity be used to create the
+smooth image shown at the start of this article? The answer - the image is not
+continuous, but discrete or "pixelated". So the image is created by iterating
+over each pixel coordinate, running the Perlin function for that coordinate,
+and assigning the intensity to that pixel.</p>
+
+<p>Therefore we need a function. Lets call it <code>perlin_get</code>, and it
+will take a two-dimensional input (x and y), and return an
+<em>intensity</em>.</p>
+
+<pre>
+function perlin_noise(x, y) {
+    ...
+    return intensity;
+}
+</pre>
 
 <p>
-Now we can generate our grid (a 2d array) of random vectors - this function can also be used as a 'seed' function for the library.
+<strong>Step 4:</strong> Determine its cell in the grid, where the "cell" is
+the square of nodes around our x and y. For example, if x = 1.4 and y = 3.6,
+then the cell is from x = 1 to 2 and y = 3 to 4.
 </p>
 
 <p>
-Next, we need a way to work out the containing cell of a 2d coordinate passed into the function. We can do this by just using Math.floor on the x and y coordinates of the inputs to get two of the edges and then add one to these to get the other two edges.
+How do we do this in JavaScript? Well we can use the
+<a
+href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor'><code>Math.floor(...)</code></a>
+function. [Improvements in 2021 end here for now. If this half of the article
+reads better than the latter half, please leave an anonymous comment from my <a
+href='https://joeiddon.github.io/'>homepage</a> to let me know my efforts have
+helped your understanding.]
 </p>
 
 <pre>
@@ -142,3 +242,8 @@ library</a>.</p>
 <p>
 Update 06/01/2021: Shoutout to Julian Fietkau for <a
 href='https://fietkau.plus/#perlin_terrain'>his use of my library.</a></p>
+
+To see how this
+result can be used for something more interesting than these blurry gradients,
+checkout <a href='https://joeiddon.github.io/projects/javascript/terrain'>my 3D
+terrain generator</a>.
