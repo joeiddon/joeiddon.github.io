@@ -35,49 +35,80 @@ vector.
 <li>Interpolate the 2^n dot products to get the value.
 </ol>
 
-<p>Of course we will be generating two-dimensional (n = 2) noise. [On a side
-note, there is <a href='https://youtu.be/obCjODeoLVw?t=148'>a good clip of
-Richard Feynman making a joke</a> about Mathematicians always generalising to
-n-dimensions, but Physicist wanting the real world, so the mathematician says
-to "substitute n equals three!".]<p>
-
 <p>
-The result (always start from the end) is seen below - a comparison with
-static noise on the left, and the Perlin noise on the right.
+Of course we will be generating two-dimensional (n = 2) noise. <em>[Aside:
+There is <a href='https://youtu.be/obCjODeoLVw?t=148'>a clip of Prof.
+Feynman</a> making a joke about mathematicians generalising for
+n-dimensions.]</em>
 </p>
 
-is seen below.
-<canvas id='cnvs'></canvas>
+<!--The physicist, interested only in our
+three-dimensional world, complains. "Substitute n equals three!" the
+mathematicians say.]</em>
+</p>-->
+
+<p>
+The result is seen below.
+</p>
+
+<style>
+input {
+    padding: 0.5em;
+}
+</style>
+<div style='display: flex; justify-content: space-around'>
+<div><canvas id='cnvsa'></canvas><p style='text-align: center'>Static Noise</p></div>
+<div><canvas id='cnvsb'></canvas><p style='text-align: center'>Perlin Noise</p></div>
+</div>
+<input type='button' value='Regenerate' onclick='render();'></input>
+<input type='button' value='Increase Resolution' onclick='resolution *=
+2;render();if (resolution == 256) this.disabled = true;
+this.nextElementSibling.disabled=false;'></input>
+<input type='button' value='Decrease Resolution' onclick='resolution /=
+2;render();if (resolution == 2) this.disabled = true;
+this.previousElementSibling.disabled=false;'></input>
+<input type='button' value='Increase Perlin Grid Size' onclick='gridSize *=
+2;render();this.nextElementSibling.disabled=false;'></input>
+<input type='button' value='Decrease Perlin Grid Size' onclick='gridSize /=
+2;render();if (gridSize == 1)this.disabled=true;'></input>
 <script>
-var cnvs = document.getElementById('cnvs')
-cnvs.width = 960
-cnvs.height = 480
-var ctx = cnvs.getContext('2d')
+var cnvsa = document.getElementById('cnvsa')
+var cnvsb = document.getElementById('cnvsb')
+var ctxa = cnvsa.getContext('2d')
+var ctxb = cnvsb.getContext('2d')
+
+var w = 512;
+cnvsa.width = cnvsa.height = cnvsb.width = cnvsb.height = w;
 
 var gridSize = 8
-var resolution = 128
-var pixSize = cnvs.width / resolution
+var resolution = 64;
 
-for (var y = 0; y < gridSize; y += gridSize / resolution){
-    for (var x = 0; x < gridSize; x += gridSize / resolution){
-        var v = parseInt(Math.random() * 255)
-        ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
-        ctx.fillRect(x * (cnvs.height / gridSize), y * (cnvs.height / gridSize), pixSize, pixSize)
+function render() {
+    let  pixSize = w / resolution;
+
+    ctxa.clearRect(0, 0, cnvsa.width, cnvsa.width);
+    ctxb.clearRect(0, 0, cnvsb.width, cnvsb.width);
+    perlin.seed();
+    for (var y = 0; y < gridSize; y += gridSize / resolution){
+        for (var x = 0; x < gridSize; x += gridSize / resolution){
+            var v = parseInt(Math.random() * 255)
+            ctxa.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+            ctxa.fillRect(x * (w / gridSize), y * (w / gridSize), pixSize, pixSize)
+        }
+    }
+
+    for (var y = 0; y < gridSize; y += gridSize / resolution){
+        for (var x = 0; x < gridSize; x += gridSize / resolution){
+            var v = parseInt((perlin.get(x, y)/2+0.5) * 255)
+            ctxb.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+            ctxb.fillRect(x * (w / gridSize), y * (w / gridSize), pixSize, pixSize)
+        }
     }
 }
-
-for (var y = 0; y < gridSize; y += gridSize / resolution){
-    for (var x = 0; x < gridSize; x += gridSize / resolution){
-        var v = parseInt(perlin.get(x, y) * 255)
-        ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
-        ctx.fillRect(cnvs.height + x * (cnvs.height / gridSize), y * (cnvs.height / gridSize), pixSize, pixSize)
-    }
-}
-
+render();
+//setInterval(render, 4000);
 </script>
 
-<p>See a <a href='https://joeiddon.github.io/perlin/demo'>color demonstration
-here</a>.</p>
 
 <p>Okay so how do we write this in JavaScript? First we will write it the
 straightforward way, then we will optimise it for efficiency and
@@ -108,30 +139,48 @@ cosine functions with a random angle, theta!</p>
 <p>Let's make a function out for this. It will return the coordinate as an
 object with <code>x</code> and <code>y</code> attributes.</p>
 
-<p>To the right of the code below is a canvas element that is drawing vectors
-created using this random function.</p>
-
-<div style='display: flex; flex-direction: row; justify-content:space-between;
-align-items: center;'>
+<div style='border: 1px solid black;float: right; transform: translate(0, -50%);'>
+<canvas id='cnvs1'></canvas>
+<div style='text-align:center;'>Random unit vectors.</div>
+</div>
 <div><pre>
 function random_unit_vector(){
     let theta = Math.random() * 2 * Math.PI;
-    return {x: Math.cos(theta), y: Math.sin(theta)};
+    return {
+        x: Math.cos(theta),
+        y: Math.sin(theta)
+    };
 }
 </pre></div>
-<canvas id='cnvs1' style='border: 1px solid grey'></canvas>
 <script>
 var cnvs1 = document.getElementById('cnvs1');
 cnvs1.width = cnvs1.height = 256;
 var ctx1  = cnvs1.getContext('2d');
-setInterval(function(){
-var vector = perlin.rand_vect();
+let vectors = [];
+const NUM = 5;
+let last_update_ms = 0;
+function update(time_ms){
+if (time_ms - last_update_ms > 600) {
+    last_update_ms = time_ms;
+    vectors.unshift(perlin.rand_vect());
+    if (vectors.length > NUM) vectors.pop();
+}
+ctx1.clearRect(0, 0, cnvs1.width, cnvs1.height);
+for (let i = 0; i < vectors.length; i++){
+let vector = vectors[i];
 ctx1.beginPath();
 ctx1.moveTo(cnvs1.width/2, cnvs1.height/2);
 ctx1.lineTo(cnvs1.width/2 + vector.x * 100, cnvs1.height/2 + vector.y * 100);
 ctx1.closePath();
+let v = (NUM-i+1)/(NUM+1);
+ctx1.strokeStyle = 'hsl(0,0%,' + 100 * (1-v) +'%)';
+ctx1.lineWidth = v*5;
 ctx1.stroke();
-}, 500);
+}
+requestAnimationFrame(update);
+}
+
+requestAnimationFrame(update);
 </script>
 </div>
 
@@ -247,3 +296,6 @@ To see how this
 result can be used for something more interesting than these blurry gradients,
 checkout <a href='https://joeiddon.github.io/projects/javascript/terrain'>my 3D
 terrain generator</a>.
+
+<!--<p>See a <a href='https://joeiddon.github.io/perlin/demo'>color demonstration
+here</a>.</p>-->
