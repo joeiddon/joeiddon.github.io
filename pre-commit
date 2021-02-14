@@ -1,0 +1,20 @@
+# Copy this to .git/hooks/ so that the site tree is updated on each commit.
+# Or create a symbolic link with
+# ln -s pre-commit .git/hooks/pre-commit
+
+function tree-git-ignore {
+    # Source: https://unix.stackexchange.com/questions/291282/have-tree-hide-gitignored-files
+    # tree respecting gitignore
+
+    local ignored=$(git ls-files -ci --others --directory --exclude-standard)
+    local ignored_filter=$(echo "$ignored" \
+                    | egrep -v "^#.*$|^[[:space:]]*$" \
+                    | sed 's~^/~~' \
+                    | sed 's~/$~~' \
+                    | tr "\\n" "|")
+    tree --prune -I ".git|${ignored_filter: : -1}" "$@"
+}
+
+tree-git-ignore --dirsfirst -H . > tree.html
+git add tree.html
+
