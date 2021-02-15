@@ -51,12 +51,17 @@
 }
 
 .nav-but {
-    color: inherit;
+    font-family: serif;
+    color: #666;
     display: inline-block;
     font-size: 20px;
     text-align: center;
     margin: 2px 10px;
     border-radius: 0.3em;
+}
+
+.nav-but:hover {
+    color: black;
 }
 
 #profiles {
