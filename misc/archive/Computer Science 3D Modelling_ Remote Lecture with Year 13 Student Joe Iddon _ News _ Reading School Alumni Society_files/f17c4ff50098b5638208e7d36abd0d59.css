@@ -1,0 +1,192 @@
+div.multilevel-multiselect-group {
+	position: relative;
+	display: inline-block;
+	border: 1px solid #ced4da;
+}
+
+div.multilevel-multiselect-group.open,
+div.multilevel-multiselect-group:focus-within {
+	border: 1px solid #ced4da;
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container {display: none;}
+div.multilevel-multiselect-group.open > ul.multilevel-container {display: block;}
+
+/* Button - where selections are displayed */
+div.multilevel-multiselect-group > button.multilevel {
+    display: block;
+	background-color: #ffffff;
+    color: #000000;
+	height: 33px;
+	min-width: 100%;
+	padding: .375rem .75rem;
+	text-decoration: none;
+    font-size: inherit;
+    white-space: nowrap;
+	overflow: hidden;
+	border-radius: 0px;
+	text-align: left !important;
+	letter-spacing: 0px !important;
+	border: none;
+	outline: none;
+	/*background: transparent;*/
+	-webkit-box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+    -moz-box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+    box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+}
+ 
+/* List - where list items are */
+div.multilevel-multiselect-group > ul.multilevel-container {
+	max-height: 240px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0px; 
+    margin-top: 3px;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0,0,0,.15);
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container.open {
+	display: block;
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li {
+	display: list-item;
+	cursor: pointer;
+	margin: 0px !important;
+	line-height: 1.5;
+    font-size: 0.9em;
+	color: #495057;
+	text-align: -webkit-match-parent;
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container > li:hover:not(.selected) {
+	background-color: #f8f9fa;
+	/*color: #fff;*/
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.selected {
+	background-color: #007bff !important;
+	color: #fff;
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container > li.main {
+	display: block;
+	padding-left: 0;
+	white-space: nowrap;
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.main span.sub_selected{
+	padding-left: 5px;
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.main.with-sub {
+	
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.sub {
+	padding-left: 1rem !important;
+	display: none;
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container > li > a {
+    display: block;
+    padding: 5px 6px 5px 1.5rem !important;
+    font-weight: 400;
+    color: #212529;
+}
+
+div.multilevel-multiselect-group > ul.multilevel-container > li > a:hover {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
+
+
+div.multilevel-multiselect-group > ul.multilevel-container > li.selected > a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #007bff;
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.sub > a:before {
+    content: "-";
+    padding-right: 5px;
+    /*color: #495057;*/
+	font-weight: bold;
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.sub:hover::before,
+div.multilevel-multiselect-group > ul.multilevel-container > li.sub.selected:before {
+    /*color: #ffffff;*/
+}
+div.multilevel-multiselect-group > button.btn {
+	line-height: 13px;
+	text-transform: none;
+}
+.fa-check {
+    font-size: 9px !important;
+    margin-left: 5px !important;
+    font-weight: 200 !important;
+    /*color: #a6a6a6;*/
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li.selected .fa-check {
+    display: inline;
+    /*color: #fff;*/
+}
+div.multilevel-multiselect-group > ul.multilevel-container > li .fa-check {display: none;}
+
+/* arrows on the panel */
+.fa-caret-down,
+.fa-caret-up {
+   margin-right: 5px !important;
+   /*color: #a6a6a6;*/
+}
+div.multilevel-multiselect-group > button.multilevel > div { display: block; height: 19px; margin-top: 11px; position: absolute; top: 0; right: 0; width: 18px; }
+div.multilevel-multiselect-group > ul.multilevel-container > li > a > div {  display: inline; height: 15px; margin-top: 2px; position: absolute; right: 0; width: 18px;}
+
+/* button arrows - where selections displayed*/
+/*div.multilevel-multiselect-group > button.multilevel > div > span > .fa-caret-up {color: #a6a6a6;}*/
+/*div.multilevel-multiselect-group > button.multilevel > div > span > .fa-caret-down {color: #a6a6a6;}*/
+div.multilevel-multiselect-group > button.multilevel > div > span > .fa-caret-up {display: none;}
+div.multilevel-multiselect-group > button.multilevel > div > span > .fa-caret-down {display: block;}
+div.multilevel-multiselect-group.open > button.multilevel > div > span > .fa-caret-up {display: block;}
+div.multilevel-multiselect-group.open > button.multilevel > div > span > .fa-caret-down {display: none;}
+
+/* menu arrows */
+div.multilevel-multiselect-group > ul.multilevel-container > li.main.with-sub div > span > .fa-caret-down {display: inline;}
+div.multilevel-multiselect-group > ul.multilevel-container > li.main.with-sub div > span > .fa-caret-up {display: none;}
+div.multilevel-multiselect-group > ul.multilevel-container > li.main.with-sub.open div > span > .fa-caret-down {display: none;}
+div.multilevel-multiselect-group > ul.multilevel-container > li.main.with-sub.open div > span > .fa-caret-up {display: inline;}
+/*div.multilevel-multiselect-group > ul.multilevel-container > li.selected > div > span > .fa-caret-down {color: #fff !important;}
+div.multilevel-multiselect-group > ul.multilevel-container > li.selected > div > span > .fa-caret-up {color: #fff !important;}
+div.multilevel-multiselect-group > ul.multilevel-container > li:hover > div > span > .fa-caret-down {color: #fff !important;}
+div.multilevel-multiselect-group > ul.multilevel-container > li:hover > div > span > .fa-caret-up {color: #fff !important;}*/
+
+
+ul.experience-list li.level-2, ul.teams-list li.level-2{
+	padding-left: 0px;
+}
+
+@media only screen
+and (min-device-width: 1px)
+and (max-device-width: 768px) {
+	/* Button - where selections are displayed */
+	div.multilevel-multiselect-group > button.multilevel {
+		background-color: #ffffff;
+		color: #495057;
+		min-width: 100%;
+		width : 95%;
+		padding: 5px;
+		line-height: 13px !Important;
+		text-decoration: none;
+		white-space: nowrap;
+		overflow: hidden;
+		border-radius: 0px;
+		text-align: left !important;
+		letter-spacing: 0px !important;
+		border: none;
+		outline: none;
+		/*background: transparent;*/
+		-webkit-box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+		-moz-box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+		box-shadow: 0 0 0px #fff /*{c-active-background-color}*/;
+	}
+}
+

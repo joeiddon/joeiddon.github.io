@@ -1,0 +1,756 @@
+#cookieConsentContainer *,
+#cookieConsentContainer :after{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    float: none;
+    font-style: inherit;
+    font-variant: normal;
+    font-weight: inherit;
+    font-family: inherit;
+	line-height: 1.2;
+    font-size: 1em;
+    transition: none;
+    animation: none;
+    margin: 0;
+    padding: 0;
+    text-transform: none;
+    letter-spacing: unset;
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    text-decoration: none;
+}
+
+#cookieConsentContainer {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: -apple-system, sans-serif;
+}
+
+#cookieConsentContainer h1,
+#cookieConsentContainer h2,
+#cookieConsentContainer h3{
+    font-weight: bold;
+}
+
+#cookieConsentContainer input,
+#cookieConsentContainer button,
+#cookieConsentContainer a{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#cookieConsentContainer .cc-accept,
+#cookieConsentContainer .cc-default{
+    padding: 1em 1.6em;
+    margin-bottom: 0.625em;
+    display: inline-block;
+    border-radius: 0.250em;
+    cursor: pointer;
+    font-size: 0.85em;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cookie-consent-anim #cookieConsentContainer .cc-accept,
+.cookie-consent-anim #cookieConsentContainer .cc-default{
+    transition: background-color .25s ease, color .25s ease, box-shadow .25s ease!important;
+}
+
+#cookieConsentContainer #cm{
+    font-family: inherit;
+    padding: 1.2em 2.2em;
+    position: fixed;
+    z-index: 100;
+    max-width: 100%;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    box-shadow: 0 0.625em 1.875em #000000;
+    box-shadow: 0 0.625em 1.875em rgba(2, 2, 3, 0.28);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.95);
+    border-radius: 0;
+    line-height: initial;
+    
+}
+
+#cookieConsentContainer #cm #cm_inner{
+    /*
+    max-width: 50%;
+    width: 50%;
+    */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cookie-consent-anim #cookieConsentContainer #cm{
+    transition: transform .3s ease, opacity .3s ease, visibility .3s ease!important;
+}
+
+.show--consent .cookie-consent-anim #cookieConsentContainer #cm{
+    opacity: 1;
+    visibility: visible!important;
+    transform: scale(1);
+}
+
+#cookieConsentContainer #cm_title{
+    color: inherit;
+    margin: 0 0 0.6em 0;
+    font-family: inherit;
+    font-size: 1.5em;
+}
+
+#cookieConsentContainer #cm_text{
+    margin-bottom: 1.625em;
+    font-size: 0.9em;
+    font-family: inherit;
+    line-height: 1.45em;
+}
+
+#cookieConsentContainer #cm .cc-accept,
+#cookieConsentContainer #cm .cc-default{
+    width: 48.5%;
+}
+
+#cookieConsentContainer #cm button+button{
+    float: right;
+}
+
+/**
+CookieConsent settings modal
+**/
+#cookieConsentContainer #cs_cont{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 101;
+	background: #070707;
+    background: rgba(11, 13, 14, 0.8);
+    display: table;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: none!important;
+}
+
+#cookieConsentContainer #cm,
+#cookieConsentContainer #cs_cont{
+    color: #2d4156;
+}
+
+#cookieConsentContainer #cs_cont button + button {
+    float: right;
+}
+
+#cookieConsentContainer #cs_blocks .title{
+    margin-top: 1.4em;
+}
+
+#cookieConsentContainer #cs_blocks .title:first-child{
+    margin-top: 0;
+}
+
+#cookieConsentContainer #cs_blocks .title h2{
+    font-size: 1.1em;
+}
+
+#cookieConsentContainer #cs_blocks .block_button{
+    margin-top: 0;
+    transition: background-color .3s ease;
+    cursor: pointer;
+}
+
+#cookieConsentContainer #cs_blocks .accordion{
+    margin-bottom: 0;
+}
+
+#cookieConsentContainer #cs_blocks .accordion .p{
+    margin-top: 0;
+    padding: 1em;
+}
+
+#cookieConsentContainer #cs_cont .block_button h2{
+    display: table-cell;
+    font-family: inherit;
+    padding-right: 1em;
+    vertical-align: middle;
+}
+
+#cookieConsentContainer #cs_blocks .block_button{
+    display: table;
+    width: 100%;
+    padding: 1.2em 1em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block{
+    padding: 1em;
+    margin-bottom: .5em;
+    border-radius: 5px;
+    border: 1px solid #f1f3f5;
+    transition: background-color .25s ease;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block:last-child{
+    margin-bottom: .5em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block:first-child{
+    transition: none;
+    padding: 0;
+    margin-top: 0;
+    border:none;
+    margin-bottom: 2em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block:first-child:hover{
+    background-color: transparent;
+    background-color: unset;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand{
+    margin-top: 2em;
+    margin-bottom: .5em!Important;
+    padding: 0;
+    border-radius: 5px;
+    border: none;
+    background: #f0f4f7;
+    overflow: hidden;
+    transition: none;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand + .cs_block{
+    margin-top: 2em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand + .cs_block.block__expand{
+    margin-top: 0;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand:first-child{
+    margin-bottom: 1em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand:first-child{
+    margin-bottom: .5em;
+}
+
+#cookieConsentContainer #cs_blocks .cs_block.block__expand:first-child:hover{
+    background: #f1f3f5;
+}
+
+#cookieConsentContainer #cs_blocks .accordion{
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
+}
+
+#cookieConsentContainer #cs_blocks ._active .accordion{
+    max-height: 100%;
+}
+
+#cookieConsentContainer #cs_cont .p{
+    font-size: 0.9em;
+    line-height: 1.3em;
+    margin-top: 1em;
+}
+
+#cookieConsentContainer #cs_cont input{
+    -webkit-appearance: none;
+}
+
+.cookie-consent-anim #cookieConsentContainer #cs_cont{
+    transition: background-color .3s ease, visibility .3s ease, opacity .3s ease!important;
+}
+
+.show--settings .cookie-consent-anim #cookieConsentContainer #cs_cont{
+    opacity: 1;
+    visibility: visible!important;
+}
+
+#cookieConsentContainer #cs_valign{
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+}
+
+#cookieConsentContainer #cs{
+    padding: 0 1.7em;
+    border-radius: 0.1875em;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(.96);
+    transition: none;
+}
+
+.cookie-consent-anim #cookieConsentContainer #cs{ 
+    transition: transform .3s ease, opacity .3s ease,visibility .3s ease!important;
+}
+
+#cookieConsentContainer.ie  #cs{
+    max-height: 37.5em;
+}
+
+#cookieConsentContainer.ie #cs_cont_inner{
+    top: 0;
+}
+
+#cookieConsentContainer #cs_inner{
+    border-radius: 0.25em;
+    padding-top: 4.9375em;
+    padding-bottom: 4.9375em;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    max-width: 49em;
+    margin: 0 auto;
+}
+
+#cookieConsentContainer.ie #cs{
+    position: relative;
+	top: 0;
+	margin-top: -5.625em;
+}
+
+
+#cookieConsentContainer.ie #cs_valign{
+	height: 100%;
+	padding-top: 5.62em;
+}
+
+#cookieConsentContainer #cs_blocks{
+	overflow-y: auto;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    height: 100%;
+    position: relative;
+    padding: 1.5em 2.5em;
+    padding-bottom: .5em;
+}
+
+#cookieConsentContainer #cs_buttons{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 1em 2.5em;
+    border-top: 1px solid #f1f1f1;
+    height: 4.9375em;
+}
+
+#cookieConsentContainer #cm .cc-link,
+#cookieConsentContainer #cs .cc-link{
+    display: inline;
+    padding-bottom: 0;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+#cookieConsentContainer #cs_header{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: table;
+    padding: 1.2em 2.5em;
+    vertical-align: middle;
+    z-index: 2;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#cookieConsentContainer #cs_title{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+#cookieConsentContainer #cs_title h1{
+    font-size: 1em;
+}
+
+#cookieConsentContainer #cs_close_btn{
+    display: table-cell;
+    float: right;
+    vertical-align: middle;
+    padding: 0;
+    width: 2.7em;
+    height: 2.7em;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    outline: none;
+    border-radius: 0.250em;
+    cursor: pointer;
+    margin: 0;
+}
+
+#cookieConsentContainer #c_policy__text{
+    height: 31.250em;
+    overflow-y: auto;
+    margin-top: 1.250em;
+}
+
+.show--settings .cookie-consent-anim #cookieConsentContainer #cs{
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+#cookieConsentContainer #cs_cont_inner{
+    height: 100%;
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+    height: calc(100% - 2.5em);
+    overflow: hidden;
+    max-height: 37.5em;
+}
+
+/** works only on webkit-based browsers **/
+#cookieConsentContainer #cs_blocks::-webkit-scrollbar{
+	width: 1em;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 0 0.250em 0.250em 0;
+}
+  
+#cookieConsentContainer #cs_blocks::-webkit-scrollbar-thumb{
+    -webkit-border-radius: 100em;
+	-moz-border-radius: 100em;
+    -ms-border-radius: 100em;
+    -o-border-radius: 100em;
+    border-radius: 100em;
+}
+
+#cookieConsentContainer #cs_blocks::-webkit-scrollbar-button {
+    width: 10px;
+    height: 5px;
+    opacity: 0;
+	visibility: hidden;
+}
+  
+#cookieConsentContainer #cs_blocks::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/** custom checkbox **/
+/* The container */
+#cookieConsentContainer .c_b_toggle {
+    display: table-cell;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;  
+    vertical-align: middle;
+}
+
+#cookieConsentContainer.ie .c_b_toggle{
+	padding-left: 1em;
+	margin-bottom: 0.7em;
+}
+
+/* Hide the browser's default checkbox */
+#cookieConsentContainer .c_b_toggle input {
+    position: absolute;
+    cursor: pointer;
+	display: none;
+}
+
+/* Create a custom checkbox */
+#cookieConsentContainer .c_b_toggle .sc_toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 4em;
+    transition: background-color .25s ease;
+}
+
+#cookieConsentContainer .c_b_toggle,
+#cookieConsentContainer .c_b_toggle .sc_toggle{
+    width: 3.4em;
+    height: 1.6em;
+}
+
+#cookieConsentContainer .c_b_toggle .sc_toggle.sc_readonly{
+    cursor: not-allowed;
+}
+
+#cookieConsentContainer .c_b_toggle input ~ .sc_toggle.sc_readonly{
+    background-color: #d5dee2;
+}
+
+#cookieConsentContainer .c_b_toggle input ~ .sc_toggle.sc_readonly:after{
+    box-shadow: none;
+}
+
+/* Style the checkmark/indicator */
+#cookieConsentContainer .c_b_toggle .sc_toggle:after {
+    content: "";
+    position: absolute;
+    left: 0.2em;
+    top: 0.2em;
+    width: 1.2em;
+    height: 1.2em;
+    border: none;
+    box-sizing: content-box;
+    box-shadow: 0 1px 2px rgba(24, 32, 35, .36);
+    transition: transform .3s ease, background-color .3s ease;
+    border-radius: 100%;
+}
+
+/* Show the checkmark when checked */
+#cookieConsentContainer .c_b_toggle input:checked ~ .sc_toggle:after {
+    transform: translateX(1.75em);
+}
+
+#cookieConsentContainer.ie .c_b_toggle input:checked ~ .sc_toggle:after{
+    left: 1.95em;
+}
+
+/** end custom scrollbar **/
+
+#cookieConsentContainer #cs_blocks table,
+#cookieConsentContainer #cs_blocks table th,
+#cookieConsentContainer #cs_blocks table td{
+    border: none;
+}
+
+#cookieConsentContainer #cs_blocks table tbody tr{
+    transition: background-color .3s ease;
+}
+
+#cookieConsentContainer #cs_blocks table tbody tr:hover{
+    background-color: #e9eff4;
+}
+
+#cookieConsentContainer #cs_blocks table { 
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+#cookieConsentContainer.ie #cs_blocks table{
+	overflow: auto;
+}
+
+#cookieConsentContainer #cs_blocks table td, 
+#cookieConsentContainer #cs_blocks table th { 
+    padding: 0.8em 0.625em;
+    text-align: left;
+    vertical-align: top;
+    font-size: .8em;
+    padding-left: 1.2em;
+}
+
+#cookieConsentContainer #cs_blocks table th { 
+	font-family: inherit;
+    padding: 1.2em 1.2em;
+}
+
+#cookieConsentContainer #cs_blocks thead tr:first-child{
+    border-bottom: 1px solid #e6e8ed;
+}
+
+#cookieConsentContainer.ie .c_b_toggle .sc_toggle{
+    display: none;
+}
+
+#cookieConsentContainer.ie .c_b_toggle input{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0.2em
+}
+
+/** BLOCK PAGE SCROLL **/
+html.force--consent #cookieConsentContainer #cm{
+    width: 100%;
+    width: 100vw;
+    max-width: 100%;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+    padding: 2em;
+    bottom: 0;
+    border-radius: 0;
+    position: absolute;
+}
+
+html.force--consent #cookieConsentContainer #cs_cont,
+html.force--consent #cookieConsentContainer #cs{
+    width: 100vw;
+}
+
+html.force--consent #cookieConsentContainer{
+    width: 100%;
+    width: 100vw;
+    max-width: 100%;
+    max-width: 100vw;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    min-height: 100%;
+    min-height: 100vh;
+    visibility: hidden;
+    transition: none;
+    opacity: 0;
+    background: #000000;
+    background: rgba(20, 21, 22, 0.55);
+}
+
+html.force--consent .cookie-consent-anim  #cookieConsentContainer{
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+html.force--consent #cookieConsentContainer #cm_inner{
+    max-width: px;
+    margin: 0 auto;
+}
+
+html.force--consent.show--consent #cookieConsentContainer,
+html.force--consent.show--settings #cookieConsentContainer{
+    opacity: 1;
+    visibility: visible;
+}
+
+html.force--consent.show--consent,
+html.force--consent.show--settings{
+    overflow-y: hidden!important;
+}
+
+@media screen and (max-width: 900px){
+    #cookieConsentContainer #cm{
+        width: auto;
+        max-width: 100%;
+        margin: 0;
+        padding: 1.875em 10%;
+        right: 0;
+        bottom: 0;
+        border-radius: 0;
+        display: block;
+    } 
+}
+
+/* On screens that are 37.500em or less, set the background color to olive */
+@media screen and (max-width: 688px) {
+    #cookieConsentContainer #cs{
+        border-radius: 0;
+        padding: 0;
+    }
+
+    #cookieConsentContainer #cs_cont_inner{
+        max-height: 100%;
+        height: 100%;
+        top: 0;
+        transform: none;
+    }
+
+    #cookieConsentContainer .c_b_toggle{
+        font-size: 1.25em;
+    }
+
+    #cookieConsentContainer #cs_cont button + button{
+        margin-bottom: 0;
+    }
+
+    #cookieConsentContainer #cs_inner{
+        margin: 0;
+        border-radius: 0;
+        padding-bottom:8.1em;
+    }
+
+    #cookieConsentContainer #cs_cont .block_button h2{
+        font-size: 1em;
+    }
+
+	#cookieConsentContainer #cs_blocks{
+		padding: 1.3em;
+    }
+    
+	#cookieConsentContainer #cs_header{
+        padding: 1.2em 1.3em;
+    }
+
+    #cookieConsentContainer #cs_buttons{
+        height:8.1em;
+        padding: 1em 1.3em;
+    }
+    
+    /** dynamic table layout **/
+    #cookieConsentContainer #cs_blocks table { 
+        width: 100%; 
+    }
+
+    /* Force table to not be like tables anymore */
+    #cookieConsentContainer #cs_blocks table, 
+    #cookieConsentContainer #cs_blocks table thead, 
+    #cookieConsentContainer #cs_blocks table tbody, 
+    #cookieConsentContainer #cs_blocks table th, 
+    #cookieConsentContainer #cs_blocks table td, 
+    #cookieConsentContainer #cs_blocks table tr { 
+        display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #cookieConsentContainer #cs_blocks table thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        display: none;
+    }
+
+    #cookieConsentContainer #cs_blocks table td { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 40%; 
+    }
+
+    #cookieConsentContainer #cs_blocks table td:before { 
+        position: absolute;
+        left: 1em;
+        width: 43%;
+        padding-right: 0.625em;
+        white-space: nowrap;
+        content: attr(data-column);
+        color: #000;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #cookieConsentContainer #cm .cc-accept,
+    #cookieConsentContainer .cc-accept,
+    #cookieConsentContainer #cm .cc-default{
+        width: 48%;
+        margin-right: 0;
+    }
+
+    #cookieConsentContainer #cm_btns button:last-child{
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,166 @@
+.link-scraper-result-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: .25rem;
+    background-color: #eeeeee;
+    color: #aaa;
+}
+
+.link-scraper-close-btn-container {
+    position: absolute; 
+    top: 5px; right: 5px;
+    z-index: 9999;
+}
+
+.link-scraper-scrape-url {
+    text-transform: uppercase;
+}
+
+
+.filt-tag-btns {
+    color: #000000;
+}
+
+.not-sticky-comment {
+    color: grey;
+}
+
+.btn:focus {
+    box-shadow: none !important;
+}
+
+.tag-btns {
+    height: 30px;
+    color: #000000;
+    font-size: 13px;
+    background-color: #eeeeee;
+    margin: 3px;
+}
+
+.srch-tags-q {
+    height: 30px;
+    font-size: 13px;
+    color: #000000;
+    background-color: #eeeeee;
+    margin: 3px;
+}
+
+@media (max-width: 768px) {
+    /* width */
+    div.disc_scroll::-webkit-scrollbar {
+        display:none;
+    }
+}
+
+.ui-widget.ui-widget-content {
+    border:none !important;
+    background: #000000;
+    color:#ffffff;
+}
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 180px !important; }
+
+@media (max-width: 768px) {
+    .twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 150px !important; }
+}
+
+.tt-hint {
+    color: #999;
+    width: 50px;
+}
+
+.tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+    color: #999;
+    background-color: #fff;
+    min-width:100px;
+}
+    
+.show-hide-all-sub-comments:hover {
+    text-decoration: underline !important;
+}
+
+.tag-btnx{
+    height:30px;
+    font-size:13px;
+    color:#000000;
+    background-color:#eeeeee;
+    margin:3px;
+}
+
+.new-post-form-container .comment-image-preview {
+    float: left;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 4px 10px 0px 0px;
+    border: 1px solid #000000;
+}
+
+.new-post-form-container .add-status-field {
+    min-height: 100px;
+    max-height: 400px; 
+    overflow-y: auto; 
+    box-shadow: none;
+}
+
+
+
+/*Comments*/
+.comment-editor-container {
+    padding-top: .5rem!important;
+    padding-bottom: .5rem!important;
+    padding-right: .5rem!important;
+}
+.status-form-comment-editor-container .comment-editor-container {
+    padding-left: .5rem!important;
+}
+
+/*Images inside comments*/
+.comment_content img {
+    margin: 10px;
+    width: 100%;
+    max-width: 200px;
+    position: relative; /* z-index in :hover is not working correctly without this for some reason */
+    transition: transform .2s;
+}
+
+.comment_content img:hover {
+    transform: scale(2);
+    z-index: 1499; /* so we're sure scaled image is above surrounding elements. Must be less then 1500, that is photoswipe index */
+}
+
+/*Remove scale efect when editing comment*/
+.comment_content[contenteditable="true"] img {
+    transition: none;
+    transform: none;
+    z-index: initial;
+}
+
+
+
+.comment-container .comment_content[contenteditable="true"] {
+    border: 2px dashed rgb(222,222,222);
+}
+
+.comment_content {
+    border: none;
+}  
+.comment_content:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.comment-reply-profile-images-container {
+    display: flex;
+    align-items: center;
+}
+
+.comment-reply-profile-images-container .comment-reply-profile-image-container {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #ffffff;
+    border-radius: 40px;
+}
+
+.comment-reply-profile-images-container .comment-reply-profile-image-container:not(:first-child) {
+    margin-left: -30px;
+}
