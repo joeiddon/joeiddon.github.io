@@ -5,16 +5,17 @@ layout: default
 <h1>Creating Perlin Noise in JS</h1>
 <script src='https://joeiddon.github.io/perlin/perlin.js'></script>
 
-<em>Article updated 2021 to improve usefulness for future visitors.</em>
-
 <p>
-Perlin noise is a term for a particular smooth, natural-looking randomness and
-the associate  algorithm used to generate it. The output is particularly useful
-in computer graphics where it can be employed in textures, flames, smoke, and
-terrain - what I will be using it for. The most well known place Perlin noise
-is implemented is Minecraft where it is used generate the landscape so the
-hills, caves and so
-on.
+Perlin noise is a type of random, yet smooth, noise that can be
+easily generated using a particular algorithm.
+</p>
+
+<!--
+<p>
+The output is particularly useful in computer graphics where it can be used for
+things such as textures, flames, smoke, and terrain - what I will be using it for. The most
+well known place Perlin noise is implemented is Minecraft where it is used
+generate the landscape so the hills, caves and so on.
 </p>
 
 <p>
@@ -36,11 +37,12 @@ vector.
 </ol>
 
 <p>
-Of course we will be generating two-dimensional (n = 2) noise. <em>[Aside:
-There is <a href='https://youtu.be/obCjODeoLVw?t=148'>a clip of Prof.
+Of course we will be generating two-dimensional (n = 2) noise. <em>(Aside:
+Here is <a href='https://youtu.be/obCjODeoLVw?t=148'>a clip of Professor
 Feynman</a> making a joke about mathematicians generalising for
-n-dimensions.]</em>
+n-dimensions.)</em>
 </p>
+-->
 
 <!--The physicist, interested only in our
 three-dimensional world, complains. "Substitute n equals three!" the
@@ -48,40 +50,59 @@ mathematicians say.]</em>
 </p>-->
 
 <p>
-The result is seen below.
+Before delving into the steps to generate Perlin noise, let's inspect the
+output.
 </p>
 
 <style>
 input {
-    padding: 0.5em;
+    padding: 0.3em;
+    margin: 0.4em;
+}
+canvas {
+    width: 350px;
+    height: 350px;
 }
 </style>
 <div style='display: flex; justify-content: space-around'>
 <div><canvas id='cnvsa'></canvas><p style='text-align: center'>Static Noise</p></div>
 <div><canvas id='cnvsb'></canvas><p style='text-align: center'>Perlin Noise</p></div>
 </div>
+<div style='text-align: center'>
 <input type='button' value='Regenerate' onclick='render();'></input>
 <input type='button' value='Increase Resolution' onclick='resolution *=
-2;render();if (resolution == 256) this.disabled = true;
+2;render();if (resolution == 128) this.disabled = true;
 this.nextElementSibling.disabled=false;'></input>
 <input type='button' value='Decrease Resolution' onclick='resolution /=
-2;render();if (resolution == 2) this.disabled = true;
+2;render();if (resolution == 8) this.disabled = true;
 this.previousElementSibling.disabled=false;'></input>
-<input type='button' value='Increase Perlin Grid Size' onclick='gridSize *=
-2;render();this.nextElementSibling.disabled=false;'></input>
-<input type='button' value='Decrease Perlin Grid Size' onclick='gridSize /=
-2;render();if (gridSize == 1)this.disabled=true;'></input>
+<input type='button' value='Increase Nodes' onclick='gridSize *=
+2;render();if (gridSize > 8)this.disabled=true;this.nextElementSibling.disabled=false;'></input>
+<input type='button' value='Decrease Nodes' onclick='gridSize /=
+2;render();if (gridSize ==
+1)this.disabled=true;this.previousElementSibling.disabled=false;'></input>
+<input type='button' value='Reset' onclick='reset();render();'></input>
+</div>
 <script>
 var cnvsa = document.getElementById('cnvsa')
 var cnvsb = document.getElementById('cnvsb')
 var ctxa = cnvsa.getContext('2d')
 var ctxb = cnvsb.getContext('2d')
 
-var w = 512;
+var w = 256;
 cnvsa.width = cnvsa.height = cnvsb.width = cnvsb.height = w;
 
-var gridSize = 8
-var resolution = 64;
+var gridSize, resolution;
+function reset() {
+    gridSize = 4;
+    resolution = 64;
+    let inpts = document.getElementsByTagName('input');
+    for (let i = 0; i < inpts.length; i++){
+        inpts[i].disabled = false;
+    }
+}
+
+reset();
 
 function render() {
     let  pixSize = w / resolution;
@@ -114,32 +135,53 @@ render();
 straightforward way, then we will optimise it for efficiency and
 simplicity.</p>
 
-<p><strong>Step 1:</strong> We need a two-dimensional grid. The size of this
+<hr>
+
+<p><strong>Step 1:</strong> We need a two-dimensional grid of "nodes". The size of this
 grid determines roughly how zoomed in our noise is going to be.</p>
 
-<p>In JavaScript, we can use an array for this. We will initialise it as empty,
-and also define the size of it. This size determines how many nodes we have in
-each dimension (a node is a point we interpolate between).</p>
+<p>In JavaScript we can use a nested array to describe this grid. This means it
+is initialised as empty then rows are appended, but this will come later.</p>
+
+<p>The variable <code>nodes</code> defines the number of nodes we have in
+each dimension.</p>
 
 <pre>
 let grid = [];
-let nodes = 8;
+const nodes = 4;
 </pre>
+
+<p>At this point you may be wondering: what is a node? It is simply a unit
+vector describing the slope of the noise at fixed intervals in the image.</p>
+
+<!--<p>This is <strong>the key to Perlin noise</strong>:</p> To determine the
+intensity of a pixel at some position in the image, we calculate the dot
+product of the displacement vector from its position to each of the four
+closest nodes in the nodes grid, with that node's unit vector.
+We then interpolate dot products of each displacement vector and unit vector.
+This value i-->
+
+<hr>
 
 <p><strong>Step 2:</strong> Assign a random gradient vector of unit length to
 each node of the grid.</p>
 
-<p>A random gradient vector of unit length is simply a pair of numbers
-<code>[x,y]</code> where the length of them is equal to one (I.e. <code>x^2 +
-y^2 = 1</code>).</p>
+<p>A unit vector is simply a pair of numbers, (x, y), that has a length of one. (I.e. x<sup>2</sup> +
+y<sup>2</sup> = 1.)</p>
 
-<p>To generate a pair of numbers like these, it is easiest to use the sine and
-cosine functions with a random angle, theta!</p>
+<p>There are a couple of diferent ways to randomly generate these, but possibly
+the simplest is to generate a random angle and then use the sine and cosine
+<a href='https://joeiddon.github.io/projects/javascript/trigonometry'>trigonometric functions</a> built in to JavaScript.</p>
 
-<p>Let's make a function out for this. It will return the coordinate as an
-object with <code>x</code> and <code>y</code> attributes.</p>
 
-<div style='border: 1px solid black;float: right'>
+<p><em><strong>Additional:</strong> We refer to these as "gradient" vectors because they
+are going to determine the slope of the terrain/noise at each point in the
+grid. A continuous function is then created through interpolation between these
+gradients.</em></p>
+
+<!--
+<div style='border: 1px solid black;position: absolute;right:
+0;background:white;'>
 <canvas id='cnvs1'></canvas>
 <div style='text-align:center;'>Random unit vectors.</div>
 </div>
@@ -153,38 +195,80 @@ function random_unit_vector(){
 }
 </pre></div>
 <script>
+function line(cx, x1, y1, x2, y2) {
+    cx.beginPath();
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
+    cx.closePath();
+    cx.stroke();
+}
+
+function draw_arrow(cx, x1, y1, x2, y2, l) {
+    let r = ((x1-x2)**2 + (y1-y2)**2)**0.5;
+    let rx = x2 - x1;
+    let ry = y1 - y2;
+    line(cx, x1, y1, x2, y2);
+    let m = [
+        [rx/r, -ry/r],
+        [ry/r, rx/r]
+    ];
+    let rot = (x,y) => [m[0][0]*x + m[0][1]*y, m[1][0]*x + m[1][1]*y];
+    let head1 = rot(-l/2**0.5,l/2**0.5);
+    let head2 = rot(-l/2**0.5,-l/2**0.5);
+    line(cx, x2, y2, x2 + head1[0], y2 - head1[1]);
+    line(cx, x2, y2, x2 + head2[0], y2 - head2[1]);
+}
+
 var cnvs1 = document.getElementById('cnvs1');
-cnvs1.width = cnvs1.height = 256;
+cnvs1.width = 300;
+cnvs1.height = 250;
 var ctx1  = cnvs1.getContext('2d');
 let vectors = [];
 const NUM = 5;
+const INTERVAL = 1000;
 let last_update_ms = 0;
 function update(time_ms){
-if (time_ms - last_update_ms > 600) {
+if (time_ms - last_update_ms > INTERVAL) {
     last_update_ms = time_ms;
-    vectors.unshift(perlin.rand_vect());
+    vectors.unshift([time_ms, perlin.rand_vect()]);
     if (vectors.length > NUM) vectors.pop();
 }
 ctx1.clearRect(0, 0, cnvs1.width, cnvs1.height);
+ctx1.textBaseline = 'middle';
+ctx1.textAlign = 'center';
+ctx1.font = '12px monospace';
 for (let i = 0; i < vectors.length; i++){
-let vector = vectors[i];
-ctx1.beginPath();
-ctx1.moveTo(cnvs1.width/2, cnvs1.height/2);
-ctx1.lineTo(cnvs1.width/2 + vector.x * 100, cnvs1.height/2 + vector.y * 100);
-ctx1.closePath();
-let v = (NUM-i+1)/(NUM+1);
-ctx1.strokeStyle = 'hsl(0,0%,' + 100 * (1-v) +'%)';
-ctx1.lineWidth = v*5;
-ctx1.stroke();
+let [created, vector] = vectors[i];
+let head = [cnvs1.width/2 + vector.x * 100, cnvs1.height/2 - vector.y * 100];
+//let v = (1 - i / NUM)*(1 - (time_ms - last_update_ms)/NUM/INTERVAL);
+//let v = (1 - i / NUM)*(1 - (time_ms - (last_update_ms))/NUM/INTERVAL);
+let v = 1-(time_ms - created)/(INTERVAL*NUM);
+ctx1.strokeStyle = ctx1.fillStyle = 'hsl(0,0%,' + 100 * (1-v) +'%)';
+ctx1.lineWidth = 2;
+draw_arrow(ctx1, cnvs1.width/2, cnvs1.height/2, ...head, 15);
+ctx1.fillText(`(${vector.x.toFixed(2)}, ${vector.y.toFixed(2)})`, head[0],
+    head[1] + (vector.y < 0 ? 15 : -15));
 }
 requestAnimationFrame(update);
 }
 
 requestAnimationFrame(update);
 </script>
+-->
+
+<p>Let's make a function to do this random vector generation. It will return
+the coordinate as an object with <code>x</code> and <code>y</code>
+attributes.</p>
+
+<pre>
+function random_unit_vector(){
+    let theta = Math.random() * 2 * Math.PI;
+    return {x: Math.cos(theta), y: Math.sin(theta)};
+}
+</pre>
 
 <p>Now we need to populate the grid with these random vectors. A nested
-for-loop is easiest to do this with.</p>
+for-loop can be used.</p>
 
 <pre>
 for (let i = 0; i < nodes; i++) {
@@ -196,13 +280,15 @@ for (let i = 0; i < nodes; i++) {
 }
 </pre>
 
-<p><strong>Step 3:</strong> We need to accept the input to the function a
-two-dimensional argument.</p>
+<hr>
+
+<p><strong>Step 3:</strong> We need to accept the input to the noise function
+as an (x,y) coordinate.</p>
 
 <p>Taking a step back - what functionality are we trying to provide here? The
 Perlin noise algorithm describes a function. This takes an input of a
-coordinate ("a two-dimensional argument"), and returns a number. The number
-determines the height/intensity of the noise at that coordinate.</p>
+2D coordinate, and returns a number. The number
+determines the intensity/"height" of the noise at that coordinate.</p>
 
 <p>But how can a function that returns an intensity be used to create the
 smooth image shown at the start of this article? The answer - the image is not
@@ -210,38 +296,43 @@ continuous, but discrete or "pixelated". So the image is created by iterating
 over each pixel coordinate, running the Perlin function for that coordinate,
 and assigning the intensity to that pixel.</p>
 
+<p>Alternatively, if we wanted to generate a 3D landscape using the noise
+function, we would have to make it discrete by sampling heights only at fixed
+positions (nodes in a pixelated grid) and <a
+href='https://joeiddon.github.io/zengine/demos/terrain.html'>piece together
+triangular pieces to give a 3D landscape.</a></p>
+
 <p>Therefore we need a function. Lets call it <code>perlin_get</code>, and it
 will take a two-dimensional input (x and y), and return an
 <em>intensity</em>.</p>
 
 <pre>
-function perlin_noise(x, y) {
+function perlin_get(x, y) {
     ...
     return intensity;
 }
 </pre>
 
+<hr>
+
 <p>
 <strong>Step 4:</strong> Determine its cell in the grid, where the "cell" is
-the square of nodes around our x and y. For example, if x = 1.4 and y = 3.6,
-then the cell is from x = 1 to 2 and y = 3 to 4.
+the square of integer coordinates around our x and y. For example, if x = 1.4
+and y = 3.6, then the cell is from x = 1 to 2 and y = 3 to 4.
 </p>
 
 <p>
 How do we do this in JavaScript? Well we can use the
 <a
 href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor'><code>Math.floor(...)</code></a>
-function. [Improvements in 2021 end here for now. If this half of the article
-reads better than the latter half, please leave an anonymous comment from my <a
-href='https://joeiddon.github.io/'>homepage</a> to let me know my efforts have
-helped your understanding.]
+function.
 </p>
 
 <pre>
-var x0 = Math.floor(x);
-var x1 = x0 + 1;
-var y0 = Math.floor(y);
-var y1 = y0 + 1;
+let x0 = Math.floor(x);
+let x1 = x0 + 1;
+let y0 = Math.floor(y);
+let y1 = y0 + 1;
 </pre>
 
 <p>
